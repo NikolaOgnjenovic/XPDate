@@ -18,6 +18,7 @@ public class AllArticles extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_articles);
 
+        //Display all of the articles using the recyclerView and its adapter
         recyclerView = findViewById(R.id.ArticleRecyclerView);
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerViewAdapter.notifyDataSetChanged();

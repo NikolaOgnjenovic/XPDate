@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 {
     Context context;
-    ArrayList<Article> articles;
+    ArrayList<Article> articleList;
     ArticleList articleListClass;
 
     //Constructor
@@ -27,12 +27,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         articleListClass = new ArticleList(context);
 
         //Load the articles using the article list class
-        articleListClass.LoadArticles();
+        //articleListClass.LoadArticles();
 
-        articleListClass.sortArticleList();
+        //articleListClass.sortArticleList();
 
         //Reference the article list
-        articles = articleListClass.GetArticleList();
+        articleList = articleListClass.getArticleList();
     }
 
     @NonNull
@@ -65,14 +65,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, final int position)
     {
-        Article article = articles.get(position);
+        Article article = articleList.get(position);
 
         //Set the text of the text views using the current article's index (position)
-        holder.articleNameText.setText(article.GetArticleName());
-        holder.articleExpirationDateText.setText(article.GetArticleExpirationDate());
+        holder.articleNameText.setText(article.getName());
+        holder.articleExpirationDateText.setText(article.getExpirationDate());
 
         String expirationCounterText;
-        expirationCounterText = article.GetExpirationText(context);
+        expirationCounterText = article.getExpirationText(context);
 
         holder.articleExpirationCounterText.setText(expirationCounterText);
 
@@ -80,12 +80,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         {
             @Override
             public void onClick(View v) {
-                articles.remove(position);
+                articleList.remove(position);
                 notifyItemRemoved(position);
-                notifyItemRangeChanged(position, articles.size());
+                notifyItemRangeChanged(position, articleList.size());
 
-                articleListClass.SaveArticles();
-                System.out.println("[MRMI]: Removed item at position " + ", arraylist size: " + articles.size());
+                articleListClass.saveArticles();
+                System.out.println("[MRMI]: Removed item at position " + ", arraylist size: " + articleList.size());
             }
         });
     }
@@ -94,6 +94,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount()
     {
-        return articles.size();
+        return articleList.size();
     }
 }

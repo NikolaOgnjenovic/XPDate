@@ -1,82 +1,64 @@
 package com.mrmi.groceryhelper;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Article implements Serializable
-{
-    private String articleName, articleExpirationDate;
+public class Article implements Serializable {
+    private final String articleName;
+    private String articleExpirationDate;
 
     //Constructor
-    public Article(String articleNameArg, String articleExpirationDateArg)
-    {
+    public Article(String articleNameArg, String articleExpirationDateArg) {
         articleName = articleNameArg;
         articleExpirationDate = articleExpirationDateArg;
     }
 
     //Returns the article name
-    public String GetArticleName()
-    {
+    public String getName() {
         return articleName;
     }
 
     //Returns the article expiration date
-    public String GetArticleExpirationDate()
-    {
+    public String getExpirationDate() {
         return articleExpirationDate;
     }
 
-    public void SetArticleExpirationDate(String str)
-    {
+    public void setExpirationDate(String str) {
         articleExpirationDate = str;
     }
 
-    //Compares this object's date and with the given date String argument, returns true if date is later than argument otherwise false
-    public boolean CompareDate(String article2ExpirationDate)
-    {
-        try
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-            //Set this object's date and given object's date
-            Calendar calendar1 = Calendar.getInstance();
-            Calendar calendar2 = Calendar.getInstance();
-
-            Date date1 = sdf.parse(this.GetArticleExpirationDate());
-            Date date2 = sdf.parse(article2ExpirationDate);
-
-            calendar1.setTime(date1);
-            calendar2.setTime(date2);
-
-            //compareTo returns 0 if two dates are the same, -1 if calendar2 is of greater value and 1 if calendar 1 is of greater value
-            return (calendar1.compareTo(calendar2)==1);
-        }
-        catch(Exception e)
-        {
+    /**
+     * @param datePattern: saved date pattern on the device for the formatter to use
+     * @return formatted date using sdf.parse(datePattern+"/yyyy") or null if an exception is caught
+     */
+    public Date getFormattedDate(String datePattern) {
+        datePattern += "/yyyy";
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
+        try {
+            return sdf.parse(articleExpirationDate);
+        } catch(Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
-    public String GetExpirationText(Context context)
-    {
+    /**
+     * @param context - context used for getting the datePattern from the ArticleList
+     * @return returns text which says when the article expires/has expired or if it's expiring today
+     */
+    public String getExpirationText(Context context) {
         String expirationCounterText;
-        long daysLeft = CalculateExpirationCounter(context);
+        long daysLeft = getExpirationDays(context);
 
-        if(daysLeft<0)
-        {
-            expirationCounterText = "Expired " + -1*daysLeft + " days ago";
-        }
-        else if(daysLeft==0)
-        {
+        if (daysLeft < 0) {
+            expirationCounterText = "Expired " + -1 * daysLeft + " days ago";
+        } else if (daysLeft == 0) {
             expirationCounterText = "Expires today!";
-        }
-        else
-        {
+        } else {
             expirationCounterText = "Expires in " + daysLeft + " days";
         }
 
@@ -84,38 +66,31 @@ public class Article implements Serializable
     }
 
     //Returns the number of days between an article's expiration date and today's date
-    public long CalculateExpirationCounter(Context context)
-    {
-        try
-        {
+    @SuppressLint("SimpleDateFormat")
+    public long getExpirationDays(Context context) {
+        try {
             Calendar expirationDay = Calendar.getInstance();
 
             ArticleList articleListClass = new ArticleList(context);
-            articleListClass.LoadDatePattern();
-            String datePattern = articleListClass.GetDatePattern();
+            String datePattern = articleListClass.getDatePattern();
 
-            SimpleDateFormat sdf;   //Enable reading of "20/03/2021" strings
-            //Parse that from the given expirationDate and set that as the time of the expirationDay calendar
-            if(datePattern.equals("dd/MM"))
-            {
+            SimpleDateFormat sdf;
+            if (datePattern.equals("dd/MM")) {
                 sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-            }
-            else
-            {
+            } else {
                 sdf = new SimpleDateFormat("MM/dd/yyyy");
-
             }
-            expirationDay.setTime(sdf.parse(this.GetArticleExpirationDate())); //Parse that from the given expirationDate and set that as the time of the expirationDay calendar
+
+            //Parse that from the given expirationDate and set that as the time of the expirationDay calendar
+            expirationDay.setTime(sdf.parse(articleExpirationDate));
 
             //Get the current day using a calendar
             Calendar currentDay = Calendar.getInstance();
             currentDay.setTimeInMillis(System.currentTimeMillis());
+
             //Calculate the difference in days from the expiration date and current date
-            return ((expirationDay.getTimeInMillis() - currentDay.getTimeInMillis())/86400000);
-        }
-        catch(Exception e)
-        {
+            return ((expirationDay.getTimeInMillis() - currentDay.getTimeInMillis()) / 86400000);
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;

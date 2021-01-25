@@ -2,14 +2,12 @@ package com.mrmi.groceryhelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -18,11 +16,10 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private TextView[] firstThreeNames, firstThreeDates;
-    private ArticleList articleListClass;
+    private ArticleList articleList;
     private Button datePatternButton;
     private String datePattern;
 
@@ -31,11 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        articleListClass = new ArticleList(MainActivity.this);
-
-        initializeAds();
-
-        //Activity launching
+        //Setup activity launching buttons
         ImageButton ViewAllArticlesButton = findViewById(R.id.ViewAllArticlesButton);
         ViewAllArticlesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,61 +47,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Reference ArticleList class
+        articleList = new ArticleList(MainActivity.this);
 
         //Displaying top 3 expiring articles
         firstThreeNames = new TextView[]{findViewById(R.id.FirstExpiringArticleName), findViewById(R.id.SecondExpiringArticleName), findViewById(R.id.ThirdExpiringArticleName)};
         firstThreeDates = new TextView[]{findViewById(R.id.FirstExpiringArticleExpirationCounter), findViewById(R.id.SecondExpiringArticleExpirationCounter), findViewById(R.id.ThirdExpiringArticleExpirationCounter)};
-        articleListClass = new ArticleList(this);
-        DisplayExpiringArticles();
-
+        articleList = new ArticleList(this);
+        displayExpiringArticles();
 
         //Date pattern changing: dd/MM to MM/dd and vice verca via a togle button
         datePatternButton = findViewById(R.id.datePatternButton);
-        LoadSelectedDatePattern();
+        displaySelectedDatePattern();
 
         datePatternButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Change the type of date the app will use on button click - MM/dd or dd/MM
-                if (datePattern.equals("MM/dd")) {
-                    datePattern = "dd/MM";
-                } else {
-                    datePattern = "MM/dd";
-                }
-
-                //Change the text of the button
-                datePatternButton.setText(datePattern);
-                articleListClass.SaveDatePattern(datePattern);
-
-                articleListClass.LoadArticles(MainActivity.this);
-
-                ArrayList<Article> articles = articleListClass.GetArticleList();
-
-                //Loop through all articles
-                for (Article article : articles) {
-                    //Change the month and day parts of the current article input
-                    String str = article.GetArticleExpirationDate();
-
-                    //Split the date into 3 parts (month, day, year)
-                    String[] splitDate = str.split("/");
-                    str = splitDate[1] + "/" + splitDate[0] + "/" + splitDate[2];
-
-                    for (String part : splitDate) {
-                        System.out.println("[MRMI]: Part: " + part);
-                    }
-
-                    //Change the expiration date of the current article
-                    article.SetArticleExpirationDate(str);
-                }
-
-                //Save the changed articles
-                articleListClass.SaveArticles();
+                changeDatePattern();
             }
-
         });
 
-        Button notificationTimePicker = findViewById(R.id.setNotificationTime);
+
         //Set the time for when the daily notification will be picked
+        /*
+        Button notificationTimePicker = findViewById(R.id.setNotificationTime);
         notificationTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,53 +89,66 @@ public class MainActivity extends AppCompatActivity {
                 );
                 timePickerDialog.show();
             }
-        });
+        });*/
 
+        initializeAds();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        DisplayExpiringArticles();
+        displayExpiringArticles();
     }
 
-    //Loads the Articles ArrayList from shared preferences as a decoded json string using gson or creates a new one if it's loaded as null
-    private void DisplayExpiringArticles() {
-        //Load the articles using the article list class
-        articleListClass.LoadArticles();
+    //Loads and displays the 3 soonest expiring articles
+    private void displayExpiringArticles() {
 
         //Reference the article list
-        ArrayList<Article> articles = articleListClass.GetArticleList();
+        ArrayList<Article> articles = articleList.getArticleList();
 
+        //Make all 3 article displays invisible
         for (int i = 0; i < 3; ++i) {
             firstThreeNames[i].setVisibility(View.INVISIBLE);
             firstThreeDates[i].setVisibility(View.INVISIBLE);
         }
 
+        //Make the article displays visible and display the 3 (2, 1 or 0 if more do not exist) soonest expiring articles
         for (int i = 0; i < 3; ++i) {
             if (articles.size() >= i + 1) {
                 firstThreeNames[i].setVisibility(View.VISIBLE);
-                firstThreeNames[i].setText(articles.get(i).GetArticleName());
+                firstThreeNames[i].setText(articles.get(i).getName());
 
                 firstThreeDates[i].setVisibility(View.VISIBLE);
-                firstThreeDates[i].setText(articles.get(i).GetExpirationText(this));
+                firstThreeDates[i].setText(articles.get(i).getExpirationText(this));
             }
         }
     }
 
-    //Loads the selected date pattern and checks the datePatternButton accordingly
-    private void LoadSelectedDatePattern() {
-        articleListClass.LoadDatePattern();
-        datePattern = articleListClass.GetDatePattern();
+    //Loads the saved date pattern using the ArticleList class and sets the pattern button text accordingly
+    private void displaySelectedDatePattern() {
+        datePattern = articleList.getDatePattern();
 
         datePatternButton.setText(datePattern);
-        if (datePattern.equals("dd/MM")) {
-            System.out.println("[MRMI]: Loaded date pattern: dd/MM");
-        } else {
-            System.out.println("[MRMI]: Loaded date pattern: MM/dd");
-        }
+
+        System.out.println("[MRMI]: Loaded date pattern: " + datePattern);
     }
 
+    //Changes the date pattern
+    private void changeDatePattern() {
+
+        //Swap the datePattern with the unused one
+        if (datePattern.equals("MM/dd")) {
+            datePattern = "dd/MM";
+        } else {
+            datePattern = "MM/dd";
+        }
+
+        //Display and set the new date pattern
+        datePatternButton.setText(datePattern);
+        articleList.setDatePattern(datePattern);
+    }
+
+    //Initializes ads on the ad banner
     private void initializeAds() {
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override

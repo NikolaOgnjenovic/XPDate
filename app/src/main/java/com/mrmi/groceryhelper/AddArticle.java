@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -38,6 +39,7 @@ import java.util.Date;
 import java.util.List;
 
 public class AddArticle extends AppCompatActivity {
+
     //Request codes for intents
     private static final int CAMERA_REQUEST_CODE = 200;
     private static final int STORAGE_REQUEST_CODE = 400;
@@ -49,15 +51,13 @@ public class AddArticle extends AppCompatActivity {
     private CropImageView cropImageView;
     private TextView detectedDateTextView;
 
-    private Bitmap cropped = null; //Croped image bitmap
+    private Bitmap cropped; //Cropped image bitmap
 
     private ArticleList articleListClass;
 
     private String datePattern; //Selected date pattern (MM/dd or dd/MM)
 
     private Uri finalUri;
-
-    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,22 +79,17 @@ public class AddArticle extends AppCompatActivity {
 
         articleListClass = new ArticleList(this);
 
-        //Load the articles array saved in shared preferences
-        articleListClass.LoadArticles();
-
-        //Load the date pattern
-        articleListClass.LoadDatePattern();
-        datePattern = articleListClass.GetDatePattern();
+        //Get the date pattern
+        datePattern = articleListClass.getDatePattern();
 
         //Capture the image using the camera
         cameraButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!HasCameraPermission()) {
-                    RequestCameraPermission();
+                if (!hasCameraPermission()) {
+                    requestCameraPermission();
                 } else {
-                    // getPhotoClick();
-                    TakePictureUsingCamera();
+                    takePictureUsingCamera();
                 }
             }
         });
@@ -103,10 +98,10 @@ public class AddArticle extends AppCompatActivity {
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!HasStoragePermission()) {
-                    RequestStoragePermission();
+                if (!hasStoragePermission()) {
+                    requestStoragePermission();
                 } else {
-                    PickImageFromGallery();
+                    pickImageFromGallery();
                 }
             }
         });
@@ -125,7 +120,7 @@ public class AddArticle extends AppCompatActivity {
         pickDateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowDatePickDialog();
+                showDatePickDialog();
             }
         });
 
@@ -133,7 +128,7 @@ public class AddArticle extends AppCompatActivity {
         detectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DetectTextFromImage();
+                detectTextFromImage();
             }
         });
 
@@ -147,10 +142,7 @@ public class AddArticle extends AppCompatActivity {
                     Toast.makeText(AddArticle.this, "Please input the article's name", Toast.LENGTH_LONG).show();
                 } else {
                     try {
-                        articleListClass.AddArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15)));
-
-                        NotificationManager notificationManager = new NotificationManager();
-                        notificationManager.setNotifications(AddArticle.this,  null);
+                        articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15)));
 
                         //Go back to the main activity after adding the article
                         startActivity(new Intent(AddArticle.this, MainActivity.class));
@@ -162,47 +154,32 @@ public class AddArticle extends AppCompatActivity {
         });
     }
 
-    //================================================================================
-    // Image picking/capturing + camera & storage requests
-    //================================================================================
-
-    //Checks for the READ_EXTERNAL_STORAGE permission
-    private boolean HasStoragePermission() {
+    private boolean hasStoragePermission() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED)
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
-    //Requests the READ_EXTERNAL_STORAGE permission
-    private void RequestStoragePermission() {
+    private void requestStoragePermission() {
         ActivityCompat.requestPermissions(this, storagePermission, STORAGE_REQUEST_CODE);
     }
 
-    private void PickImageFromGallery() {
+    private boolean hasCameraPermission() {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(this, cameraPermission, CAMERA_REQUEST_CODE);
+    }
+
+    //Starts an intent to pick an image from the gallery
+    private void pickImageFromGallery() {
         //Intent to pick image from gallery
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
 
-    //Checks for the CAMERA permission
-    private boolean HasCameraPermission() {
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
-    }
-
-    //Requests the CAMERA permission
-    private void RequestCameraPermission() {
-        ActivityCompat.requestPermissions(this, cameraPermission, CAMERA_REQUEST_CODE);
-    }
-
-
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return File.createTempFile(imageFileName, ".jpg", storageDir);
-    }
-
-    private void TakePictureUsingCamera() {
+    private void takePictureUsingCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
@@ -212,13 +189,19 @@ public class AddArticle extends AppCompatActivity {
                 ex.printStackTrace();
             }
             if (photoFile != null) {
-                Uri photoUri = FileProvider.getUriForFile(this, "com.mrmi.groceryhelper.fileprovider", photoFile);
-                finalUri = photoUri;
-                //finalUri = FileProvider.getUriForFile(this, "com.mrmi.groceryhelper.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                finalUri = FileProvider.getUriForFile(this, "com.mrmi.groceryhelper.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, finalUri);
                 startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
             }
         }
+    }
+
+    //Creates a unique temporary image file
+    private File createImageFile() throws IOException {
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     //Handles permission requests
@@ -229,7 +212,7 @@ public class AddArticle extends AppCompatActivity {
                 if (grantResults.length > 0) {
                     boolean cameraAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (cameraAccepted) {
-                        TakePictureUsingCamera();
+                        takePictureUsingCamera();
                     } else {
                         Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
                     }
@@ -240,7 +223,7 @@ public class AddArticle extends AppCompatActivity {
                 if (grantResults.length > 0) {
                     boolean readStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (readStorageAccepted) {
-                        PickImageFromGallery();
+                        pickImageFromGallery();
                     } else {
                         Toast.makeText(this, "Storage permission denied", Toast.LENGTH_SHORT).show();
                     }
@@ -277,7 +260,7 @@ public class AddArticle extends AppCompatActivity {
     }
 
     //Shows the date picker dialog when the user wants to manually input the article's expiration date
-    private void ShowDatePickDialog() {
+    private void showDatePickDialog() {
         Calendar today = Calendar.getInstance();
         int tDay = today.get(Calendar.DAY_OF_MONTH), tMonth = today.get(Calendar.MONTH), tYear = today.get(Calendar.YEAR);
 
@@ -297,7 +280,7 @@ public class AddArticle extends AppCompatActivity {
                     monthStr = '0' + monthStr;
 
                 //DetectDateTextFromString(dayStr + "/" + monthStr + "/" + year);
-                DetectDateTextFromString(monthStr + "/" + dayStr + "/" + year);
+                detectDateTextFromString(monthStr + "/" + dayStr + "/" + year);
                 System.out.println("[MRMI]: Picked " + dayStr + "/" + monthStr + "/" + year);
             }
         }, tDay, tMonth, tYear);
@@ -305,13 +288,8 @@ public class AddArticle extends AppCompatActivity {
         dpd.updateDate(tYear, tMonth, tDay);
     }
 
-
-    //================================================================================
-    //Text detection from image and string
-    //================================================================================
-
     //Detects texts from cropped's bitmap and calls DetectDateTextFromString() for the detected text
-    private void DetectTextFromImage() {
+    private void detectTextFromImage() {
         //Safety check, can't detect text on a null image
         if (cropped != null) {
             TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
@@ -323,25 +301,25 @@ public class AddArticle extends AppCompatActivity {
                     Frame frame = new Frame.Builder().setBitmap(cropped).build();
                     SparseArray<TextBlock> items = recognizer.detect(frame);
 
-                    String str = "";
+                    StringBuilder str = new StringBuilder();
 
                     //Add all detected TextBlocks' values to the String
                     for (int i = 0; i < items.size(); ++i) {
                         TextBlock currentItem = items.valueAt(i);
-                        str += currentItem.getValue();
-                        str += "\n";
+                        str.append(currentItem.getValue());
+                        str.append("\n");
                     }
 
                     //Because natty can't detect dates that use the format 03.10.2003. (which use dots), convert all . to / so natty can detect 03/10/ 2003
                     System.out.println("[MRMI]: String being detected: " + str);
-                    str = str.replace(".", "/");
+                    str = new StringBuilder(str.toString().replace(".", "/"));
                     System.out.println("[MRMI]: String being detected: " + str);
 
                     //If the user has selected the dd/MM date pattern, convert the date string into the MM/dd pattern so that the natty API can read it correctly
                     if (datePattern.equals("dd/MM")) {
                         //Split the date into 3 parts (month, day, year)
-                        String[] splitDate = str.split("/");
-                        str = splitDate[1] + "/" + splitDate[0] + "/" + splitDate[2];
+                        String[] splitDate = str.toString().split("/");
+                        str = new StringBuilder(splitDate[1] + "/" + splitDate[0] + "/" + splitDate[2]);
 
                         for (String part : splitDate) {
                             System.out.println("[MRMI]: Part: " + part);
@@ -349,7 +327,7 @@ public class AddArticle extends AppCompatActivity {
                         System.out.println("[MRMI]: String being detected: " + str);
                     }
 
-                    DetectDateTextFromString(str);
+                    detectDateTextFromString(str.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
                     Toast.makeText(this, "Unable to detect date", Toast.LENGTH_SHORT).show();
@@ -359,7 +337,8 @@ public class AddArticle extends AppCompatActivity {
     }
 
     //Detects a date from a String using the natty library
-    private void DetectDateTextFromString(String str) {
+    @SuppressLint("SimpleDateFormat")
+    private void detectDateTextFromString(String str) {
         //Parse all dates from a string into a list using natty's parser
         try {
             List<Date> dates = new Parser().parse(str).get(0).getDates();
@@ -370,30 +349,18 @@ public class AddArticle extends AppCompatActivity {
 
             //String which will be used in detectedDateTextView to display the detected date
             String finalDetectedDate;
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf;
             if (datePattern.equals("dd/MM")) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                finalDetectedDate = sdf.format(expirationDate);
+                sdf = new SimpleDateFormat("dd/MM/yyyy");
             } else {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-                finalDetectedDate = sdf.format(expirationDate);
+                sdf = new SimpleDateFormat("MM/dd/yyyy");
             }
+            finalDetectedDate = sdf.format(expirationDate);
 
             detectedDateTextView.setText("Detected date: " + finalDetectedDate);
         } catch (Exception e) {
             e.printStackTrace();
-            showToast("Unable to detect date from image");
-            //Toast.makeText(this, "Unable to detect date", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unable to detect date from image", Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    public void showToast(String st) { //"Toast toast" is declared in the class
-        try {
-            toast.getView().isShown();     // true if visible
-            toast.setText(st);
-        } catch (Exception e) {         // invisible if exception
-            toast = Toast.makeText(this, st, Toast.LENGTH_SHORT);
-        }
-        toast.show();  //finally display it
     }
 }

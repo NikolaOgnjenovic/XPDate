@@ -1,6 +1,5 @@
 package com.mrmi.groceryhelper;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -8,9 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.os.Parcelable;
-import android.os.SystemClock;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -19,7 +15,7 @@ import java.util.ArrayList;
 
 public class AlarmNotificationReceiver extends BroadcastReceiver {
     private final String CHANNEL_ID = "GroceryHelper";
-    private Context context = null;
+    private Context context;
 
     @Override
     public void onReceive(Context contextArg, Intent intent) {
@@ -28,20 +24,36 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         showNotification(getNotificationMessage());
     }
 
-    private String getNotificationMessage() {
+    //Creates a notification channel
+    private void createNotificationChannel() {
+        //Used in Android versions starting from Oreo
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //Specify the channel's properties
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "Grocery Helper", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("Grocery helper notification channel");
 
+            //Create the actual channel
+            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
+        }
+    }
+
+    //Creates the notification message: how many articles have already expired and how many are expiring today
+    private String getNotificationMessage() {
         int haveExpired = 0, expiringToday = 0;
         String alarmMessage = "";
 
         ArticleList articleListClass = new ArticleList(context);
-        articleListClass.LoadArticles();
-        ArrayList<Article> articleList = articleListClass.GetArticleList();
+        ArrayList<Article> articleList = articleListClass.getArticleList();
 
         try {
+            long currentArticleDaysLeft;
             for (Article article : articleList) {
-                long currentArticleDaysLeft = article.CalculateExpirationCounter(context);
+                currentArticleDaysLeft = article.getExpirationDays(context);
 
-                System.out.println("[MRMI]: Article: " + article.GetArticleName() + " days left: " + currentArticleDaysLeft);
+                System.out.println("[MRMI]: Article: " + article.getName() + " days left: " + currentArticleDaysLeft);
 
                 if (currentArticleDaysLeft == 0) {
                     ++expiringToday;
@@ -51,7 +63,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
             }
             if (expiringToday > 0) {
                 if (expiringToday == 1) alarmMessage += "1 article expires today.\n";
-                else alarmMessage += expiringToday + " articles are expiring today.\n";
+                else alarmMessage = expiringToday + " articles are expiring today.\n";
             }
             if (haveExpired > 0) {
                 if (haveExpired == 1) alarmMessage += "1 article has expired.";
@@ -67,6 +79,9 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     }
 
     public void showNotification(String notificationMessage) {
+        if(notificationMessage.equals("Error"))
+            return;
+
         System.out.println("[MRMI]: Setting notification with text " + notificationMessage);
 
         //Отвори MainActivity кад корисник притисне нотификацију
@@ -77,33 +92,15 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         //Подешавања нотификације
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                .setContentTitle("Grocery helper")
+                .setContentTitle("Grocery Helper")
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationMessage))
                 .setContentText(notificationMessage)
-                .setContentIntent(pendingIntent) //Шта се догоди кад корисник притисне нотификацију
-                .setAutoCancel(true) //Избриши нотификацију кад је корисник притисне
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
-                .setPriority(NotificationCompat.PRIORITY_MAX);
+                .setContentIntent(pendingIntent) //Launch Main Activity when the user taps the notification
+                .setAutoCancel(true) //Delete the notification once the user taps it
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC) //Make it visible even on locked screens
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
-        notificationManager.notify(310, builder.build());
-    }
-
-    //Направи канал за нотификације - коришћен у Андроид верзијама >=8
-    private void createNotificationChannel() {
-        //У верзијама после Ореа (Андроид 8), направи канал за нотификације
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Grocery Helper"; //Име канала
-            String description = "Grocery helper notification channel"; //Опис канала
-            int importance = NotificationManager.IMPORTANCE_DEFAULT; //Важност канала (приоритет у односу на друге нотификације)
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription(description);
-
-            //Региструј канал у уређају
-            NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-            if (notificationManager != null) {
-                notificationManager.createNotificationChannel(channel);
-            }
-        }
+        notificationManager.notify(2501, builder.build());
     }
 }
