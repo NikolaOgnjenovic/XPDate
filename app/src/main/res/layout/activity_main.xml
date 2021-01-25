@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ExpiringSoonLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/ExpiringSoonTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="EXPIRING SOON:"
+            android:textSize="35sp" />
+
+        <LinearLayout
+            android:id="@+id/FirstExpiringArticle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/FirstExpiringArticleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="First article name"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/FirstExpiringArticleExpirationCounter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="expires in x days"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/SecondExpiringArticle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/SecondExpiringArticleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Second article name"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/SecondExpiringArticleExpirationCounter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="expires in x days"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ThirdExpiringArticle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/ThirdExpiringArticleName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="THIRD ARTICLE NAMEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ThirdExpiringArticleExpirationCounter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="expires in x days"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/datePatternButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATE PATTERN" />
+
+        <Button
+            android:id="@+id/setNotificationTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SET NOTIFICATION TIME" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/buttonLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/AddArticleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:contentDescription="addArticle"
+            android:src="@android:drawable/ic_input_add" />
+
+        <ImageButton
+            android:id="@+id/ViewAllArticlesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:contentDescription="articleList"
+            android:src="@android:drawable/ic_menu_view" />
+
+    </RelativeLayout>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    </com.google.android.gms.ads.AdView>
+
+
+</LinearLayout>
