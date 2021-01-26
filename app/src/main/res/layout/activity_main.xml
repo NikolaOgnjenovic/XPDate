@@ -17,8 +17,7 @@
             android:id="@+id/ExpiringSoonTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="EXPIRING SOON:"
+            android:text="@string/expiringSoon"
             android:textSize="35sp" />
 
         <LinearLayout
@@ -32,14 +31,12 @@
                 android:id="@+id/FirstExpiringArticleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="First article name"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/FirstExpiringArticleExpirationCounter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="expires in x days"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -54,14 +51,12 @@
                 android:id="@+id/SecondExpiringArticleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Second article name"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/SecondExpiringArticleExpirationCounter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="expires in x days"
                 android:textSize="20sp" />
         </LinearLayout>
 
@@ -76,28 +71,25 @@
                 android:id="@+id/ThirdExpiringArticleName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="THIRD ARTICLE NAMEEEEEEEEEEEEEEEEEEEEEEEEEEE"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/ThirdExpiringArticleExpirationCounter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="expires in x days"
                 android:textSize="20sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/datePatternButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DATE PATTERN" />
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/setNotificationTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SET NOTIFICATION TIME" />
+            android:text="@string/setNotificationTime" />
 
     </LinearLayout>
 
@@ -112,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:contentDescription="addArticle"
+            android:contentDescription="@string/addArticle"
             android:src="@android:drawable/ic_input_add" />
 
         <ImageButton
@@ -121,10 +113,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:contentDescription="articleList"
+            android:contentDescription="@string/articleList"
             android:src="@android:drawable/ic_menu_view" />
 
     </RelativeLayout>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/dailyNotificationSwitch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20sp"
+
+        android:text="@string/sendDailyNotifications"
+        android:textSize="22sp" />
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -134,6 +135,4 @@
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
     </com.google.android.gms.ads.AdView>
-
-
 </LinearLayout>

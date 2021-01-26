@@ -26,11 +26,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //Instantiate the ArticleList class
         articleListClass = new ArticleList(context);
 
-        //Load the articles using the article list class
-        //articleListClass.LoadArticles();
-
-        //articleListClass.sortArticleList();
-
         //Reference the article list
         articleList = articleListClass.getArticleList();
     }

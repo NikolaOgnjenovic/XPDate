@@ -14,11 +14,10 @@
 
         <TextView
             android:id="@+id/ArticleNameTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="left"
+            android:gravity="start"
             android:layout_weight="1"
-            android:text="Article name"
             android:textSize="25sp" />
 
         <ImageButton
@@ -26,7 +25,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_delete"
-            android:gravity="right" />
+            android:gravity="end"
+            android:contentDescription="@string/deleteArticle" />
 
     </LinearLayout>
 
@@ -40,14 +40,12 @@
             android:id="@+id/ArticleExpirationDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="03/10/2003"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/ArticleExpirationCounter"
-            android:gravity="right"
+            android:gravity="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="expires in x days"
             android:textSize="20sp"/>
 
     </LinearLayout>

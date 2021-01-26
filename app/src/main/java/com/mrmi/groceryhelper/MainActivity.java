@@ -1,27 +1,33 @@
 package com.mrmi.groceryhelper;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.appcompat.widget.SwitchCompat;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
+import android.widget.TimePicker;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-
 import java.util.ArrayList;
+
+import static android.app.AlertDialog.THEME_HOLO_DARK;
 
 public class MainActivity extends AppCompatActivity {
     private TextView[] firstThreeNames, firstThreeDates;
     private ArticleList articleList;
     private Button datePatternButton;
     private String datePattern;
+    private TimePickerDialog timePicker;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,29 +73,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        sharedPreferences = getSharedPreferences("Shared preferences", MODE_PRIVATE);
 
-        //Set the time for when the daily notification will be picked
-        /*
+        //Enable and disable daily notifications using the switch
+        SwitchCompat dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
+        final NotificationManager notificationManager = new NotificationManager(MainActivity.this);
+        dailyNotificationSwitch.setChecked(sharedPreferences.getBoolean("SendingDailyNotifications", true));
+        if(dailyNotificationSwitch.isChecked()) {
+            notificationManager.enableDailyNotifications() ;
+        }
+        dailyNotificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    notificationManager.enableDailyNotifications();
+                } else {
+                    notificationManager.disableDailyNotifications();
+                }
+                sharedPreferences.edit().putBoolean("SendingDailyNotifications", isChecked).apply();
+            }
+        });
+
+        //Set the time for when the daily notification will be picked using a picker displayed when the button is pressed
         Button notificationTimePicker = findViewById(R.id.setNotificationTime);
         notificationTimePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(
-                        MainActivity.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                int hour = sharedPreferences.getInt("notificationHour", 9);
+                int minutes = sharedPreferences.getInt("notificationMinute", 0);
+                timePicker = new TimePickerDialog(MainActivity.this,
+                        THEME_HOLO_DARK,
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                Calendar calendar = Calendar.getInstance();
-                                calendar.set(0, 0, 0, hourOfDay, minute);
-                                NotificationManager notificationManager = new NotificationManager();
-                                notificationManager.setNotifications(MainActivity.this, calendar);
+                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                                //If notification sending is enabled, set the saved time for the notifications to be sent and enable them with the new saved time
+                                if(sharedPreferences.getBoolean("SendingDailyNotifications", false)) {
+                                    sharedPreferences.edit().putInt("notificationHour", sHour).apply();
+                                    sharedPreferences.edit().putInt("notificationMinute", sMinute).apply();
+                                    notificationManager.enableDailyNotifications();
+                                }
                             }
-                        }, 12, 0, true
-                );
-                timePickerDialog.show();
+                        }, hour, minutes, true);
+                timePicker.show();
             }
-        });*/
+        });
 
         initializeAds();
     }

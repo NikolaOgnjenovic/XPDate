@@ -65,6 +65,10 @@ public class Article implements Serializable {
         return expirationCounterText;
     }
 
+    /**
+     * @param context context
+     * @return days left until the article expires
+     */
     //Returns the number of days between an article's expiration date and today's date
     @SuppressLint("SimpleDateFormat")
     public long getExpirationDays(Context context) {
@@ -82,7 +86,10 @@ public class Article implements Serializable {
             }
 
             //Parse that from the given expirationDate and set that as the time of the expirationDay calendar
-            expirationDay.setTime(sdf.parse(articleExpirationDate));
+            Date expirationDate = sdf.parse(articleExpirationDate);
+            if(expirationDate!=null) {
+                expirationDay.setTime(expirationDate);
+            }
 
             //Get the current day using a calendar
             Calendar currentDay = Calendar.getInstance();

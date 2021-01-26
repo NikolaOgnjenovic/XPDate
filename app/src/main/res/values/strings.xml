@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">My Application</string>
+    <string name="expiringSoon">Expiring soon:</string>
+    <string name="setNotificationTime">Set notification time</string>
+    <string name="addArticle">Add article</string>
+    <string name="articleList">Article list</string>
+    <string name="sendDailyNotifications">Send daily notifications</string>
+    <string name="deleteArticle">Delete article</string>
+    <string name="pickDate">Pick date</string>
+    <string name="articleName">Article name</string>
+    <string name="saveArticle">Save</string>
+    <string name="detectDate">Detect date</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="crop">Crop image</string>
+    <string name="detectedDate">Detected date:</string>
 </resources>

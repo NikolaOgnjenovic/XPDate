@@ -69,7 +69,6 @@ public class AddArticle extends AppCompatActivity {
         Button saveArticleButton = findViewById(R.id.saveButton), detectButton = findViewById(R.id.detectButton);
 
         detectedDateTextView = findViewById(R.id.detectedDateTextView);
-        detectedDateTextView.setText("Detected date: ");
         cropImageView = findViewById(R.id.cropImageView);
 
         cameraPermission = new String[]{Manifest.permission.CAMERA};
@@ -357,7 +356,8 @@ public class AddArticle extends AppCompatActivity {
             }
             finalDetectedDate = sdf.format(expirationDate);
 
-            detectedDateTextView.setText("Detected date: " + finalDetectedDate);
+            String detectedDateText = getResources().getString(R.string.detectedDate) + " " + finalDetectedDate;
+            detectedDateTextView.setText(detectedDateText);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Unable to detect date from image", Toast.LENGTH_SHORT).show();

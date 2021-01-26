@@ -5,18 +5,27 @@ import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
+
 import java.util.Calendar;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class NotificationManager {
 
-    private Context context;
+    private final Context context;
 
-    public void setNotifications(Context contextArg, Calendar calendar) {
+    private final SharedPreferences sharedPreferences;
 
+    public NotificationManager(Context contextArg) {
         context = contextArg;
+        sharedPreferences = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
+    }
 
-        //Enable boot receiver
+    public void enableDailyNotifications() {
+        //Enable the boot receiver which calls this function when the device boots
         ComponentName receiver = new ComponentName(context, BootReceiver.class);
         PackageManager pm = context.getPackageManager();
 
@@ -24,32 +33,41 @@ public class NotificationManager {
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
                 PackageManager.DONT_KILL_APP);
 
-        startAlarm(calendar);
+        //Schedule the repeating alarm
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        //Set the alarm to start at approximately 2:00 p.m.
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, sharedPreferences.getInt("notificationHour", 9));
+        calendar.set(Calendar.MINUTE, sharedPreferences.getInt("notificationMinute", 0));
+
+        Intent intent = new Intent(context, AlarmNotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 2501, intent, 0);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        Toast.makeText(context, "Enabled notifications", Toast.LENGTH_SHORT).show();
     }
 
-    private void startAlarm(Calendar calendar) {
-        try {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            Intent notificationAlarmIntent;
-            PendingIntent pendingIntent;
+    public void disableDailyNotifications() {
+        //Disable the boot receiver
+        ComponentName receiver = new ComponentName(context, BootReceiver.class);
+        PackageManager pm = context.getPackageManager();
 
-            //Set the notification time
-            if (calendar == null) {
-                calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, 14);
-            }
-            System.out.println("[MRMI]: Calendar: " + calendar);
+        pm.setComponentEnabledSetting(receiver,
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                PackageManager.DONT_KILL_APP);
 
-            notificationAlarmIntent = new Intent(context, AlarmNotificationReceiver.class);
+        //Disable the repeating alarm
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-            pendingIntent = PendingIntent.getBroadcast(context, 0, notificationAlarmIntent, 0);
-            if (alarmManager != null) {
-                alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            }
+        Intent intent = new Intent(context, AlarmNotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 2501, intent, PendingIntent.FLAG_NO_CREATE);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (pendingIntent != null && alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
         }
+
+        Toast.makeText(context, "Disabled notifications", Toast.LENGTH_SHORT).show();
     }
 }

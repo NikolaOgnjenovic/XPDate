@@ -75,11 +75,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
             e.printStackTrace();
         }
 
-        return "Error";
+        return "";
     }
 
     public void showNotification(String notificationMessage) {
-        if(notificationMessage.equals("Error"))
+        if(notificationMessage.equals(""))
             return;
 
         System.out.println("[MRMI]: Setting notification with text " + notificationMessage);
