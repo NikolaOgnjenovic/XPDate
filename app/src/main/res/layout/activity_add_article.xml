@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,7 +7,6 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/dateLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -20,14 +18,15 @@
             android:layout_height="match_parent"
             android:textSize="20sp"
             android:gravity="center_vertical"
-            android:text="DETECTED DATE: 02.02.2020." />
+            android:text="@string/detectedDate"/>
 
         <ImageButton
             android:id="@+id/pickDateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_month"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:contentDescription="@string/pickDate" />
 
     </LinearLayout>
 
@@ -35,10 +34,11 @@
         android:id="@+id/articleNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Article name"
+        android:hint="@string/articleName"
         android:inputType="textPersonName"
         android:textSize="25sp"
-        android:layout_weight="0.025"/>
+        android:layout_weight="0.025"
+        android:autofillHints="@string/articleName" />
 
     <com.theartofdev.edmodo.cropper.CropImageView
         android:id="@+id/cropImageView"
@@ -47,48 +47,42 @@
         android:layout_weight="0.9"/>
 
     <LinearLayout
-        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0.05"
-        android:weightSum="4">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="SAVE"/>
+            android:text="@string/saveArticle"/>
 
         <ImageButton
             android:id="@+id/cameraButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@drawable/camera_icon" />
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/camera_icon"
+            android:contentDescription="@string/camera" />
 
         <ImageButton
             android:id="@+id/galleryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:src="@android:drawable/ic_menu_gallery"
+            android:contentDescription="@string/gallery" />
 
         <ImageButton
             android:id="@+id/cropButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:src="@android:drawable/ic_menu_crop" />
+            android:src="@android:drawable/ic_menu_crop"
+            android:contentDescription="@string/crop" />
 
         <Button
             android:id="@+id/detectButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="DETECT" />
+            android:text="@string/detectDate" />
     </LinearLayout>
-
 
 </LinearLayout>
