@@ -7,10 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
 import java.util.ArrayList;
 
 public class AlarmNotificationReceiver extends BroadcastReceiver {
@@ -20,8 +18,12 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context contextArg, Intent intent) {
         context = contextArg;
-        createNotificationChannel();
-        showNotification(getNotificationMessage());
+
+        //Safety check
+        if(context.getSharedPreferences("Shared preferences", Context.MODE_PRIVATE).getBoolean("SendingDailyNotifications", true)) {
+            createNotificationChannel();
+            showNotification(getNotificationMessage());
+        }
     }
 
     //Creates a notification channel
@@ -82,14 +84,11 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
         if(notificationMessage.equals(""))
             return;
 
-        System.out.println("[MRMI]: Setting notification with text " + notificationMessage);
-
-        //Отвори MainActivity кад корисник притисне нотификацију
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
 
-        //Подешавања нотификације
+        //Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle("Grocery Helper")
@@ -101,6 +100,7 @@ public class AlarmNotificationReceiver extends BroadcastReceiver {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
 
+        //Show the notification
         notificationManager.notify(2501, builder.build());
     }
 }

@@ -12,15 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
-{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
     Context context;
     ArrayList<Article> articleList;
     ArticleList articleListClass;
 
     //Constructor
-    public RecyclerViewAdapter(Context contextArg)
-    {
+    public RecyclerViewAdapter(Context contextArg) {
         context = contextArg;
 
         //Instantiate the ArticleList class
@@ -32,8 +30,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @NonNull
     @Override
-    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
-    {
+    public RecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.article_row, parent, false);
 
@@ -41,13 +38,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return new ViewHolder(view);
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
-    {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView articleNameText, articleExpirationDateText, articleExpirationCounterText;
         ImageButton deleteArticleButton;
 
-        public ViewHolder(@NonNull View itemView)
-        {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
             //Find all of the text views and the button in the current row's itemView
             articleNameText = itemView.findViewById(R.id.ArticleNameTextView);
@@ -58,21 +53,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, final int position)
-    {
+    public void onBindViewHolder(@NonNull final RecyclerViewAdapter.ViewHolder holder, final int position) {
         Article article = articleList.get(position);
 
         //Set the text of the text views using the current article's index (position)
         holder.articleNameText.setText(article.getName());
-        holder.articleExpirationDateText.setText(article.getExpirationDate());
+        String expirationDateText = "Expiration date: " + article.getExpirationDate();
+        holder.articleExpirationDateText.setText(expirationDateText);
 
         String expirationCounterText;
         expirationCounterText = article.getExpirationText(context);
 
         holder.articleExpirationCounterText.setText(expirationCounterText);
 
-        holder.deleteArticleButton.setOnClickListener(new View.OnClickListener()
-        {
+        holder.deleteArticleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 articleList.remove(position);
@@ -87,8 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //Returns the number of articles
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return articleList.size();
     }
 }

@@ -14,4 +14,5 @@
     <string name="gallery">Gallery</string>
     <string name="crop">Crop image</string>
     <string name="detectedDate">Detected date:</string>
+    <string name="settings">Settings</string>
 </resources>

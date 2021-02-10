@@ -153,6 +153,12 @@ public class AddArticle extends AppCompatActivity {
         });
     }
 
+    //Launch main activity on back pressed
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddArticle.this, MainActivity.class));
+    }
+
     private boolean hasStoragePermission() {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED)
                 && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);

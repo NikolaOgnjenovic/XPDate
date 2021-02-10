@@ -5,8 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:layout_margin="10dp"
-    android:gravity="center_vertical">
+    android:gravity="center_vertical"
+    android:background="@color/colorPrimaryDark"
+    android:padding="10dp">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ArticleRecyclerView"
