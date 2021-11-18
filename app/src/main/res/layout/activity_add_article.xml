@@ -1,89 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="1"
-    android:padding="20dp"
-    android:background="#33383F">
+    android:background="@color/colorPrimary"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <EditText
+        android:padding="20dp"
+        android:id="@+id/articleNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_weight="0.025">
+        android:autofillHints="@string/articleName"
+        android:hint="@string/articleName"
+        android:inputType="textPersonName"
+        android:textSize="25sp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="10dp"
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorAccent">
 
         <TextView
             android:id="@+id/detectedDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:textColor="@color/colorPrimary"
+            android:text="@string/detectedDate"
             android:textSize="20sp"
-            android:gravity="center_vertical"
-            android:text="@string/detectedDate"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RelativeOverlap" />
 
         <ImageButton
             android:id="@+id/pickDateButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:background="@drawable/transparent_background_bordered_button"
+            android:contentDescription="@string/pickDate"
+            android:gravity="end"
             android:src="@android:drawable/ic_menu_month"
-            android:textColor="#FFFFFF"
-            android:contentDescription="@string/pickDate" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/articleNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/articleName"
-        android:inputType="textPersonName"
-        android:textSize="25sp"
-        android:layout_weight="0.025"
-        android:autofillHints="@string/articleName" />
-
-    <com.theartofdev.edmodo.cropper.CropImageView
-        android:id="@+id/cropImageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.9"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@color/colorAccent"
+        android:weightSum="5"
+        android:padding="10dp">
 
-        <Button
+        <ImageButton
             android:id="@+id/saveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/saveArticle"/>
+
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_background_bordered_button"
+
+            android:contentDescription="@string/saveArticle"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_save" />
 
         <ImageButton
             android:id="@+id/cameraButton"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:src="@drawable/camera_icon"
-            android:contentDescription="@string/camera" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_background_bordered_button"
+
+            android:contentDescription="@string/camera"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_camera" />
 
         <ImageButton
             android:id="@+id/galleryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_gallery"
-            android:contentDescription="@string/gallery" />
+
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_background_bordered_button"
+
+            android:contentDescription="@string/gallery"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_gallery" />
 
         <ImageButton
             android:id="@+id/cropButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_crop"
-            android:contentDescription="@string/crop" />
+
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/transparent_background_bordered_button"
+
+            android:contentDescription="@string/crop"
+            android:scaleType="fitCenter"
+            android:src="@android:drawable/ic_menu_crop" />
 
         <Button
             android:id="@+id/detectButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/detectDate" />
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/detectDate"
+            android:background="@drawable/transparent_background_bordered_button"
+            android:textColor="@color/colorPrimary"/>
     </LinearLayout>
 
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

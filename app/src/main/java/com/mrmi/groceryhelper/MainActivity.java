@@ -1,27 +1,16 @@
 package com.mrmi.groceryhelper;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
-
-import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import java.util.ArrayList;
-
-import static android.app.AlertDialog.THEME_HOLO_DARK;
 
 public class MainActivity extends AppCompatActivity {
     private ArticleList articleList;
@@ -35,30 +24,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ImageButton addArticleButton = findViewById(R.id.addArticleButton);
-        addArticleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddArticle.class);
-                startActivity(intent);
-            }
+        addArticleButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddArticle.class);
+            startActivity(intent);
         });
 
         ImageButton settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Settings.class);
-                startActivity(intent);
-            }
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, Settings.class);
+            startActivity(intent);
         });
         //Setup activity launching buttons
         ImageButton viewAllArticlesButton = findViewById(R.id.viewAllArticlesButton);
-        viewAllArticlesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AllArticles.class);
-                startActivity(intent);
-            }
+        viewAllArticlesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AllArticles.class);
+            startActivity(intent);
         });
 
 
@@ -107,10 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Initializes ads on the ad banner
     private void initializeAds() {
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
+        MobileAds.initialize(this, initializationStatus -> {
         });
 
         AdView mAdView = findViewById(R.id.adView);

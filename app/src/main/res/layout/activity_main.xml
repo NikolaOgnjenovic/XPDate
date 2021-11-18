@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#33383F"
-    android:id="@+id/linearLayout"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".MainActivity">
@@ -19,6 +18,7 @@
         android:paddingBottom="20dp"
         android:text="@string/expiringSoon"
         android:textSize="35sp"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,25 +27,23 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:padding="10dp"
         ads:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"
         ads:layout_constraintTop_toBottomOf="@id/expiringSoonTextView"
-        tools:context=".MainActivity"
-        android:padding="10dp">
+        tools:context=".MainActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/firstExpiringArticle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="#FEFBEA"
+                app:cardBackgroundColor="@color/colorAccent"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,14 +61,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="26sp" />
 
                     <TextView
                         android:id="@+id/firstExpiringArticleExpirationCounter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -81,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:cardBackgroundColor="#FEFBEA"
+                app:cardBackgroundColor="@color/colorAccent"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,14 +95,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="26sp" />
 
                     <TextView
                         android:id="@+id/secondExpiringArticleExpirationCounter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -117,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                app:cardBackgroundColor="#FEFBEA"
+                app:cardBackgroundColor="@color/colorAccent"
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -135,14 +129,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="26sp" />
 
                     <TextView
                         android:id="@+id/thirdExpiringArticleExpirationCounter"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -165,11 +157,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/addArticle"
-            android:padding="20dp"
-
-            android:scaleType="fitCenter"
             android:background="#00FFFFFF"
+            android:contentDescription="@string/addArticle"
+
+            android:padding="20dp"
+            android:scaleType="fitCenter"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -180,11 +172,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/settings"
-            android:padding="20dp"
-
-            android:scaleType="fitCenter"
             android:background="#00FFFFFF"
+            android:contentDescription="@string/settings"
+
+            android:padding="20dp"
+            android:scaleType="fitCenter"
             android:src="@android:drawable/ic_menu_manage"
             app:layout_constraintEnd_toStartOf="@+id/viewAllArticlesButton"
             app:layout_constraintStart_toEndOf="@+id/addArticleButton"
@@ -196,23 +188,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:contentDescription="@string/articleList"
-            android:padding="20dp"
-
-            android:scaleType="fitCenter"
             android:background="#00FFFFFF"
+            android:contentDescription="@string/articleList"
+
+            android:padding="20dp"
+            android:scaleType="fitCenter"
             android:src="@android:drawable/ic_menu_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.gms.ads.AdView
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
         android:id="@+id/adView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_width="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

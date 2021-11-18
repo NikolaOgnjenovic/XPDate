@@ -66,16 +66,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.articleExpirationCounterText.setText(expirationCounterText);
 
-        holder.deleteArticleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                articleList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, articleList.size());
+        holder.deleteArticleButton.setOnClickListener(v -> {
+            articleList.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, articleList.size());
 
-                articleListClass.saveArticles();
-                System.out.println("[MRMI]: Removed item at position " + ", arraylist size: " + articleList.size());
-            }
+            articleListClass.saveArticles();
+            System.out.println("[MRMI]: Removed item at position " + ", arraylist size: " + articleList.size());
         });
     }
 

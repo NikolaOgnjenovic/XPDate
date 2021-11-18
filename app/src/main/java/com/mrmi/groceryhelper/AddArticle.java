@@ -17,9 +17,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.SparseArray;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -65,8 +63,8 @@ public class AddArticle extends AppCompatActivity {
         setContentView(R.layout.activity_add_article);
 
         //Reference the required buttons, text views, edit texts and permissions
-        ImageButton cameraButton = findViewById(R.id.cameraButton), galleryButton = findViewById(R.id.galleryButton), pickDateButton = findViewById(R.id.pickDateButton), cropButton = findViewById(R.id.cropButton);
-        Button saveArticleButton = findViewById(R.id.saveButton), detectButton = findViewById(R.id.detectButton);
+        ImageButton cameraButton = findViewById(R.id.cameraButton), galleryButton = findViewById(R.id.galleryButton), pickDateButton = findViewById(R.id.pickDateButton), cropButton = findViewById(R.id.cropButton), saveArticleButton = findViewById(R.id.saveButton);
+        Button detectButton = findViewById(R.id.detectButton);
 
         detectedDateTextView = findViewById(R.id.detectedDateTextView);
         cropImageView = findViewById(R.id.cropImageView);
@@ -82,72 +80,50 @@ public class AddArticle extends AppCompatActivity {
         datePattern = articleListClass.getDatePattern();
 
         //Capture the image using the camera
-        cameraButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasCameraPermission()) {
-                    requestCameraPermission();
-                } else {
-                    takePictureUsingCamera();
-                }
+        cameraButton.setOnClickListener(v -> {
+            if (!hasCameraPermission()) {
+                requestCameraPermission();
+            } else {
+                takePictureUsingCamera();
             }
         });
 
         //Select the image from the gallery
-        galleryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!hasStoragePermission()) {
-                    requestStoragePermission();
-                } else {
-                    pickImageFromGallery();
-                }
+        galleryButton.setOnClickListener(v -> {
+            if (!hasStoragePermission()) {
+                requestStoragePermission();
+            } else {
+                pickImageFromGallery();
             }
         });
 
         //Crops the image in the current activity
-        cropButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cropped = cropImageView.getCroppedImage();
-                if (cropped != null)
-                    cropImageView.setImageBitmap(cropped);
-            }
+        cropButton.setOnClickListener(v -> {
+            cropped = cropImageView.getCroppedImage();
+            if (cropped != null)
+                cropImageView.setImageBitmap(cropped);
         });
 
         //Manually set the article's expiration date
-        pickDateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickDialog();
-            }
-        });
+        pickDateButton.setOnClickListener(v -> showDatePickDialog());
 
         //Detects text from the image
-        detectButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detectTextFromImage();
-            }
-        });
+        detectButton.setOnClickListener(v -> detectTextFromImage());
 
         //Add an article to the articles ArrayList
-        saveArticleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (detectedDateTextView.getText().toString().equals("Detected date: ")) {
-                    Toast.makeText(AddArticle.this, "Please input the article's expiration date", Toast.LENGTH_LONG).show();
-                } else if (articleName.getText().toString().equals("")) {
-                    Toast.makeText(AddArticle.this, "Please input the article's name", Toast.LENGTH_LONG).show();
-                } else {
-                    try {
-                        articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15)));
+        saveArticleButton.setOnClickListener(v -> {
+            if (detectedDateTextView.getText().toString().equals("Detected date: ")) {
+                Toast.makeText(AddArticle.this, "Please input the article's expiration date", Toast.LENGTH_LONG).show();
+            } else if (articleName.getText().toString().equals("")) {
+                Toast.makeText(AddArticle.this, "Please input the article's name", Toast.LENGTH_LONG).show();
+            } else {
+                try {
+                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15)));
 
-                        //Go back to the main activity after adding the article
-                        startActivity(new Intent(AddArticle.this, MainActivity.class));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    //Go back to the main activity after adding the article
+                    startActivity(new Intent(AddArticle.this, MainActivity.class));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });
@@ -212,6 +188,7 @@ public class AddArticle extends AppCompatActivity {
     //Handles permission requests
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case CAMERA_REQUEST_CODE:
                 if (grantResults.length > 0) {
@@ -271,23 +248,20 @@ public class AddArticle extends AppCompatActivity {
 
         //Because int months are indexed starting at 0 (January is 0)
         //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
-        DatePickerDialog dpd = new DatePickerDialog(AddArticle.this, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                month++; //Because int months are indexed starting at 0 (January is 0)
+        DatePickerDialog dpd = new DatePickerDialog(AddArticle.this, (view, year, month, day) -> {
+            month++; //Because int months are indexed starting at 0 (January is 0)
 
-                //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
-                String dayStr = String.valueOf(day);
-                if (day < 10)
-                    dayStr = '0' + dayStr;
-                String monthStr = String.valueOf(month);
-                if (month < 10)
-                    monthStr = '0' + monthStr;
+            //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
+            String dayStr = String.valueOf(day);
+            if (day < 10)
+                dayStr = '0' + dayStr;
+            String monthStr = String.valueOf(month);
+            if (month < 10)
+                monthStr = '0' + monthStr;
 
-                //DetectDateTextFromString(dayStr + "/" + monthStr + "/" + year);
-                detectDateTextFromString(monthStr + "/" + dayStr + "/" + year);
-                System.out.println("[MRMI]: Picked " + dayStr + "/" + monthStr + "/" + year);
-            }
+            //DetectDateTextFromString(dayStr + "/" + monthStr + "/" + year);
+            detectDateTextFromString(monthStr + "/" + dayStr + "/" + year);
+            System.out.println("[MRMI]: Picked " + dayStr + "/" + monthStr + "/" + year);
         }, tDay, tMonth, tYear);
         dpd.show();
         dpd.updateDate(tYear, tMonth, tDay);

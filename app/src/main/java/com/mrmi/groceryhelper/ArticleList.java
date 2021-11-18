@@ -7,7 +7,6 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -86,12 +85,10 @@ public class ArticleList {
 
     //Sorts the article list by soonest expiring articles first
     public void sortArticleList() {
-        Collections.sort(articleList, new Comparator<Article>() {
-            public int compare(Article o1, Article o2) {
-                if (o1.getFormattedDate(datePattern) == null || o2.getFormattedDate(datePattern) == null)
-                    return 0;
-                return o1.getFormattedDate(datePattern).compareTo(o2.getFormattedDate(datePattern));
-            }
+        Collections.sort(articleList, (o1, o2) -> {
+            if (o1.getFormattedDate(datePattern) == null || o2.getFormattedDate(datePattern) == null)
+                return 0;
+            return o1.getFormattedDate(datePattern).compareTo(o2.getFormattedDate(datePattern));
         });
     }
 

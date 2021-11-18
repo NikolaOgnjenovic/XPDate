@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="#FEFBEA"
+    app:cardBackgroundColor="@color/colorAccent"
     app:cardCornerRadius="10dp"
     tools:context=".MainActivity"
     android:layout_marginTop="10dp">
@@ -25,7 +25,6 @@
                 android:id="@+id/ArticleNameTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorPrimaryDark"
                 android:gravity="start"
                 android:textSize="26sp" />
 
@@ -33,15 +32,13 @@
                 android:id="@+id/ArticleExpirationCounter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/ArticleExpirationDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <ImageButton

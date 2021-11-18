@@ -4,13 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context=".Settings"
     android:orientation="vertical">
 
     <Button
         android:id="@+id/datePatternButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/setNotificationTime"
@@ -25,4 +27,11 @@
 
         android:text="@string/sendDailyNotifications"
         android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/notificationTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textColor="@color/colorAccent" />
 </LinearLayout>

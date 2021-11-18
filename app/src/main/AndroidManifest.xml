@@ -46,14 +46,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <receiver android:name=".AlarmNotificationReceiver" />
-        <receiver
-            android:name=".BootReceiver"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver> <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-8738374268088231~7339648403" />
