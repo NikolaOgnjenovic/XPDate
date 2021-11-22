@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_add_article.xml" value="0.36666666666666664" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_all_articles.xml" value="0.36666666666666664" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/article_row.xml" value="0.36666666666666664" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/list_row_child.xml" value="0.36666666666666664" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/list_row_group.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

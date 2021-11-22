@@ -2,6 +2,7 @@ package com.mrmi.groceryhelper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -24,39 +25,11 @@ public class ArticleList {
         return articleList;
     }
 
-    public String getDatePattern() {
-        loadDatePattern();
-        return datePattern;
-    }
-
-    public void setDatePattern(String dateArg) {
-        datePattern = dateArg;
-        saveDatePattern();
-
-        //Loop through all articles
-        for (Article article : articleList) {
-            //Change the month and day parts of the current article input
-            String str = article.getExpirationDate();
-
-            //Split the date into 3 parts (month, day, year)
-            String[] splitDate = str.split("/");
-            //Reverse the month and day part of the article
-            str = splitDate[1] + "/" + splitDate[0] + "/" + splitDate[2];
-
-            //Change the expiration date of the current article
-            article.setExpirationDate(str);
-        }
-
-        //Save the changed articles
-        saveArticles();
-    }
-
     private void loadArticleList() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("Articles", null);
-        Type type = new TypeToken<ArrayList<Article>>() {
-        }.getType();
+        Type type = new TypeToken<ArrayList<Article>>() {}.getType();
         articleList = gson.fromJson(json, type);
 
         if (articleList == null) {
@@ -103,5 +76,32 @@ public class ArticleList {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
         sharedPreferences.edit().putString("DatePattern", datePattern).apply();
         System.out.println("[MRMI]: Saved date pattern: " + datePattern);
+    }
+
+    public void setDatePattern(String dateArg) {
+        datePattern = dateArg;
+        saveDatePattern();
+
+        //Loop through all articles
+        for (Article article : articleList) {
+            //Change the month and day parts of the current article input
+            String str = article.getExpirationDate();
+
+            //Split the date into 3 parts (month, day, year)
+            String[] splitDate = str.split("/");
+            //Reverse the month and day part of the article
+            str = splitDate[1] + "/" + splitDate[0] + "/" + splitDate[2];
+
+            //Change the expiration date of the current article
+            article.setExpirationDate(str);
+        }
+
+        //Save the changed articles
+        saveArticles();
+    }
+
+    public String getDatePattern() {
+        loadDatePattern();
+        return datePattern;
     }
 }

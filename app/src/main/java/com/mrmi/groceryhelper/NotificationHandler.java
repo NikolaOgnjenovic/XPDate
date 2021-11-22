@@ -67,7 +67,7 @@ public class NotificationHandler extends Worker {
 
         long currentArticleDaysLeft;
         for (Article article : articleList) {
-            currentArticleDaysLeft = article.getExpirationDays(context);
+            currentArticleDaysLeft = article.getDaysUntilExpiration(context);
 
             System.out.println("[MRMI]: Article: " + article.getName() + " days left: " + currentArticleDaysLeft);
 
@@ -112,6 +112,7 @@ public class NotificationHandler extends Worker {
         //Show the notification
         notificationManager.notify(2501, builder.build());
     }
+
     public static void enableNotifications(Context context) {
         int hourOfTheDay = context.getSharedPreferences("Shared preferences", Context.MODE_PRIVATE).getInt("notificationHour", 9), minuteOfTheDay = context.getSharedPreferences("Shared preferences", Context.MODE_PRIVATE).getInt("notificationMinute", 0);
         Calendar currentDate = Calendar.getInstance();

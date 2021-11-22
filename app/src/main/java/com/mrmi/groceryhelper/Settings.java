@@ -18,29 +18,44 @@ public class Settings extends AppCompatActivity {
     private Button datePatternButton;
     private String datePattern;
     private TimePickerDialog timePicker;
+    private SwitchCompat dailyNotificationSwitch;
+    private Button notificationTimePicker;
+    private TextView notificationTimeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        articleListClass = new ArticleList(this);
+        initialiseViews();
+        initialiseObjects();
+        initialiseListeners();
 
-        //Date pattern changing: dd/MM to MM/dd and vice versa via a toggle button
-        datePatternButton = findViewById(R.id.datePatternButton);
         displaySelectedDatePattern();
-        datePatternButton.setOnClickListener(v -> changeDatePattern());
-
-        sharedPreferences = getSharedPreferences("Shared preferences", MODE_PRIVATE);
-
         displayNotificationTime();
 
         //Enable and disable daily notifications using the switch
-        SwitchCompat dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
         dailyNotificationSwitch.setChecked(sharedPreferences.getBoolean("SendingDailyNotifications", true));
-        if(dailyNotificationSwitch.isChecked()) {
-           enableNotifications();
+        if (dailyNotificationSwitch.isChecked()) {
+            enableNotifications();
         }
+    }
+
+    private void initialiseViews() {
+        datePatternButton = findViewById(R.id.datePatternButton);
+        dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
+        notificationTimePicker = findViewById(R.id.setNotificationTime);
+        notificationTimeTextView = findViewById(R.id.notificationTimeText);
+    }
+
+    private void initialiseObjects() {
+        articleListClass = new ArticleList(this);
+        sharedPreferences = getSharedPreferences("Shared preferences", MODE_PRIVATE);
+    }
+
+    private void initialiseListeners() {
+        //Date pattern changing: dd/MM to MM/dd and vice versa via a toggle button
+        datePatternButton.setOnClickListener(v -> changeDatePattern());
 
         //If the daily notification switch is checked, enable notifications, else disable them
         dailyNotificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -53,7 +68,6 @@ public class Settings extends AppCompatActivity {
         });
 
         //Set the time for when the daily notification will be picked using a picker displayed when the button is pressed
-        Button notificationTimePicker = findViewById(R.id.setNotificationTime);
         notificationTimePicker.setOnClickListener(v -> {
             int hour = getNotificationHour();
             int minutes = getNotificationMinute();
@@ -65,7 +79,7 @@ public class Settings extends AppCompatActivity {
                         displayNotificationTime();
 
                         //Enable notifications again with the newly set hour and minutes if they are toggled on
-                        if(sharedPreferences.getBoolean("SendingDailyNotifications", false)) {
+                        if (sharedPreferences.getBoolean("SendingDailyNotifications", false)) {
                             enableNotifications();
                         }
                     }, hour, minutes, true);
@@ -102,25 +116,23 @@ public class Settings extends AppCompatActivity {
 
     //Displays the time at which the daily notification is sent
     private void displayNotificationTime() {
-        TextView notificationTimeTextView = findViewById(R.id.notificationTimeText);
-
         int notificationHour = getNotificationHour(), notificationMinute = getNotificationMinute();
         String notificationTimeText = "Sending daily notifications at ";
-        if(notificationHour < 10)
+        if (notificationHour < 10)
             notificationTimeText += "0";
         notificationTimeText += notificationHour + ":";
-        if(notificationMinute < 10)
+        if (notificationMinute < 10)
             notificationTimeText += "0";
         notificationTimeText += notificationMinute;
 
         notificationTimeTextView.setText(notificationTimeText);
     }
 
-    private int getNotificationHour () {
+    private int getNotificationHour() {
         return sharedPreferences.getInt("notificationHour", 9);
     }
 
-    private int getNotificationMinute () {
+    private int getNotificationMinute() {
         return sharedPreferences.getInt("notificationMinute", 0);
     }
 }

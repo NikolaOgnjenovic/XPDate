@@ -1,60 +1,37 @@
 package com.mrmi.groceryhelper;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
-import android.widget.TextView;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ArticleList articleList;
 
-    private CardView[] firstThreeArticlesCardView;
-    private TextView[] firstThreeNames, firstThreeDates;
+    private ExpandableListView expandableListView;
+    private ExpandableListViewAdapter expandableListViewAdapter;
+    private List<String> listDataGroup;
+    private HashMap<String, List<String>> listDataChild;
+    private ImageButton addArticleButton, settingsButton, viewAllArticlesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageButton addArticleButton = findViewById(R.id.addArticleButton);
-        addArticleButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AddArticle.class);
-            startActivity(intent);
-        });
-
-        ImageButton settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, Settings.class);
-            startActivity(intent);
-        });
-        //Setup activity launching buttons
-        ImageButton viewAllArticlesButton = findViewById(R.id.viewAllArticlesButton);
-        viewAllArticlesButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AllArticles.class);
-            startActivity(intent);
-        });
-
-
-        //Reference ArticleList class
-        articleList = new ArticleList(MainActivity.this);
-
-        //Displaying top 3 expiring articles
-        firstThreeNames = new TextView[]{findViewById(R.id.firstExpiringArticleName), findViewById(R.id.secondExpiringArticleName), findViewById(R.id.thirdExpiringArticleName)};
-        firstThreeDates = new TextView[]{findViewById(R.id.firstExpiringArticleExpirationCounter), findViewById(R.id.secondExpiringArticleExpirationCounter), findViewById(R.id.thirdExpiringArticleExpirationCounter)};
-        firstThreeArticlesCardView = new CardView[]{findViewById(R.id.firstExpiringArticle), findViewById(R.id.secondExpiringArticle), findViewById(R.id.thirdExpiringArticle)};
-        displayExpiringArticles();
-
-        initializeAds();
+        initialiseViews();
+        initialiseObjects();
+        initialiseListeners();
+        initialiseListData();
     }
 
-    //Quit the app on back press
+    //Quit the app when the user presses the back button
     @Override
     public void onBackPressed() {
         Intent quitIntent = new Intent(Intent.ACTION_MAIN);
@@ -63,35 +40,84 @@ public class MainActivity extends AppCompatActivity {
         startActivity(quitIntent);
     }
 
-    //Loads and displays the 3 soonest expiring articles
-    private void displayExpiringArticles() {
-
-        //Reference the article list
-        ArrayList<Article> articles = articleList.getArticleList();
-
-        //Make all 3 article displays invisible
-        for (int i = 0; i < 3; ++i) {
-            firstThreeArticlesCardView[i].setVisibility(View.INVISIBLE);
-        }
-
-        //Make the article displays visible and display the 3 (2, 1 or 0 if more do not exist) soonest expiring articles
-        for (int i = 0; i < 3; ++i) {
-            if (articles.size() >= i + 1) {
-                firstThreeArticlesCardView[i].setVisibility(View.VISIBLE);
-
-                firstThreeNames[i].setText(articles.get(i).getName());
-                firstThreeDates[i].setText(articles.get(i).getExpirationText(this));
-            }
-        }
+    private void initialiseViews() {
+        addArticleButton = findViewById(R.id.addArticleButton);
+        settingsButton = findViewById(R.id.settingsButton);
+        viewAllArticlesButton = findViewById(R.id.viewAllArticlesButton);
+        expandableListView = findViewById(R.id.expandableListView);
     }
 
-    //Initializes ads on the ad banner
-    private void initializeAds() {
-        MobileAds.initialize(this, initializationStatus -> {
+    private void initialiseObjects() {
+        articleList = new ArticleList(MainActivity.this);
+
+        //Enable notifications
+        if (this.getSharedPreferences("Shared preferences", MODE_PRIVATE).getBoolean("SendingDailyNotifications", true)) {
+            NotificationHandler.enableNotifications(this);
+        }
+
+        //Initialise the list of groups
+        listDataGroup = new ArrayList<>();
+        //Initialise the list of children
+        listDataChild = new HashMap<>();
+        //Initialise the adapter object
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
+        //Set the list adapter
+        expandableListView.setAdapter(expandableListViewAdapter);
+    }
+
+    private void initialiseListeners() {
+        addArticleButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AddArticle.class);
+            startActivity(intent);
         });
 
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        settingsButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, Settings.class);
+            startActivity(intent);
+        });
+        viewAllArticlesButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, AllArticles.class);
+            startActivity(intent);
+        });
+    }
+
+    private void initialiseListData() {
+        //Add group data
+        listDataGroup.add(getString(R.string.already_expired));
+        listDataGroup.add(getString(R.string.expiration_less_than_7_days));
+        listDataGroup.add(getString(R.string.expiration_less_than_14_days));
+        listDataGroup.add(getString(R.string.expiration_less_than_30_days));
+        listDataGroup.add(getString(R.string.expiration_more_than_30_days));
+
+        //Get all articles from the ArticleList class
+        ArrayList<Article> articles = articleList.getArticleList();
+        //Loop through all articles and add them to their according lists (expiring soon, later etc.)
+        List<String> expiredList = new ArrayList<>(), soonList = new ArrayList<>(), laterList = new ArrayList<>(), goodList = new ArrayList<>(), greatList = new ArrayList<>();
+        for (Article article : articles) {
+            int daysUntilExpiration = article.getDaysUntilExpiration(this);
+            String articleName = article.getName();
+
+            if (daysUntilExpiration <= 0) {
+                expiredList.add(articleName);
+            } else if (daysUntilExpiration < 7) {
+                soonList.add(articleName);
+            } else if (daysUntilExpiration < 14) {
+                laterList.add(articleName);
+            } else if (daysUntilExpiration < 30) {
+                goodList.add(articleName);
+            } else {
+                greatList.add(articleName);
+            }
+        }
+
+        //Add child data
+        listDataChild.put(listDataGroup.get(0), expiredList);
+        listDataChild.put(listDataGroup.get(1), soonList);
+        listDataChild.put(listDataGroup.get(2), laterList);
+        listDataChild.put(listDataGroup.get(3), goodList);
+        listDataChild.put(listDataGroup.get(4), greatList);
+
+        //Notify the adapter
+        expandableListViewAdapter.notifyDataSetChanged();
     }
 }

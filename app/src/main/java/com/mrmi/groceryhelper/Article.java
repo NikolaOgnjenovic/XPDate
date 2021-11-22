@@ -2,6 +2,7 @@ package com.mrmi.groceryhelper;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,7 +41,7 @@ public class Article implements Serializable {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(datePattern);
         try {
             return sdf.parse(articleExpirationDate);
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
@@ -52,14 +53,18 @@ public class Article implements Serializable {
      */
     public String getExpirationText(Context context) {
         String expirationCounterText;
-        long daysLeft = getExpirationDays(context);
+        int daysLeft = getDaysUntilExpiration(context);
 
-        if (daysLeft < 0) {
-            expirationCounterText = "Expired " + -1 * daysLeft + " days ago";
+        if (daysLeft < -1) {
+            expirationCounterText = "Expired " + -1 * daysLeft + " days ago.";
+        } else if (daysLeft == -1) {
+            expirationCounterText = "Expired 1 day ago.";
         } else if (daysLeft == 0) {
-            expirationCounterText = "Expires today!";
+            expirationCounterText = "Expires today.";
+        } else if (daysLeft == 1) {
+            expirationCounterText = "Expires tomorrow.";
         } else {
-            expirationCounterText = "Expires in " + daysLeft + " days";
+            expirationCounterText = "Expires in " + (++daysLeft) + " days.";
         }
 
         return expirationCounterText;
@@ -71,7 +76,7 @@ public class Article implements Serializable {
      */
     //Returns the number of days between an article's expiration date and today's date
     @SuppressLint("SimpleDateFormat")
-    public long getExpirationDays(Context context) {
+    public long getMillisUntilExpiration(Context context) {
         try {
             Calendar expirationDay = Calendar.getInstance();
 
@@ -87,7 +92,7 @@ public class Article implements Serializable {
 
             //Parse that from the given expirationDate and set that as the time of the expirationDay calendar
             Date expirationDate = sdf.parse(articleExpirationDate);
-            if(expirationDate!=null) {
+            if (expirationDate != null) {
                 expirationDay.setTime(expirationDate);
             }
 
@@ -96,10 +101,26 @@ public class Article implements Serializable {
             currentDay.setTimeInMillis(System.currentTimeMillis());
 
             //Calculate the difference in days from the expiration date and current date
-            return ((expirationDay.getTimeInMillis() - currentDay.getTimeInMillis()) / 86400000);
+            return expirationDay.getTimeInMillis() - currentDay.getTimeInMillis();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public int getDaysUntilExpiration(Context context) {
+        long millisLeft = getMillisUntilExpiration(context);
+        long daysLeft = millisLeft / 86400000;
+
+        Calendar currentDay = Calendar.getInstance();
+        int day = currentDay.get(Calendar.DAY_OF_MONTH);
+
+        currentDay.setTimeInMillis(currentDay.getTimeInMillis() + millisLeft);
+
+        if (currentDay.get(Calendar.DAY_OF_MONTH) == day + 1) {
+            ++daysLeft;
+        }
+
+        return (int) daysLeft;
     }
 }

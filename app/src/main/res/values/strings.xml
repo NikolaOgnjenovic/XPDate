@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Rok trajanja</string>
     <string name="expiringSoon">Expiring soon:</string>
     <string name="setNotificationTime">Set notification time</string>
     <string name="addArticle">Add article</string>
@@ -15,4 +15,10 @@
     <string name="crop">Crop image</string>
     <string name="detectedDate">Detected date:</string>
     <string name="settings">Settings</string>
+
+    <string name="already_expired">Already expired</string>
+    <string name="expiration_less_than_7_days">Expiring soon: &lt;7 days left</string>
+    <string name="expiration_less_than_14_days">Expiring later: &lt;14 days left</string>
+    <string name="expiration_less_than_30_days">Good products: &lt;30 days left</string>
+    <string name="expiration_more_than_30_days">Great products: &gt;30 days left</string>
 </resources>
