@@ -60,15 +60,15 @@ public class Article implements Serializable {
         int daysLeft = getDaysUntilExpiration(context);
 
         if (daysLeft < -1) {
-            expirationCounterText = "Expired " + -1 * daysLeft + " days ago.";
+            expirationCounterText = context.getString(R.string.expired) + " " + -1 * daysLeft + " " + context.getString(R.string.days_ago);
         } else if (daysLeft == -1) {
-            expirationCounterText = "Expired 1 day ago.";
+            expirationCounterText = context.getString(R.string.expired_yesterday);
         } else if (daysLeft == 0) {
-            expirationCounterText = "Expires today.";
+            expirationCounterText = context.getString(R.string.expires_today);
         } else if (daysLeft == 1) {
-            expirationCounterText = "Expires tomorrow.";
+            expirationCounterText = context.getString(R.string.expires_tomorrow);
         } else {
-            expirationCounterText = "Expires in " + (++daysLeft) + " days.";
+            expirationCounterText = context.getString(R.string.expires_in) + " " + (++daysLeft) + " " + context.getString(R.string.days);
         }
 
         return expirationCounterText;

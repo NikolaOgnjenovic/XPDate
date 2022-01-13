@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,17 +33,22 @@ public class AllArticles extends AppCompatActivity {
         Settings.loadLocale(this);
 
         initialiseViews();
+        initialiseListeners();
         initialiseObjects();
         initialiseListData();
+    }
 
-        /*
-        //Display all of the articles using the recyclerView and its adapter
-        RecyclerView recyclerView = findViewById(R.id.ArticleRecyclerView);
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this);
-        recyclerViewAdapter.notifyDataSetChanged();
-        recyclerView.setAdapter(recyclerViewAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        */
+    //Launch main activity on back pressed
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    private void initialiseViews() {
+        expandableListView = findViewById(R.id.expandableListView);
+    }
+
+    private void initialiseListeners() {
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
             AlertDialog alertDialog = new AlertDialog.Builder(AllArticles.this).create();
@@ -63,16 +69,6 @@ public class AllArticles extends AppCompatActivity {
 
             return false;
         });
-    }
-
-    //Launch main activity on back pressed
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
-    }
-
-    private void initialiseViews() {
-        expandableListView = findViewById(R.id.expandableListView);
     }
 
     private void initialiseObjects() {
@@ -101,11 +97,11 @@ public class AllArticles extends AppCompatActivity {
         }
         List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
         for (Article article : articleList) {
-            String articleName = article.getName();
+            String articleInfo = article.getName() + "\n" + getString(R.string.expiration_date) + " " + article.getExpirationDate() + "\n" + article.getExpirationText(this);
 
             for(Pair<String, ArrayList<String>> category : listOfCategories) {
                 if(categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf(category.first)).equals(article.getCategory())) {
-                    category.second.add(articleName);
+                    category.second.add(articleInfo);
                 }
             }
         }
@@ -113,6 +109,7 @@ public class AllArticles extends AppCompatActivity {
         //Add child data
         int index = 0;
         for(Pair<String, ArrayList<String>> category : listOfCategories) {
+            articleListClass.sortList(category.second);
             listDataChild.put(listDataGroup.get(index), category.second);
             ++index;
         }

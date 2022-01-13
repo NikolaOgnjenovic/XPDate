@@ -51,4 +51,12 @@
     <string name="toast_camera_denied">Одбијена дозвола за коришћење камере</string>
     <string name="toast_date_fail">Неуспех при детеквотању датума</string>
     <string name="toast_storage_denied">Одбијена дозвола за чување података</string>
+    <string name="expiration_date">Рок трајања:</string>
+    <string name="expired">Рок трајања је истекао пре</string>
+    <string name="expires_tomorrow">Рок трајања истиче сутра</string>
+    <string name="expires_today">Рок трајања истиче данас</string>
+    <string name="expired_yesterday">Рок трајања је истекао јуче</string>
+    <string name="days_ago">дана</string>
+    <string name="days">дана</string>
+    <string name="expires_in">Рок трајања истиче за</string>
 </resources>

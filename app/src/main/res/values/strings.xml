@@ -73,4 +73,12 @@
     <string name="toast_camera_denied">Camera permission denied</string>
     <string name="toast_date_fail">Unable to detect a date</string>
     <string name="toast_storage_denied">Data storage permission denied</string>
+    <string name="expiration_date">Expiration date:</string>
+    <string name="expires_today">Expires today</string>
+    <string name="expires_tomorrow">Expires tomorrow</string>
+    <string name="expired_yesterday">Expired yesterday</string>
+    <string name="expired">Expired</string>
+    <string name="days_ago">days ago</string>
+    <string name="expires_in">Expires in</string>
+    <string name="days">days</string>
 </resources>
