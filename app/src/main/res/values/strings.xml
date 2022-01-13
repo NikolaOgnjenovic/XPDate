@@ -21,14 +21,15 @@
     <string name="expiration_less_than_30_days">Good products: &lt;30 days left</string>
     <string name="expiration_more_than_30_days">Great products: &gt;30 days left</string>
     <string name="article_category">Article category</string>
-    
-    <string-array name="default_categories">
+    <string name="notification_time_info">Notifications about how many articles have expired or expire soon will be sent daily at:</string>
+
+    <string-array name="category_names">
         <item>Dairy Goods</item>
         <item>Vegetables</item>
         <item>Fruits</item>
         <item>Meat</item>
         <item>Fish</item>
-        <item>Groats</item>
+        <item>Cereals</item>
         <item>Frozen Goods</item>
         <item>Spices</item>
         <item>Bread</item>
@@ -40,8 +41,36 @@
         <item>Canned goods</item>
         <item>Child care goods</item>
         <item>Household products</item>
-        <item>Candy</item>
         <item>Medicine</item>
         <item>Other</item>
     </string-array>
+
+    <string-array name="category_values">
+        <item>Dairy Goods</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Cereals</item>
+        <item>Frozen Goods</item>
+        <item>Spices</item>
+        <item>Bread</item>
+        <item>Confectionery</item>
+        <item>Coffee and tea</item>
+        <item>Sauces</item>
+        <item>Noodles and pasta</item>
+        <item>Pet food</item>
+        <item>Canned goods</item>
+        <item>Child care goods</item>
+        <item>Household products</item>
+        <item>Medicine</item>
+        <item>Other</item>
+    </string-array>
+
+    <string name="toast_input_article_name">Please input a name for the article</string>
+    <string name="toast_select_article_category">Please select the article\'s category</string>
+    <string name="toast_select_article_expiration_date">Please select an expiration date for the article</string>
+    <string name="toast_camera_denied">Camera permission denied</string>
+    <string name="toast_date_fail">Unable to detect a date</string>
+    <string name="toast_storage_denied">Data storage permission denied</string>
 </resources>

@@ -67,7 +67,8 @@ public class AddArticle extends AppCompatActivity {
 
     private Uri finalUri;
 
-    private EditText articleName, articleCategory;
+    private EditText articleName;
+    private TextView articleCategory;
     private Button detectButton;
     private ImageButton cameraButton, galleryButton, pickDateButton, cropButton, saveArticleButton;
 
@@ -98,6 +99,7 @@ public class AddArticle extends AppCompatActivity {
     private void initialiseViews() {
         detectButton = findViewById(R.id.detectButton);
         detectedDateTextView = findViewById(R.id.detectedDateTextView);
+        detectedDateTextView.setText(R.string.detected_date);
         cropImageView = findViewById(R.id.cropImageView);
         cameraButton = findViewById(R.id.cameraButton);
         galleryButton = findViewById(R.id.galleryButton);
@@ -105,7 +107,7 @@ public class AddArticle extends AppCompatActivity {
         cropButton = findViewById(R.id.cropButton);
         saveArticleButton = findViewById(R.id.saveButton);
         articleName = findViewById(R.id.articleNameEditText);
-        articleCategory = findViewById(R.id.articleCategoryEditText);
+        articleCategory = findViewById(R.id.articleCategoryTextView);
         articleCategorySpinner = findViewById(R.id.articleCategorySpinner);
     }
 
@@ -119,7 +121,7 @@ public class AddArticle extends AppCompatActivity {
 
         sharedPreferences = this.getSharedPreferences("Shared preferences", MODE_PRIVATE);
 
-        List<String> allCategories = Arrays.asList(this.getResources().getStringArray(R.array.default_categories));
+        List<String> allCategories = Arrays.asList(this.getResources().getStringArray(R.array.category_names));
         loadCategoryList();
         allCategories.addAll(userCategoryList);
 
@@ -182,15 +184,19 @@ public class AddArticle extends AppCompatActivity {
 
         //Add an article to the articles ArrayList
         saveArticleButton.setOnClickListener(v -> {
-            if (detectedDateTextView.getText().toString().equals("Detected date: ")) {
-                Toast.makeText(this, "Please input the article's expiration date", Toast.LENGTH_LONG).show();
+            if (detectedDateTextView.getText().toString().equals(getString((R.string.detected_date)))) {
+                Toast.makeText(this, getString(R.string.toast_select_article_expiration_date), Toast.LENGTH_LONG).show();
             } else if (articleName.getText().toString().equals("")) {
-                Toast.makeText(this, "Please input the article's name", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_input_article_name), Toast.LENGTH_LONG).show();
             } else if (articleCategory.getText().toString().equals("")) {
-                Toast.makeText(this, "Please input the article's category", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, getString(R.string.toast_select_article_category), Toast.LENGTH_LONG).show();
             } else {
                 try {
-                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15), articleCategory.getText().toString()));
+                    //Always save the english category value in local storage in order to simplify translation:
+                    //Get the value in the category_values array which has the same index as the inputted category in the current locale
+                    List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
+                    String articleCategoryVal = categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf((articleCategory.getText().toString())));
+                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15), articleCategoryVal));
 
                     //Go back to the main activity after adding the article
                     startActivity(new Intent(this, MainActivity.class));
@@ -262,7 +268,7 @@ public class AddArticle extends AppCompatActivity {
                     if (cameraAccepted) {
                         takePictureUsingCamera();
                     } else {
-                        Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.toast_camera_denied), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -273,7 +279,7 @@ public class AddArticle extends AppCompatActivity {
                     if (readStorageAccepted) {
                         pickImageFromGallery();
                     } else {
-                        Toast.makeText(this, "Storage permission denied", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,  getString(R.string.toast_storage_denied), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;
@@ -375,7 +381,7 @@ public class AddArticle extends AppCompatActivity {
                     detectDateTextFromString(str.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(this, "Unable to detect date", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.toast_date_fail), Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -406,7 +412,7 @@ public class AddArticle extends AppCompatActivity {
             detectedDateTextView.setText(detectedDateText);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, "Unable to detect date from image", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_date_fail), Toast.LENGTH_SHORT).show();
         }
     }
 }

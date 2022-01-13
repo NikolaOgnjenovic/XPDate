@@ -6,7 +6,6 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -99,9 +98,7 @@ public class Settings extends AppCompatActivity {
             timePicker.show();
         });
 
-        changeLanguageButton.setOnClickListener(v -> {
-            showChangeLanguageDialog();
-        });
+        changeLanguageButton.setOnClickListener(v -> showChangeLanguageDialog());
     }
 
     //Loads the saved date pattern using the ArticleList class and sets the pattern button text accordingly

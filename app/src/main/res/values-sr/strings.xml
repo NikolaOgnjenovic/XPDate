@@ -22,4 +22,33 @@
     <string name="settings" >Подешавања</string>
     <string name="change_language" >Промени језик:</string>
     <string name="article_category" >Категорија произовда</string>
+    <string name="notification_time_info">Обавештења о броју производа којима је истекао или ускоро истиче рок се шаљу дневно у:</string>
+
+    <string-array name="category_names">
+        <item>Млечни производи</item>
+        <item>Поврће</item>
+        <item>Воће</item>
+        <item>Месо</item>
+        <item>Риба</item>
+        <item>Житарице</item>
+        <item>Замрзнути производи</item>
+        <item>Зачини</item>
+        <item>Хлеб</item>
+        <item>Посластице</item>
+        <item>Кафа и чај</item>
+        <item>Сосеви</item>
+        <item>Резанци и тестенина</item>
+        <item>Храна за љубимце</item>
+        <item>Конзерве</item>
+        <item>Производи за негу деце</item>
+        <item>Производи за домаћинство</item>
+        <item>Лекови</item>
+        <item>Остало</item>
+    </string-array>
+    <string name="toast_input_article_name">Молимо Вас да унесте назив производа</string>
+    <string name="toast_select_article_category">Молимо Вас да изаберете категорију произовда</string>
+    <string name="toast_select_article_expiration_date">Молимо Вас да изаберете датум за рок трајања произовда</string>
+    <string name="toast_camera_denied">Одбијена дозвола за коришћење камере</string>
+    <string name="toast_date_fail">Неуспех при детеквотању датума</string>
+    <string name="toast_storage_denied">Одбијена дозвола за чување података</string>
 </resources>

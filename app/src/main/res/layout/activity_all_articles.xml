@@ -9,9 +9,14 @@
     android:background="@color/colorPrimary"
     android:padding="10dp">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!--<androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ArticleRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
+    -->
 </LinearLayout>

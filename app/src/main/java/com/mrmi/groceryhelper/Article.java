@@ -30,6 +30,8 @@ public class Article implements Serializable {
         return articleExpirationDate;
     }
 
+    //Returns the article category
+    public String getCategory() { return articleCategory; }
     public void setExpirationDate(String str) {
         articleExpirationDate = str;
     }
