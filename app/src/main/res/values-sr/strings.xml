@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rok trajanja</string>
+    <string name="expiration_less_than_7_days" >Истичу ускоро (за  &lt;7 дана)</string>
+    <string name="expiration_less_than_14_days" >Истичу касније (за  &lt;14 дана)</string>
+    <string name="expiration_less_than_30_days" >Добри производи (за  &lt;30 дана)</string>
+    <string name="expiration_more_than_30_days" >Одлични производи (за  &gt;30 дана)</string>
+    <string name="already_expired" >Истекао рок трајања</string>
+    <string name="set_notification_time" >Подеси време слања обавештења</string>
+    <string name="add_article" >Додај производ</string>
+    <string name="article_list" >Листа производа</string>
+    <string name="send_daily_notifications" >Шаљи дневна обавештења</string>
+    <string name="delete_article" >Избриши производ</string>
+    <string name="pick_date" >Изабери датум</string>
+    <string name="article_name" >Назив производа</string>
+    <string name="save_article" >Сачувај</string>
+    <string name="detect_date" >Детектуј датум</string>
+    <string name="camera" >Камера</string>
+    <string name="gallery" >Галерија</string>
+    <string name="crop" >Исеци слику</string>
+    <string name="detected_date" >Детектован датум:</string>
+    <string name="settings" >Подешавања</string>
+    <string name="change_language" >Промени језик:</string>
+    <string name="article_category" >Категорија произовда</string>
+</resources>

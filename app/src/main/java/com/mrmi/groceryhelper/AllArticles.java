@@ -9,8 +9,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 public class AllArticles extends AppCompatActivity {
-    RecyclerView recyclerView;
-    RecyclerViewAdapter recyclerViewAdapter;
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
@@ -18,9 +16,11 @@ public class AllArticles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_articles);
 
+        Settings.loadLocale(this);
+
         //Display all of the articles using the recyclerView and its adapter
-        recyclerView = findViewById(R.id.ArticleRecyclerView);
-        recyclerViewAdapter = new RecyclerViewAdapter(this);
+        RecyclerView recyclerView = findViewById(R.id.ArticleRecyclerView);
+        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerViewAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

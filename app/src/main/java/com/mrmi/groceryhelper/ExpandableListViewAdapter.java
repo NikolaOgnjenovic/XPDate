@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -86,7 +85,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.list_row_group, null);
         }
 
-        TextView textViewGroup = convertView.findViewById(R.id.textViewGroup);
+        TextView textViewGroup = convertView.findViewById(R.id.categoryGroupTextView);
         textViewGroup.setTypeface(null, Typeface.BOLD);
         textViewGroup.setText(headerTitle);
 
@@ -102,4 +101,4 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-}
+} 

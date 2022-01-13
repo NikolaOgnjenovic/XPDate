@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Expiration Date</string>
+    <string name="expiration_less_than_7_days" >Ističu uskoro  (za &lt;7 dana)</string>
+    <string name="expiration_less_than_14_days" >Ističu kasnije  (za &lt;14 dana)</string>
+    <string name="expiration_less_than_30_days" >Dobri proizvodi  (za &lt;30 dana)</string>
+    <string name="expiration_more_than_30_days" >Odlični proizvodi  (za &gt;30 dana)</string>
+    <string name="settings">Podešavanja</string>
+    <string name="already_expired">Istekao rok trajanja</string>
+    <string name="change_language" >Promeni jezik</string>
+    <string name="detected_date" >Detektovan datum:</string>
+    <string name="crop" >Iseci sliku</string>
+    <string name="gallery" >Galerija</string>
+    <string name="camera" >Kamera</string>
+    <string name="detect_date" >Detektuj datum</string>
+    <string name="save_article" >Sačuvaj</string>
+    <string name="article_name" >Naziv proizvoda</string>
+    <string name="pick_date" >Izaberi datum</string>
+    <string name="delete_article" >Izbriši proizvod</string>
+    <string name="send_daily_notifications" >Šalji dnevna obaveštenja</string>
+    <string name="article_list" >Lista proizvoda</string>
+    <string name="add_article" >Dodaj proizvod</string>
+    <string name="set_notification_time" >Podesi vreme slanja obaveštenja</string>
+    <string name="article_category" >Kategorija proizvoda</string>
+</resources>

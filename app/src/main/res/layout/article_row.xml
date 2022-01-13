@@ -10,6 +10,7 @@
     android:layout_marginTop="10dp">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -46,7 +47,7 @@
             android:layout_weight="0.15"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:contentDescription="@string/deleteArticle"
+            android:contentDescription="@string/delete_article"
             android:background="@null"
             android:scaleType="fitCenter"
             android:layout_gravity="end"

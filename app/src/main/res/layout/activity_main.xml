@@ -11,23 +11,10 @@
     android:padding="20dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/expiringSoonTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:text="@string/expiringSoon"
-        android:textSize="35sp"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ExpandableListView
         android:id="@+id/expandableListView"
         android:layout_width="377dp"
         android:layout_height="327dp"
-        ads:layout_constraintTop_toBottomOf="@+id/expiringSoonTextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -37,8 +24,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/adView"
+        ads:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -49,7 +35,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="#00FFFFFF"
-            android:contentDescription="@string/addArticle"
+            android:contentDescription="@string/add_article"
 
             android:padding="20dp"
             android:scaleType="fitCenter"
@@ -80,7 +66,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:background="#00FFFFFF"
-            android:contentDescription="@string/articleList"
+            android:contentDescription="@string/article_list"
 
             android:padding="20dp"
             android:scaleType="fitCenter"
@@ -88,15 +74,4 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        ads:adSize="BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

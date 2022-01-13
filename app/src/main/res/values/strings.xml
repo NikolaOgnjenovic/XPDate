@@ -1,24 +1,47 @@
 <resources>
-    <string name="app_name">Rok trajanja</string>
-    <string name="expiringSoon">Expiring soon:</string>
-    <string name="setNotificationTime">Set notification time</string>
-    <string name="addArticle">Add article</string>
-    <string name="articleList">Article list</string>
-    <string name="sendDailyNotifications">Send daily notifications</string>
-    <string name="deleteArticle">Delete article</string>
-    <string name="pickDate">Pick date</string>
-    <string name="articleName">Article name</string>
-    <string name="saveArticle">Save</string>
-    <string name="detectDate">Detect date</string>
+    <string name="app_name">Expiration Date</string>
+    <string name="set_notification_time">Set notification sending time</string>
+    <string name="add_article">Add article</string>
+    <string name="article_list">Article list</string>
+    <string name="send_daily_notifications">Send daily notifications</string>
+    <string name="delete_article">Delete article</string>
+    <string name="pick_date">Pick date</string>
+    <string name="article_name">Article name</string>
+    <string name="save_article">Save</string>
+    <string name="detect_date">Detect date</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="crop">Crop image</string>
-    <string name="detectedDate">Detected date:</string>
+    <string name="detected_date">Detected date:</string>
     <string name="settings">Settings</string>
-
+    <string name="change_language">Change language</string>
     <string name="already_expired">Already expired</string>
     <string name="expiration_less_than_7_days">Expiring soon: &lt;7 days left</string>
     <string name="expiration_less_than_14_days">Expiring later: &lt;14 days left</string>
     <string name="expiration_less_than_30_days">Good products: &lt;30 days left</string>
     <string name="expiration_more_than_30_days">Great products: &gt;30 days left</string>
+    <string name="article_category">Article category</string>
+    
+    <string-array name="default_categories">
+        <item>Dairy Goods</item>
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Meat</item>
+        <item>Fish</item>
+        <item>Groats</item>
+        <item>Frozen Goods</item>
+        <item>Spices</item>
+        <item>Bread</item>
+        <item>Confectionery</item>
+        <item>Coffee and tea</item>
+        <item>Sauces</item>
+        <item>Noodles and pasta</item>
+        <item>Pet food</item>
+        <item>Canned goods</item>
+        <item>Child care goods</item>
+        <item>Household products</item>
+        <item>Candy</item>
+        <item>Medicine</item>
+        <item>Other</item>
+    </string-array>
 </resources>

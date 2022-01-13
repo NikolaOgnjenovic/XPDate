@@ -18,20 +18,26 @@
         android:id="@+id/setNotificationTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/setNotificationTime" />
+        android:text="@string/set_notification_time" />
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/dailyNotificationSwitch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20sp"
 
-        android:text="@string/sendDailyNotifications"
+        android:text="@string/send_daily_notifications"
         android:textSize="22sp" />
 
-    <TextView
+    <!--<TextView
         android:id="@+id/notificationTimeText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22sp"
         android:textColor="@color/colorAccent" />
+    -->
+    <Button
+        android:id="@+id/changeLanguageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/change_language" />
 </LinearLayout>

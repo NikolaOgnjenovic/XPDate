@@ -11,11 +11,13 @@ import java.util.Date;
 public class Article implements Serializable {
     private final String articleName;
     private String articleExpirationDate;
+    private final String articleCategory;
 
     //Constructor
-    public Article(String articleNameArg, String articleExpirationDateArg) {
+    public Article(String articleNameArg, String articleExpirationDateArg, String articleCategoryArg) {
         articleName = articleNameArg;
         articleExpirationDate = articleExpirationDateArg;
+        articleCategory = articleCategoryArg;
     }
 
     //Returns the article name
@@ -34,7 +36,7 @@ public class Article implements Serializable {
 
     /**
      * @param datePattern: saved date pattern on the device for the formatter to use
-     * @return formatted date using sdf.parse(datePattern+"/yyyy") or null if an exception is caught
+     * @return String which holds a formatted date using sdf.parse(datePattern+"/yyyy") or null if an exception is caught
      */
     public Date getFormattedDate(String datePattern) {
         datePattern += "/yyyy";
@@ -49,7 +51,7 @@ public class Article implements Serializable {
 
     /**
      * @param context - context used for getting the datePattern from the ArticleList
-     * @return returns text which says when the article expires/has expired or if it's expiring today
+     * @return String which holds when the article expires/has expired or if it's expiring today
      */
     public String getExpirationText(Context context) {
         String expirationCounterText;
@@ -72,7 +74,7 @@ public class Article implements Serializable {
 
     /**
      * @param context context
-     * @return days left until the article expires
+     * @return milliseconds left until the article expires
      */
     //Returns the number of days between an article's expiration date and today's date
     @SuppressLint("SimpleDateFormat")
@@ -108,6 +110,11 @@ public class Article implements Serializable {
         return 0;
     }
 
+    /**
+     *
+     * @param context context
+     * @return days left until the article expires
+     */
     public int getDaysUntilExpiration(Context context) {
         long millisLeft = getMillisUntilExpiration(context);
         long daysLeft = millisLeft / 86400000;

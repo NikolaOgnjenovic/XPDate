@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -17,21 +18,30 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.SparseArray;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.joestelmach.natty.Parser;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -44,7 +54,7 @@ public class AddArticle extends AppCompatActivity {
     private static final int IMAGE_PICK_GALLERY_CODE = 1000;
     private static final int IMAGE_PICK_CAMERA_CODE = 1001;
 
-    private String[] cameraPermission, storagePermission; //Required permissions
+    private String[] cameraPermission, storagePermission;
 
     private CropImageView cropImageView;
     private TextView detectedDateTextView;
@@ -57,28 +67,88 @@ public class AddArticle extends AppCompatActivity {
 
     private Uri finalUri;
 
+    private EditText articleName, articleCategory;
+    private Button detectButton;
+    private ImageButton cameraButton, galleryButton, pickDateButton, cropButton, saveArticleButton;
+
+    private Spinner articleCategorySpinner;
+
+    private ArrayList<String> userCategoryList; //List of categories which the user has manually made
+
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_article);
 
-        //Reference the required buttons, text views, edit texts and permissions
-        ImageButton cameraButton = findViewById(R.id.cameraButton), galleryButton = findViewById(R.id.galleryButton), pickDateButton = findViewById(R.id.pickDateButton), cropButton = findViewById(R.id.cropButton), saveArticleButton = findViewById(R.id.saveButton);
-        Button detectButton = findViewById(R.id.detectButton);
+        Settings.loadLocale(this);
 
+        initialiseViews();
+        initialiseObjects();
+        initialiseListeners();
+    }
+
+    //Launch main activity on back pressed
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
+    private void initialiseViews() {
+        detectButton = findViewById(R.id.detectButton);
         detectedDateTextView = findViewById(R.id.detectedDateTextView);
         cropImageView = findViewById(R.id.cropImageView);
+        cameraButton = findViewById(R.id.cameraButton);
+        galleryButton = findViewById(R.id.galleryButton);
+        pickDateButton = findViewById(R.id.pickDateButton);
+        cropButton = findViewById(R.id.cropButton);
+        saveArticleButton = findViewById(R.id.saveButton);
+        articleName = findViewById(R.id.articleNameEditText);
+        articleCategory = findViewById(R.id.articleCategoryEditText);
+        articleCategorySpinner = findViewById(R.id.articleCategorySpinner);
+    }
 
+    private void initialiseObjects() {
         cameraPermission = new String[]{Manifest.permission.CAMERA};
         storagePermission = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-
-        final EditText articleName = findViewById(R.id.articleNameEditText);
-
         articleListClass = new ArticleList(this);
 
         //Get the date pattern
         datePattern = articleListClass.getDatePattern();
 
+        sharedPreferences = this.getSharedPreferences("Shared preferences", MODE_PRIVATE);
+
+        List<String> allCategories = Arrays.asList(this.getResources().getStringArray(R.array.default_categories));
+        loadCategoryList();
+        allCategories.addAll(userCategoryList);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allCategories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        articleCategorySpinner.setAdapter(adapter);
+        articleCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                articleCategory.setText(parentView.getItemAtPosition(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) { }
+        });
+    }
+
+    private void loadCategoryList() {
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("Categories", null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        userCategoryList = gson.fromJson(json, type);
+
+        if (userCategoryList == null) {
+            userCategoryList = new ArrayList<>();
+        }
+    }
+
+    private void initialiseListeners() {
         //Capture the image using the camera
         cameraButton.setOnClickListener(v -> {
             if (!hasCameraPermission()) {
@@ -113,26 +183,22 @@ public class AddArticle extends AppCompatActivity {
         //Add an article to the articles ArrayList
         saveArticleButton.setOnClickListener(v -> {
             if (detectedDateTextView.getText().toString().equals("Detected date: ")) {
-                Toast.makeText(AddArticle.this, "Please input the article's expiration date", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Please input the article's expiration date", Toast.LENGTH_LONG).show();
             } else if (articleName.getText().toString().equals("")) {
-                Toast.makeText(AddArticle.this, "Please input the article's name", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Please input the article's name", Toast.LENGTH_LONG).show();
+            } else if (articleCategory.getText().toString().equals("")) {
+                Toast.makeText(this, "Please input the article's category", Toast.LENGTH_LONG).show();
             } else {
                 try {
-                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15)));
+                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15), articleCategory.getText().toString()));
 
                     //Go back to the main activity after adding the article
-                    startActivity(new Intent(AddArticle.this, MainActivity.class));
+                    startActivity(new Intent(this, MainActivity.class));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-    }
-
-    //Launch main activity on back pressed
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(AddArticle.this, MainActivity.class));
     }
 
     private boolean hasStoragePermission() {
@@ -248,7 +314,7 @@ public class AddArticle extends AppCompatActivity {
 
         //Because int months are indexed starting at 0 (January is 0)
         //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
-        DatePickerDialog dpd = new DatePickerDialog(AddArticle.this, (view, year, month, day) -> {
+        DatePickerDialog dpd = new DatePickerDialog(this, (view, year, month, day) -> {
             month++; //Because int months are indexed starting at 0 (January is 0)
 
             //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
@@ -336,7 +402,7 @@ public class AddArticle extends AppCompatActivity {
             }
             finalDetectedDate = sdf.format(expirationDate);
 
-            String detectedDateText = getResources().getString(R.string.detectedDate) + " " + finalDetectedDate;
+            String detectedDateText = getResources().getString(R.string.detected_date) + " " + finalDetectedDate;
             detectedDateTextView.setText(detectedDateText);
         } catch (Exception e) {
             e.printStackTrace();

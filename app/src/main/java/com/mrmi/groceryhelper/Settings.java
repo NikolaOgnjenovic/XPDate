@@ -3,23 +3,29 @@ package com.mrmi.groceryhelper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
 import static android.app.AlertDialog.THEME_HOLO_DARK;
 
+import java.util.Locale;
+
 public class Settings extends AppCompatActivity {
 
     private ArticleList articleListClass;
     private SharedPreferences sharedPreferences;
-    private Button datePatternButton;
+    private Button datePatternButton, notificationTimePicker, changeLanguageButton;
     private String datePattern;
     private TimePickerDialog timePicker;
     private SwitchCompat dailyNotificationSwitch;
-    private Button notificationTimePicker;
     private TextView notificationTimeTextView;
 
     @Override
@@ -33,12 +39,12 @@ public class Settings extends AppCompatActivity {
 
         displaySelectedDatePattern();
         displayNotificationTime();
+    }
 
-        //Enable and disable daily notifications using the switch
-        dailyNotificationSwitch.setChecked(sharedPreferences.getBoolean("SendingDailyNotifications", true));
-        if (dailyNotificationSwitch.isChecked()) {
-            enableNotifications();
-        }
+    //Launch main activity on back pressed
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     private void initialiseViews() {
@@ -46,11 +52,18 @@ public class Settings extends AppCompatActivity {
         dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
         notificationTimePicker = findViewById(R.id.setNotificationTime);
         notificationTimeTextView = findViewById(R.id.notificationTimeText);
+        changeLanguageButton = findViewById(R.id.changeLanguageButton);
     }
 
     private void initialiseObjects() {
         articleListClass = new ArticleList(this);
         sharedPreferences = getSharedPreferences("Shared preferences", MODE_PRIVATE);
+
+        //Enable and disable daily notifications using the switch
+        dailyNotificationSwitch.setChecked(sharedPreferences.getBoolean("SendingDailyNotifications", true));
+        if (dailyNotificationSwitch.isChecked()) {
+            enableNotifications();
+        }
     }
 
     private void initialiseListeners() {
@@ -84,6 +97,10 @@ public class Settings extends AppCompatActivity {
                         }
                     }, hour, minutes, true);
             timePicker.show();
+        });
+
+        changeLanguageButton.setOnClickListener(v -> {
+            showChangeLanguageDialog();
         });
     }
 
@@ -134,5 +151,48 @@ public class Settings extends AppCompatActivity {
 
     private int getNotificationMinute() {
         return sharedPreferences.getInt("notificationMinute", 0);
+    }
+
+    private void showChangeLanguageDialog() {
+        final String[] languages = {"English", "Српски", "Srpski"};
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setTitle("Choose language");
+        alertDialogBuilder.setSingleChoiceItems(languages, -1, (dialogInterface, i) -> {
+            switch (i) {
+                case 0:
+                    setLocale(this, "en");
+                    recreate();
+                    break;
+                case 1:
+                    setLocale(this, "sr");
+                    recreate();
+                    break;
+                case 2:
+                    setLocale(this, "hr");
+                    recreate();
+                    break;
+            }
+
+            //Dismiss the alert dialog when the user selects a language
+            dialogInterface.dismiss();
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public static void setLocale(Context context, String selectedLocale) {
+        Locale locale = new Locale(selectedLocale);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        context.getResources().updateConfiguration(config, context.getResources().getDisplayMetrics());
+        context.getSharedPreferences("Shared preferences", MODE_PRIVATE).edit().putString("Selected_locale", selectedLocale).apply();
+    }
+
+    public static void loadLocale(Context context) {
+        SharedPreferences sharedPrefs = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
+        String locale = sharedPrefs.getString("Selected_locale", "sr");
+        Settings.setLocale(context, locale);
     }
 }
