@@ -1,5 +1,6 @@
 package com.mrmi.groceryhelper;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -15,7 +16,8 @@ import java.util.List;
 
 public class AllArticles extends AppCompatActivity {
 
-    private ArticleList articleList;
+    private ArticleList articleListClass;
+    private ArrayList<Article> articleList;
     private ExpandableListView expandableListView;
     private ExpandableListViewAdapter expandableListViewAdapter;
     private List<String> listDataGroup;
@@ -41,6 +43,26 @@ public class AllArticles extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         */
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+
+            AlertDialog alertDialog = new AlertDialog.Builder(AllArticles.this).create();
+            alertDialog.setTitle("Remove Reminder");
+            alertDialog.setMessage("Are you sure you want to delete this reminder");
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", (dialog, which) -> {
+
+                List<String> selectedGroupList = listDataChild.get(listDataGroup.get(groupPosition));
+                assert selectedGroupList != null;
+                selectedGroupList.remove(childPosition);
+                articleList.remove(childPosition);
+                articleListClass.saveArticles();
+
+                expandableListViewAdapter.notifyDataSetChanged();
+            });
+            alertDialog.show();
+
+
+            return false;
+        });
     }
 
     //Launch main activity on back pressed
@@ -54,7 +76,8 @@ public class AllArticles extends AppCompatActivity {
     }
 
     private void initialiseObjects() {
-        articleList = new ArticleList(AllArticles.this);
+        articleListClass = new ArticleList(AllArticles.this);
+        articleList = articleListClass.getArticleList();
 
         //Initialise the list of groups
         listDataGroup = new ArrayList<>();
@@ -71,15 +94,13 @@ public class AllArticles extends AppCompatActivity {
         String[] allCategories = this.getResources().getStringArray(R.array.category_names);
         listDataGroup.addAll(Arrays.asList(allCategories));
 
-        //Get all articles from the ArticleList class
-        ArrayList<Article> articles = articleList.getArticleList();
         //Loop through all articles and add them to their according lists (expiring soon, later etc.)
         ArrayList<Pair<String, ArrayList<String>>> listOfCategories = new ArrayList<>();
         for(String category : allCategories) {
             listOfCategories.add(new Pair<>(category, new ArrayList<>()));
         }
         List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
-        for (Article article : articles) {
+        for (Article article : articleList) {
             String articleName = article.getName();
 
             for(Pair<String, ArrayList<String>> category : listOfCategories) {
