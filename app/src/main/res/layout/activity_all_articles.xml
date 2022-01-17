@@ -7,16 +7,13 @@
     android:orientation="vertical"
     android:gravity="center_vertical"
     android:background="@color/colorPrimary"
-    android:padding="10dp">
+    android:padding="10sp">
 
     <ExpandableListView
         android:id="@+id/expandableListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/ArticleRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    -->
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10sp"
+        android:childDivider="@android:color/transparent"/>
 </LinearLayout>

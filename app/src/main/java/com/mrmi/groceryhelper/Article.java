@@ -60,7 +60,7 @@ public class Article implements Serializable {
         int daysLeft = getDaysUntilExpiration(context);
 
         if (daysLeft < -1) {
-            expirationCounterText = context.getString(R.string.expired) + " " + -1 * daysLeft + " " + context.getString(R.string.days_ago);
+            expirationCounterText = context.getString(R.string.expired) + " " + -1*daysLeft + " " + context.getString(R.string.days_ago);
         } else if (daysLeft == -1) {
             expirationCounterText = context.getString(R.string.expired_yesterday);
         } else if (daysLeft == 0) {
@@ -126,9 +126,9 @@ public class Article implements Serializable {
 
         currentDay.setTimeInMillis(currentDay.getTimeInMillis() + millisLeft);
 
-        if (currentDay.get(Calendar.DAY_OF_MONTH) == day + 1) {
+        /*if (currentDay.get(Calendar.DAY_OF_MONTH) == day + 1) {
             ++daysLeft;
-        }
+        }*/
 
         return (int) daysLeft;
     }

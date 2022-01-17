@@ -13,12 +13,17 @@
 
     <ExpandableListView
         android:id="@+id/expandableListView"
-        android:layout_width="377dp"
-        android:layout_height="327dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20sp"
+        ads:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10sp"
+        android:childDivider="@android:color/transparent"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"

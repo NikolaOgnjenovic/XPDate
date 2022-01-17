@@ -59,4 +59,5 @@
     <string name="days_ago">дана</string>
     <string name="days">дана</string>
     <string name="expires_in">Рок трајања истиче за</string>
+    <string name="expiring_today">Рок трајања истиче данас:</string>
 </resources>

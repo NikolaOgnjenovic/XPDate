@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private void initialiseListData() {
         //Add group data
         listDataGroup.add(getString(R.string.already_expired));
+        listDataGroup.add(getString(R.string.expiring_today));
         listDataGroup.add(getString(R.string.expiration_less_than_7_days));
         listDataGroup.add(getString(R.string.expiration_less_than_14_days));
         listDataGroup.add(getString(R.string.expiration_less_than_30_days));
@@ -94,13 +95,15 @@ public class MainActivity extends AppCompatActivity {
         //Get all articles from the ArticleList class
         ArrayList<Article> articles = articleList.getArticleList();
         //Loop through all articles and add them to their according lists (expiring soon, later etc.)
-        List<String> expiredList = new ArrayList<>(), soonList = new ArrayList<>(), laterList = new ArrayList<>(), goodList = new ArrayList<>(), greatList = new ArrayList<>();
+        List<String> expiredList = new ArrayList<>(), todayList = new ArrayList<>(), soonList = new ArrayList<>(), laterList = new ArrayList<>(), goodList = new ArrayList<>(), greatList = new ArrayList<>();
         for (Article article : articles) {
             int daysUntilExpiration = article.getDaysUntilExpiration(this);
             String articleName = article.getName();
 
-            if (daysUntilExpiration <= 0) {
+            if (daysUntilExpiration < 0) {
                 expiredList.add(articleName);
+            } else if (daysUntilExpiration == 0) {
+                todayList.add(articleName);
             } else if (daysUntilExpiration < 7) {
                 soonList.add(articleName);
             } else if (daysUntilExpiration < 14) {
@@ -114,10 +117,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Add child data
         listDataChild.put(listDataGroup.get(0), expiredList);
-        listDataChild.put(listDataGroup.get(1), soonList);
-        listDataChild.put(listDataGroup.get(2), laterList);
-        listDataChild.put(listDataGroup.get(3), goodList);
-        listDataChild.put(listDataGroup.get(4), greatList);
+        listDataChild.put(listDataGroup.get(1), todayList);
+        listDataChild.put(listDataGroup.get(2), soonList);
+        listDataChild.put(listDataGroup.get(3), laterList);
+        listDataChild.put(listDataGroup.get(4), goodList);
+        listDataChild.put(listDataGroup.get(5), greatList);
 
         //Notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();

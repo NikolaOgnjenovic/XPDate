@@ -45,6 +45,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AddArticle extends AppCompatActivity {
 
@@ -57,7 +59,7 @@ public class AddArticle extends AppCompatActivity {
     private String[] cameraPermission, storagePermission;
 
     private CropImageView cropImageView;
-    private TextView detectedDateTextView;
+    private TextView actualDetectedDateTextView;
 
     private Bitmap cropped; //Cropped image bitmap
 
@@ -98,8 +100,7 @@ public class AddArticle extends AppCompatActivity {
 
     private void initialiseViews() {
         detectButton = findViewById(R.id.detectButton);
-        detectedDateTextView = findViewById(R.id.detectedDateTextView);
-        detectedDateTextView.setText(R.string.detected_date);
+        actualDetectedDateTextView = findViewById(R.id.actualDetectedDateTextView);
         cropImageView = findViewById(R.id.cropImageView);
         cameraButton = findViewById(R.id.cameraButton);
         galleryButton = findViewById(R.id.galleryButton);
@@ -184,7 +185,8 @@ public class AddArticle extends AppCompatActivity {
 
         //Add an article to the articles ArrayList
         saveArticleButton.setOnClickListener(v -> {
-            if (detectedDateTextView.getText().toString().equals(getString((R.string.detected_date)))) {
+            //if (detectedDateTextView.getText().toString().equals(getString((R.string.detected_date)))) {
+            if(actualDetectedDateTextView.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.toast_select_article_expiration_date), Toast.LENGTH_LONG).show();
             } else if (articleName.getText().toString().equals("")) {
                 Toast.makeText(this, getString(R.string.toast_input_article_name), Toast.LENGTH_LONG).show();
@@ -195,8 +197,9 @@ public class AddArticle extends AppCompatActivity {
                     //Always save the english category value in local storage in order to simplify translation:
                     //Get the value in the category_values array which has the same index as the inputted category in the current locale
                     List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
+
                     String articleCategoryVal = categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf((articleCategory.getText().toString())));
-                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), detectedDateTextView.getText().toString().substring(15), articleCategoryVal));
+                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), actualDetectedDateTextView.getText().toString(), articleCategoryVal));
 
                     //Go back to the main activity after adding the article
                     startActivity(new Intent(this, MainActivity.class));
@@ -408,8 +411,7 @@ public class AddArticle extends AppCompatActivity {
             }
             finalDetectedDate = sdf.format(expirationDate);
 
-            String detectedDateText = getResources().getString(R.string.detected_date) + " " + finalDetectedDate;
-            detectedDateTextView.setText(detectedDateText);
+            actualDetectedDateTextView.setText(finalDetectedDate);
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, getString(R.string.toast_date_fail), Toast.LENGTH_SHORT).show();

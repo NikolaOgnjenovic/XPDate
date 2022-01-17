@@ -66,6 +66,18 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RelativeOverlap" />
 
+        <TextView
+            android:id="@+id/actualDetectedDateTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/detectedDateTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.508"
+            tools:ignore="RelativeOverlap" />
+
         <ImageButton
             android:id="@+id/pickDateButton"
             android:layout_width="64dp"
