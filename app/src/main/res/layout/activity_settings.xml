@@ -1,47 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".Settings"
-    android:orientation="vertical">
-
-    <Button
-        android:id="@+id/datePatternButton"
-        android:layout_width="wrap_content"
-        android:textColor="@color/textColor"
-        android:layout_height="wrap_content"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <Button
-        android:id="@+id/setNotificationTime"
-        android:layout_width="wrap_content"
-        android:textColor="@color/textColor"
-        android:layout_height="wrap_content"
-        android:text="@string/set_notification_time" />
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/dailyNotificationSwitch"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20sp"
-        android:textColor="@color/textColor"
-        android:text="@string/send_daily_notifications"
-        android:textSize="22sp" />
+    tools:context=".Settings">
 
     <TextView
-        android:id="@+id/notificationTimeText"
-        android:layout_width="match_parent"
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22sp"
+        android:padding="10sp"
+        android:text="@string/settings"
         android:textColor="@color/textColor"
-        android:text="@string/notification_time_info"/>
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/dateFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:padding="10sp"
+        android:text="@string/date_info"
+        android:gravity="center"
+        android:textColor="@color/textColor"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        android:layout_marginTop="50sp"/>
 
     <Button
+        android:padding="10sp"
+        android:id="@+id/datePatternButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dateFormat"
+        android:layout_marginTop="20sp"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/dailyNotificationSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20sp"
+        android:text="@string/send_daily_notifications"
+        android:textColor="@color/textColor"
+        android:textSize="22sp"
+        android:theme="@style/Switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/datePatternButton"
+        android:layout_marginTop="50sp"/>
+
+    <Button
+        android:padding="10sp"
+        android:id="@+id/setNotificationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/set_notification_time"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dailyNotificationSwitch"
+        android:layout_marginTop="20sp"/>
+
+    <Button
+        android:padding="10sp"
         android:id="@+id/changeLanguageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/change_language"
         android:textColor="@color/textColor"
-        android:text="@string/change_language" />
-</LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/setNotificationTime" />
+</androidx.constraintlayout.widget.ConstraintLayout>

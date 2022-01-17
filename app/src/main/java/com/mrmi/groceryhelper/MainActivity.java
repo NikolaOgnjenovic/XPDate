@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         //Loop through all articles and add them to their according lists (expiring soon, later etc.)
         List<String> expiredList = new ArrayList<>(), todayList = new ArrayList<>(), soonList = new ArrayList<>(), laterList = new ArrayList<>(), goodList = new ArrayList<>(), greatList = new ArrayList<>();
         for (Article article : articles) {
-            int daysUntilExpiration = article.getHoursUntilExpiration(this)/24;
+            long daysUntilExpiration = article.getHoursUntilExpiration(this)/24;
             String articleName = article.getName();
 
             if (daysUntilExpiration < 0) {

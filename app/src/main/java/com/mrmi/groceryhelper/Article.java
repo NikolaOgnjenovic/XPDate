@@ -59,9 +59,11 @@ public class Article implements Serializable {
      * @return String which holds when the article expires/has expired or if it's expiring today
      */
     public String getExpirationText(Context context) {
+        System.out.println("[MRMI]: Hours: " + getHoursUntilExpiration(context) + ", days: " + getHoursUntilExpiration(context)/24);
         String expirationCounterText;
 
-        int daysLeft = getHoursUntilExpiration(context) / 24, hoursMod = getHoursUntilExpiration(context) % 24;
+        long hours = getHoursUntilExpiration(context);
+        long daysLeft = hours / 24, hoursMod = hours % 24;
 
         if (daysLeft < -1) {
             expirationCounterText = context.getString(R.string.expired) + " " + -1 * daysLeft + " " + context.getString(R.string.days_ago);
@@ -69,9 +71,13 @@ public class Article implements Serializable {
             expirationCounterText = context.getString(R.string.expired_today);
         } else if (daysLeft < 1 && hoursMod < 0) {
             expirationCounterText = context.getString(R.string.expired_yesterday);
-        } else if (daysLeft <= 2) {
-            expirationCounterText = context.getString(R.string.expires_in) + " " + hoursMod + " " + context.getString(R.string.hours);
+        } else if (hours <= 48) {
+            expirationCounterText = context.getString(R.string.expires_in) + " " + hours + " " + context.getString(R.string.hours);
+        } else if (daysLeft %100 == 11){
+            //21 dan, 31 дан, 41 дан, 51 dan
+            expirationCounterText = context.getString(R.string.expires_in) + " " + (++daysLeft) + " " + context.getString(R.string.dan);
         } else {
+            //34 dana, 11 дана, 111 дана, 122 дана, 333 дана
             expirationCounterText = context.getString(R.string.expires_in) + " " + (++daysLeft) + " " + context.getString(R.string.days);
         }
 
@@ -120,7 +126,7 @@ public class Article implements Serializable {
      * @param context context
      * @return hours left until the article expires
      */
-    public int getHoursUntilExpiration(Context context) {
-        return (int) getMillisUntilExpiration(context) / 3600000;
+    public long getHoursUntilExpiration(Context context) {
+        return getMillisUntilExpiration(context) / 3600000;
     }
 }

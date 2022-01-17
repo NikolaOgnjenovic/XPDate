@@ -9,4 +9,11 @@
         <item name="android:fontFamily">@font/roboto</item>
     </style>
 
+    <style name="Switch" parent="Theme.AppCompat.NoActionBar">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#18E101</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/colorPrimaryDark</item>
+    </style>
 </resources>

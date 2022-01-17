@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Rok trajanja</string>
-    <string name="expiration_less_than_7_days" >Истичу ускоро (за  &lt;7 дана)</string>
-    <string name="expiration_less_than_14_days" >Истичу касније (за  &lt;14 дана)</string>
-    <string name="expiration_less_than_30_days" >Добри производи (за  &lt;30 дана)</string>
-    <string name="expiration_more_than_30_days" >Одлични производи (за  &gt;30 дана)</string>
+    <string name="expiration_less_than_7_days" >Истичу ускоро (истичу за  &lt;7 дана)</string>
+    <string name="expiration_less_than_14_days" >Истичу касније (истичу за  &lt;14 дана)</string>
+    <string name="expiration_less_than_30_days" >Добри производи (истичу за  &lt;30 дана)</string>
+    <string name="expiration_more_than_30_days" >Одлични производи (истичу за  &gt;30 дана)</string>
     <string name="already_expired" >Истекао рок трајања</string>
     <string name="set_notification_time" >Подеси време слања обавештења</string>
     <string name="add_article" >Додај производ</string>
     <string name="article_list" >Листа производа</string>
-    <string name="send_daily_notifications" >Шаљи дневна обавештења</string>
+    <string name="send_daily_notifications" >Добијање дневних обавештења</string>
     <string name="delete_article" >Избриши производ</string>
     <string name="pick_date" >Изабери датум</string>
     <string name="article_name" >Назив производа</string>
@@ -20,7 +20,7 @@
     <string name="crop" >Исеци слику</string>
     <string name="detected_date" >Детектован датум:</string>
     <string name="settings" >Подешавања</string>
-    <string name="change_language" >Промени језик:</string>
+    <string name="change_language" >Промени језик</string>
     <string name="article_category" >Категорија произовда</string>
     <string name="notification_time_info">Обавештења о броју производа којима је истекао или ускоро истиче рок се шаљу дневно у:</string>
 
@@ -66,4 +66,11 @@
     <string name="removal_title">Уклањање произовда</string>
     <string name="removal_message">Да ли сте сигурни да желите да уклоните овај производ из листе?</string>
     <string name="remove">Уклони</string>
+    <string name="date_info">Промени формат датума (дан/месец, месец/дан)</string>
+    <string name="main_menu_title">Рок трајања</string>
+    <string name="dan">дан</string>
+    <string name="notification_one_expired">1 производу је истекао рок трајања.</string>
+    <string name="notifications_multiple_expired">производа има истекао рок трајања.</string>
+    <string name="notification_one_today">1 производу рок трајања истиче данас.</string>
+    <string name="notification_multiple_today">производа има рок трајања који истиче данас.</string>
 </resources>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
@@ -11,25 +11,20 @@
     android:padding="20dp"
     tools:context=".MainActivity">
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="20sp"
-        ads:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10sp"
-        android:childDivider="@android:color/transparent"/>
+        android:padding="10sp"
+        android:text="@string/main_menu_title"
+        android:textColor="@color/textColor"
+        android:textSize="30sp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        ads:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -44,7 +39,7 @@
 
             android:padding="20dp"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@android:drawable/ic_menu_add"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,8 +70,17 @@
 
             android:padding="20dp"
             android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_view"
+            android:src="@android:drawable/ic_menu_sort_by_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:childDivider="@android:color/transparent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10sp"
+        android:layout_gravity="center"/>
+</LinearLayout>

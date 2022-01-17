@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import static android.app.AlertDialog.THEME_HOLO_DARK;
 
@@ -25,7 +25,7 @@ public class Settings extends AppCompatActivity {
     private String datePattern;
     private TimePickerDialog timePicker;
     private SwitchCompat dailyNotificationSwitch;
-    private TextView notificationTimeTextView;
+    private Toast toast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,6 @@ public class Settings extends AppCompatActivity {
         datePatternButton = findViewById(R.id.datePatternButton);
         dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
         notificationTimePicker = findViewById(R.id.setNotificationTime);
-        notificationTimeTextView = findViewById(R.id.notificationTimeText);
         changeLanguageButton = findViewById(R.id.changeLanguageButton);
     }
 
@@ -131,7 +130,7 @@ public class Settings extends AppCompatActivity {
     //Displays the time at which the daily notification is sent
     private void displayNotificationTime() {
         int notificationHour = getNotificationHour(), notificationMinute = getNotificationMinute();
-        String notificationTimeText = notificationTimeTextView.getText().toString() + " ";
+        String notificationTimeText = getString(R.string.notification_time_info) + " ";
         if (notificationHour < 10)
             notificationTimeText += "0";
         notificationTimeText += notificationHour + ":";
@@ -139,7 +138,8 @@ public class Settings extends AppCompatActivity {
             notificationTimeText += "0";
         notificationTimeText += notificationMinute;
 
-        notificationTimeTextView.setText(notificationTimeText);
+        showToast(notificationTimeText);
+        //notificationTimeTextView.setText(notificationTimeText);
     }
 
     private int getNotificationHour() {
@@ -165,7 +165,7 @@ public class Settings extends AppCompatActivity {
                     recreate();
                     break;
                 case 2:
-                    setLocale(this, "hr");
+                    setLocale(this, "bs");
                     recreate();
                     break;
             }
@@ -191,5 +191,13 @@ public class Settings extends AppCompatActivity {
         SharedPreferences sharedPrefs = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
         String locale = sharedPrefs.getString("Selected_locale", "sr");
         Settings.setLocale(context, locale);
+    }
+
+    private void showToast(String message) {
+        if (toast != null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

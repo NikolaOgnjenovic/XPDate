@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Expiration Date</string>
-    <string name="expiration_less_than_7_days" >Ističu uskoro  (za &lt;7 dana)</string>
-    <string name="expiration_less_than_14_days" >Ističu kasnije  (za &lt;14 dana)</string>
-    <string name="expiration_less_than_30_days" >Dobri proizvodi  (za &lt;30 dana)</string>
-    <string name="expiration_more_than_30_days" >Odlični proizvodi  (za &gt;30 dana)</string>
+    <string name="app_name">Rok trajanja</string>
+    <string name="expiration_less_than_7_days" >Ističu uskoro  (ističu za &lt;7 dana)</string>
+    <string name="expiration_less_than_14_days" >Ističu kasnije  (ističu za &lt;14 dana)</string>
+    <string name="expiration_less_than_30_days" >Dobri proizvodi  (ističu za &lt;30 dana)</string>
+    <string name="expiration_more_than_30_days" >Odlični proizvodi  (ističu za &gt;30 dana)</string>
     <string name="settings">Podešavanja</string>
     <string name="already_expired">Istekao rok trajanja</string>
-    <string name="change_language" >Promeni jezik</string>
+    <string name="change_language" >Promenite jezik</string>
     <string name="detected_date" >Detektovan datum:</string>
     <string name="crop" >Iseci sliku</string>
     <string name="gallery" >Galerija</string>
@@ -17,7 +17,7 @@
     <string name="article_name" >Naziv proizvoda</string>
     <string name="pick_date" >Izaberi datum</string>
     <string name="delete_article" >Izbriši proizvod</string>
-    <string name="send_daily_notifications" >Šalji dnevna obaveštenja</string>
+    <string name="send_daily_notifications" >Dobijanje dnevnih obaveštenja</string>
     <string name="article_list" >Lista proizvoda</string>
     <string name="add_article" >Dodaj proizvod</string>
     <string name="set_notification_time" >Podesi vreme slanja obaveštenja</string>
@@ -66,4 +66,11 @@
     <string name="removal_title">Uklanjanje proizvoda</string>
     <string name="removal_message">Da li ste sigurni da želite da uklonite ovaj proizvod iz liste?</string>
     <string name="remove">Ukloni</string>
+    <string name="date_info">Promeni format datuma (dan/mesec, mesec/dan)</string>
+    <string name="main_menu_title">Rok trajanja</string>
+    <string name="dan">dan</string>
+    <string name="notification_one_expired">1 proizvodu je istekao rok trajanja.</string>
+    <string name="notifications_multiple_expired">proizvoda ima istekao rok trajanja.</string>
+    <string name="notification_one_today">1 proizvodu rok trajanja ističe danas.</string>
+    <string name="notification_multiple_today">proizvoda ima rok trajanja koji ističe danas.</string>
 </resources>

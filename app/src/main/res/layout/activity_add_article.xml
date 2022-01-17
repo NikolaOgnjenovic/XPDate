@@ -22,40 +22,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/categoryLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText"
-        app:layout_constraintVertical_bias="0.0">
-
-        <Spinner
-            android:id="@+id/articleCategorySpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="start"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/articleCategoryTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText">
 
         <TextView
             android:id="@+id/articleCategoryTextView"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints="@string/article_category"
             android:hint="@string/article_category"
             android:padding="10dp"
             android:textColor="@color/textColor"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/articleCategorySpinner"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:gravity="start"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Spinner
+            android:id="@+id/articleCategorySpinner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="start"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/dateLayout"
@@ -97,15 +89,24 @@
 
     </LinearLayout>
 
-    <com.theartofdev.edmodo.cropper.CropImageView
-        android:id="@+id/cropImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="350sp"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="320sp"
         app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dateLayout"
-        app:layout_constraintVertical_bias="0.47000003" />
+        app:layout_constraintVertical_bias="0.5">
+
+        <com.theartofdev.edmodo.cropper.CropImageView
+            android:id="@+id/cropImageView"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:id="@+id/buttonLayout"

@@ -78,12 +78,12 @@ public class NotificationHandler extends Worker {
             }
         }
         if (expiringToday > 0) {
-            if (expiringToday == 1) alarmMessage += "1 article expires today.\n";
-            else alarmMessage = expiringToday + " articles are expiring today.\n";
+            if (expiringToday == 1) alarmMessage += context.getString(R.string.notification_one_today) + "\n";
+            else alarmMessage = expiringToday + " " + context.getString(R.string.notification_multiple_today) + "\n";
         }
         if (haveExpired > 0) {
-            if (haveExpired == 1) alarmMessage += "1 article has expired.";
-            else alarmMessage += haveExpired + " articles have expired.";
+            if (haveExpired == 1) alarmMessage += context.getString(R.string.notification_one_expired);
+            else alarmMessage += haveExpired + " " + context.getString(R.string.notifications_multiple_expired);
         }
 
         return alarmMessage;
@@ -99,8 +99,8 @@ public class NotificationHandler extends Worker {
 
         //Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                .setContentTitle("Grocery Helper")
+                .setSmallIcon(R.drawable.ic_stat_name)
+                //.setContentTitle(context.getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationMessage))
                 .setContentText(notificationMessage)
                 .setContentIntent(pendingIntent) //Launch Main Activity when the user taps the notification
