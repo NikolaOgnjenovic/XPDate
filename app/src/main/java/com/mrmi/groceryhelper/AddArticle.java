@@ -78,6 +78,8 @@ public class AddArticle extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
+    private Toast toast;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,11 +187,11 @@ public class AddArticle extends AppCompatActivity {
         saveArticleButton.setOnClickListener(v -> {
             //if (detectedDateTextView.getText().toString().equals(getString((R.string.detected_date)))) {
             if(actualDetectedDateTextView.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.toast_select_article_expiration_date), Toast.LENGTH_LONG).show();
+                showToast(getString(R.string.toast_select_article_expiration_date));
             } else if (articleName.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.toast_input_article_name), Toast.LENGTH_LONG).show();
+                showToast(getString(R.string.toast_input_article_name));
             } else if (articleCategory.getText().toString().equals("")) {
-                Toast.makeText(this, getString(R.string.toast_select_article_category), Toast.LENGTH_LONG).show();
+                showToast(getString(R.string.toast_select_article_category));
             } else {
                 try {
                     //Always save the english category value in local storage in order to simplify translation:
@@ -270,7 +272,7 @@ public class AddArticle extends AppCompatActivity {
                     if (cameraAccepted) {
                         takePictureUsingCamera();
                     } else {
-                        Toast.makeText(this, getString(R.string.toast_camera_denied), Toast.LENGTH_SHORT).show();
+                        showToast(getString(R.string.toast_camera_denied));
                     }
                 }
                 break;
@@ -281,7 +283,7 @@ public class AddArticle extends AppCompatActivity {
                     if (readStorageAccepted) {
                         pickImageFromGallery();
                     } else {
-                        Toast.makeText(this,  getString(R.string.toast_storage_denied), Toast.LENGTH_SHORT).show();
+                        showToast( getString(R.string.toast_storage_denied));
                     }
                 }
                 break;
@@ -322,7 +324,7 @@ public class AddArticle extends AppCompatActivity {
 
         //Because int months are indexed starting at 0 (January is 0)
         //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
-        DatePickerDialog dpd = new DatePickerDialog(this, (view, year, month, day) -> {
+        @SuppressLint("SimpleDateFormat") DatePickerDialog dpd = new DatePickerDialog(this, (view, year, month, day) -> {
             month++; //Because int months are indexed starting at 0 (January is 0)
 
             //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
@@ -333,9 +335,11 @@ public class AddArticle extends AppCompatActivity {
             if (month < 10)
                 monthStr = '0' + monthStr;
 
-            //DetectDateTextFromString(dayStr + "/" + monthStr + "/" + year);
-            detectDateTextFromString(monthStr + "/" + dayStr + "/" + year);
-            System.out.println("[MRMI]: Picked " + dayStr + "/" + monthStr + "/" + year);
+            String dateText = dayStr + "/" + monthStr + "/" + year;
+            if (datePattern.equals("MM/dd")) {
+                dateText = monthStr + "/" + dayStr + "/" + year;
+            }
+            actualDetectedDateTextView.setText(dateText);
         }, tDay, tMonth, tYear);
         dpd.show();
         dpd.updateDate(tYear, tMonth, tDay);
@@ -348,7 +352,7 @@ public class AddArticle extends AppCompatActivity {
             TextRecognizer recognizer = new TextRecognizer.Builder(getApplicationContext()).build();
 
             if (!recognizer.isOperational()) {
-                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+                showToast("Error");
             } else {
                 try {
                     Frame frame = new Frame.Builder().setBitmap(cropped).build();
@@ -383,7 +387,7 @@ public class AddArticle extends AppCompatActivity {
                     detectDateTextFromString(str.toString());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(this, getString(R.string.toast_date_fail), Toast.LENGTH_SHORT).show();
+                    showToast(getString(R.string.toast_date_fail));
                 }
             }
         }
@@ -413,7 +417,15 @@ public class AddArticle extends AppCompatActivity {
             actualDetectedDateTextView.setText(finalDetectedDate);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(this, getString(R.string.toast_date_fail), Toast.LENGTH_SHORT).show();
+            showToast(getString(R.string.toast_date_fail));
         }
+    }
+
+    private void showToast(String message) {
+        if (toast!= null) {
+            toast.cancel();
+        }
+        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

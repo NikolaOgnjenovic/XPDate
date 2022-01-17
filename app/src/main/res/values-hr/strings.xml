@@ -62,4 +62,8 @@
     <string name="expiring_today">Rok trajanja ističe danas:</string>
     <string name="hours">sati</string>
     <string name="expired_today">Rok trajanja je istekao danas</string>
+    <string name="all_articles">Svi proizvodi</string>
+    <string name="removal_title">Uklanjanje proizvoda</string>
+    <string name="removal_message">Da li ste sigurni da želite da uklonite ovaj proizvod iz liste?</string>
+    <string name="remove">Ukloni</string>
 </resources>

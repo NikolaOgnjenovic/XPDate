@@ -11,7 +11,6 @@ import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,9 +51,9 @@ public class AllArticles extends AppCompatActivity {
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
             AlertDialog alertDialog = new AlertDialog.Builder(AllArticles.this).create();
-            alertDialog.setTitle("Remove Reminder");
-            alertDialog.setMessage("Are you sure you want to delete this reminder");
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Delete", (dialog, which) -> {
+            alertDialog.setTitle(getString(R.string.removal_title));
+            alertDialog.setMessage(getString(R.string.removal_message));
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.remove), (dialog, which) -> {
 
                 List<String> selectedGroupList = listDataChild.get(listDataGroup.get(groupPosition));
                 assert selectedGroupList != null;

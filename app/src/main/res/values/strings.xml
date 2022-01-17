@@ -84,4 +84,8 @@
     <string name="expiring_today">Expiring today</string>
     <string name="hours">hours</string>
     <string name="expired_today">Expired today</string>
+    <string name="all_articles">All articles</string>
+    <string name="removal_title">Article removal</string>
+    <string name="removal_message">Are you sure that you want to remove this article from the list?</string>
+    <string name="remove">Remove</string>
 </resources>

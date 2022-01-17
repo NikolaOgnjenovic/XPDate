@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/drawable-ldpi/transparent_background_border.xml" value="0.3828125" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3828125" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
-        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_add_article.xml" value="0.36666666666666664" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/drawable/transparent_background_bordered_button.xml" value="0.3828125" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_add_article.xml" value="0.33" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_all_articles.xml" value="0.36666666666666664" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/Grocery Helper App/app/src/main/res/layout/activity_settings.xml" value="0.36666666666666664" />

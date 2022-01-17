@@ -71,7 +71,8 @@ public class ArticleList {
     }
 
     public void sortList(ArrayList<String> list) {
-        Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$");
+        //Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$");
+        Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\\d{4}$");
         Collections.sort(list, (o1, o2) -> {
             Matcher matcher1 = datePattern.matcher(o1);
             Matcher matcher2 = datePattern.matcher(o2);

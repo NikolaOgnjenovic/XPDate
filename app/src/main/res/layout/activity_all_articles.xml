@@ -9,6 +9,16 @@
     android:background="@color/colorPrimary"
     android:padding="10sp">
 
+    <TextView
+        android:id="@+id/notificationTimeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:gravity="center"
+        android:textColor="@color/textColor"
+        android:text="@string/all_articles"
+        android:padding="10sp"/>
+
     <ExpandableListView
         android:id="@+id/expandableListView"
         android:layout_width="match_parent"
