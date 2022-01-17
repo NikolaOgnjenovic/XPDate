@@ -31,7 +31,10 @@ public class Article implements Serializable {
     }
 
     //Returns the article category
-    public String getCategory() { return articleCategory; }
+    public String getCategory() {
+        return articleCategory;
+    }
+
     public void setExpirationDate(String str) {
         articleExpirationDate = str;
     }
@@ -57,16 +60,17 @@ public class Article implements Serializable {
      */
     public String getExpirationText(Context context) {
         String expirationCounterText;
-        int daysLeft = getDaysUntilExpiration(context);
+
+        int daysLeft = getHoursUntilExpiration(context) / 24, hoursMod = getHoursUntilExpiration(context) % 24;
 
         if (daysLeft < -1) {
-            expirationCounterText = context.getString(R.string.expired) + " " + -1*daysLeft + " " + context.getString(R.string.days_ago);
-        } else if (daysLeft == -1) {
+            expirationCounterText = context.getString(R.string.expired) + " " + -1 * daysLeft + " " + context.getString(R.string.days_ago);
+        } else if (daysLeft == 0 && hoursMod < 0) {
+            expirationCounterText = context.getString(R.string.expired_today);
+        } else if (daysLeft < 1 && hoursMod < 0) {
             expirationCounterText = context.getString(R.string.expired_yesterday);
-        } else if (daysLeft == 0) {
-            expirationCounterText = context.getString(R.string.expires_today);
-        } else if (daysLeft == 1) {
-            expirationCounterText = context.getString(R.string.expires_tomorrow);
+        } else if (daysLeft <= 2) {
+            expirationCounterText = context.getString(R.string.expires_in) + " " + hoursMod + " " + context.getString(R.string.hours);
         } else {
             expirationCounterText = context.getString(R.string.expires_in) + " " + (++daysLeft) + " " + context.getString(R.string.days);
         }
@@ -113,23 +117,10 @@ public class Article implements Serializable {
     }
 
     /**
-     *
      * @param context context
-     * @return days left until the article expires
+     * @return hours left until the article expires
      */
-    public int getDaysUntilExpiration(Context context) {
-        long millisLeft = getMillisUntilExpiration(context);
-        long daysLeft = millisLeft / 86400000;
-
-        Calendar currentDay = Calendar.getInstance();
-        int day = currentDay.get(Calendar.DAY_OF_MONTH);
-
-        currentDay.setTimeInMillis(currentDay.getTimeInMillis() + millisLeft);
-
-        /*if (currentDay.get(Calendar.DAY_OF_MONTH) == day + 1) {
-            ++daysLeft;
-        }*/
-
-        return (int) daysLeft;
+    public int getHoursUntilExpiration(Context context) {
+        return (int) getMillisUntilExpiration(context) / 3600000;
     }
 }

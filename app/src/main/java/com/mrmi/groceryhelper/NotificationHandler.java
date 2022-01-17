@@ -67,7 +67,7 @@ public class NotificationHandler extends Worker {
 
         long currentArticleDaysLeft;
         for (Article article : articleList) {
-            currentArticleDaysLeft = article.getDaysUntilExpiration(context);
+            currentArticleDaysLeft = article.getHoursUntilExpiration(context)/24;
 
             System.out.println("[MRMI]: Article: " + article.getName() + " days left: " + currentArticleDaysLeft);
 

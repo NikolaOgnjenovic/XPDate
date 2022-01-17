@@ -45,8 +45,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class AddArticle extends AppCompatActivity {
 
@@ -235,6 +233,7 @@ public class AddArticle extends AppCompatActivity {
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private void takePictureUsingCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {

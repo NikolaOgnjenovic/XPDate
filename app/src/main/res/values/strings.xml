@@ -82,4 +82,6 @@
     <string name="expires_in">Expires in</string>
     <string name="days">days</string>
     <string name="expiring_today">Expiring today</string>
+    <string name="hours">hours</string>
+    <string name="expired_today">Expired today</string>
 </resources>

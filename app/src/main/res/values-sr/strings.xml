@@ -60,4 +60,6 @@
     <string name="days">дана</string>
     <string name="expires_in">Рок трајања истиче за</string>
     <string name="expiring_today">Рок трајања истиче данас:</string>
+    <string name="hours">сати</string>
+    <string name="expired_today">Рок трајања је истекао данас</string>
 </resources>

@@ -60,4 +60,6 @@
     <string name="days">dana</string>
     <string name="expires_in">Rok trajanja ističe za</string>
     <string name="expiring_today">Rok trajanja ističe danas:</string>
+    <string name="hours">sati</string>
+    <string name="expired_today">Rok trajanja je istekao danas</string>
 </resources>
