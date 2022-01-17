@@ -131,7 +131,7 @@ public class Settings extends AppCompatActivity {
     //Displays the time at which the daily notification is sent
     private void displayNotificationTime() {
         int notificationHour = getNotificationHour(), notificationMinute = getNotificationMinute();
-        String notificationTimeText = "Sending daily notifications at ";
+        String notificationTimeText = notificationTimeTextView.getText().toString() + " ";
         if (notificationHour < 10)
             notificationTimeText += "0";
         notificationTimeText += notificationHour + ":";

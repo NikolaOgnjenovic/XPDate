@@ -6,13 +6,14 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="20sp"
+    android:background="@color/colorPrimaryDark"
     app:cardCornerRadius="14sp">
     <TextView
         android:textAlignment="center"
         android:id="@+id/categoryGroupTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/textColor"
         android:textSize="22sp"
         android:padding="6sp"/>
 </androidx.cardview.widget.CardView>
