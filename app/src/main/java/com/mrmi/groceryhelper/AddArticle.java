@@ -128,15 +128,6 @@ public class AddArticle extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allCategories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         articleCategorySpinner.setAdapter(adapter);
-        articleCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                //articleCategory.setText(parentView.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) { }
-        });
     }
 
     private void loadCategoryList() {
@@ -181,6 +172,18 @@ public class AddArticle extends AppCompatActivity {
 
         //Detects text from the image
         detectButton.setOnClickListener(v -> detectTextFromImage());
+
+        articleCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textColor));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         //Add an article to the articles ArrayList
         saveArticleButton.setOnClickListener(v -> {
@@ -324,7 +327,7 @@ public class AddArticle extends AppCompatActivity {
 
         //Because int months are indexed starting at 0 (January is 0)
         //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly
-        @SuppressLint("SimpleDateFormat") DatePickerDialog dpd = new DatePickerDialog(this, (view, year, month, day) -> {
+        @SuppressLint("SimpleDateFormat") DatePickerDialog dpd = new DatePickerDialog(this, R.style.DialogTheme, (view, year, month, day) -> {
             month++; //Because int months are indexed starting at 0 (January is 0)
 
             //Add zeroes if necessary to month and day values so the function DetectDateTextFromString() works properly

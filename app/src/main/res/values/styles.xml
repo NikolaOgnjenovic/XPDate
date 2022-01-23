@@ -6,14 +6,31 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:fontFamily">@font/opensans</item>
+        <item name="android:statusBarColor">@color/transparent</item>
     </style>
 
-    <style name="Switch" parent="Theme.AppCompat.NoActionBar">
-        <!-- active thumb & track color (30% transparency) -->
-        <item name="colorControlActivated">#18E101</item>
+    <style name="SwitchTheme" parent="Theme.AppCompat.Light">
+        <!-- colorPrimary is used for the default action bar background -->
+        <item name="colorPrimary">@color/lightBrown</item>
 
-        <!-- inactive thumb color -->
-        <item name="colorSwitchThumbNormal">@color/colorPrimaryDark</item>
+        <!-- colorPrimaryDark is used for the status bar -->
+        <item name="colorPrimaryDark">@color/lightBrown</item>
+
+        <!-- colorAccent is used as the default value for colorControlActivated,
+             which is used to tint widgets -->
+        <item name="colorAccent">@color/darkBrown</item>
+
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="SpinnerStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textAlignment">center</item>
     </style>
 </resources>

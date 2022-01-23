@@ -5,10 +5,9 @@
     <string name="expiration_less_than_14_days" >Ističu kasnije  (ističu za &lt;14 dana)</string>
     <string name="expiration_less_than_30_days" >Dobri proizvodi  (ističu za &lt;30 dana)</string>
     <string name="expiration_more_than_30_days" >Odlični proizvodi  (ističu za &gt;30 dana)</string>
-    <string name="settings">Podešavanja aplikacije</string>
+    <string name="settings">Podešavanja</string>
     <string name="already_expired">Istekao rok trajanja</string>
     <string name="change_language" >Promeni jezik</string>
-    <string name="detected_date" >Prepoznat datum:</string>
     <string name="crop" >Iseci sliku</string>
     <string name="gallery" >Galerija</string>
     <string name="camera" >Kamera</string>
@@ -17,29 +16,26 @@
     <string name="article_name" >Naziv proizvoda</string>
     <string name="pick_date" >Izaberi datum</string>
     <string name="delete_article" >Izbriši proizvod</string>
-    <string name="send_daily_notifications" >Dobijanje dnevnih obaveštenja</string>
+    <string name="send_daily_notifications" >Dnevna obaveštenja</string>
     <string name="article_list" >Pogledaj sve proizvode</string>
     <string name="add_article" >Dodaj proizvod</string>
-    <string name="set_notification_time" >Podesi vreme slanja obaveštenja</string>
+    <string name="set_notification_time" >Vreme obaveštenja</string>
     <string name="article_category" >Kategorija proizvoda</string>
     <string name="notification_time_info">Obaveštenja o broju proizvoda kojima je istekao ili uskoro ističe rok se šalju dnevno u:</string>
 
     <string-array name="category_names">
-        <item>Mlečni proizvodi</item>
-        <item>Povrće</item>
-        <item>Voće</item>
         <item>Meso</item>
-        <item>Riba</item>
+        <item>Mlečni proizvodi</item>
+        <item>Voće</item>
+        <item>Povrće</item>
         <item>Žitarice</item>
         <item>Zamrznuti proizvodi</item>
-        <item>Začini</item>
         <item>Hleb</item>
         <item>Poslastice</item>
-        <item>Kafa i čaj</item>
         <item>Sosevi</item>
+        <item>Konzervirana hrana</item>
         <item>Rezanci i testenina</item>
         <item>Hrana za ljubimce</item>
-        <item>Konzerve</item>
         <item>Proizvodi za negu dece</item>
         <item>Proizvodi za domaćinstvo</item>
         <item>Lekovi</item>
@@ -65,7 +61,7 @@
     <string name="removal_title">Uklanjanje proizvoda</string>
     <string name="removal_message">Da li ste sigurni da želite da uklonite ovaj proizvod iz liste?</string>
     <string name="remove">Ukloni</string>
-    <string name="date_info">Promeni format datuma (dan/mesec, mesec/dan)</string>
+    <string name="date_info">Promeni format datuma</string>
     <string name="main_menu_title">Rok trajanja</string>
     <string name="dan">dan</string>
     <string name="notification_one_expired">1 proizvodu je istekao rok trajanja.</string>
@@ -76,6 +72,6 @@
     <string name="month_day_pattern">mesec / dan</string>
     <string name="day_month_pattern">dan / mesec</string>
     <string name="choose_language">Izaberite jezik</string>
-    <string name="ok">U REDU</string>
-    <string name="cancel">OTKAŽI</string>
+    <string name="ok">U redu</string>
+    <string name="cancel">Otkaži</string>
 </resources>

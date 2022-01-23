@@ -12,12 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import static android.app.AlertDialog.THEME_DEVICE_DEFAULT_DARK;
 import static android.app.AlertDialog.THEME_HOLO_DARK;
-import static android.app.AlertDialog.THEME_TRADITIONAL;
 
 import java.util.Locale;
 
@@ -29,7 +24,6 @@ public class Settings extends AppCompatActivity {
     private String datePattern;
     private TimePickerDialog timePicker;
     private SwitchCompat dailyNotificationSwitch;
-    private TextView notificationTimeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,6 @@ public class Settings extends AppCompatActivity {
         dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
         notificationTimePicker = findViewById(R.id.setNotificationTime);
         changeLanguageButton = findViewById(R.id.changeLanguageButton);
-        notificationTimeTextView = findViewById(R.id.notificationTimeTextView);
     }
 
     private void initialiseObjects() {
@@ -111,7 +104,8 @@ public class Settings extends AppCompatActivity {
     private void displaySelectedDatePattern() {
         datePattern = articleListClass.getDatePattern();
 
-        datePatternButton.setText(patternLocale());
+        String buttonText = getString(R.string.date_info) + "\n" + patternLocale();
+        datePatternButton.setText(buttonText);
 
         System.out.println("[MRMI]: Loaded date pattern: " + datePattern);
     }
@@ -126,7 +120,8 @@ public class Settings extends AppCompatActivity {
         }
 
         //Display and set the new date pattern
-        datePatternButton.setText(patternLocale());
+        String buttonText = getString(R.string.date_info) + "\n" + patternLocale();
+        datePatternButton.setText(buttonText);
         articleListClass.setDatePattern(datePattern);
     }
 
@@ -143,7 +138,8 @@ public class Settings extends AppCompatActivity {
     //Displays the time at which the daily notification is sent
     private void displayNotificationTime() {
         int notificationHour = getNotificationHour(), notificationMinute = getNotificationMinute();
-        String notificationTimeText = getString(R.string.notification_time_info) + " ";
+        String notificationTimeText = "";
+
         if (notificationHour < 10)
             notificationTimeText += "0";
         notificationTimeText += notificationHour + ":";
@@ -151,7 +147,8 @@ public class Settings extends AppCompatActivity {
             notificationTimeText += "0";
         notificationTimeText += notificationMinute;
 
-        notificationTimeTextView.setText(notificationTimeText);
+        String notificationButtonText = getString(R.string.set_notification_time) + "\n(" + notificationTimeText + ")";
+        notificationTimePicker.setText(notificationButtonText);
     }
 
     private int getNotificationHour() {
@@ -164,7 +161,7 @@ public class Settings extends AppCompatActivity {
 
     private void showChangeLanguageDialog() {
         final String[] languages = {"English", "Српски", "Srpski"};
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.DialogTheme);
         alertDialogBuilder.setTitle(getString(R.string.choose_language));
         alertDialogBuilder.setSingleChoiceItems(languages, -1, (dialogInterface, i) -> {
             switch (i) {
@@ -201,7 +198,7 @@ public class Settings extends AppCompatActivity {
 
     public static void loadLocale(Context context) {
         SharedPreferences sharedPrefs = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
-        String locale = sharedPrefs.getString("Selected_locale", "sr");
+        String locale = sharedPrefs.getString("Selected_locale", "bs");
         Settings.setLocale(context, locale);
     }
 }

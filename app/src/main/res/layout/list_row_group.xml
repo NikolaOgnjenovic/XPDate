@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_margin="20sp"
-    android:background="@color/colorPrimaryDark"
-    app:cardCornerRadius="14sp">
+    android:orientation="horizontal">
+
     <TextView
-        android:textAlignment="center"
         android:id="@+id/categoryGroupTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button"
+        android:padding="10sp"
         android:textColor="@color/textColor"
-        android:textSize="18sp"
-        android:padding="6sp"/>
-</androidx.cardview.widget.CardView>
+        android:textSize="20sp" />
+</LinearLayout>

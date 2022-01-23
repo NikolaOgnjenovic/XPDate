@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import androidx.core.content.res.ResourcesCompat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +52,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         TextView textViewChild = convertView.findViewById(R.id.textViewChild);
         textViewChild.setText(childText);
-
+        textViewChild.setTypeface(ResourcesCompat.getFont(context, R.font.opensans));
         return convertView;
     }
 
@@ -84,9 +87,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         }
 
         TextView textViewGroup = convertView.findViewById(R.id.categoryGroupTextView);
-        textViewGroup.setTypeface(null, Typeface.BOLD);
         textViewGroup.setText(headerTitle);
-
+        textViewGroup.setTypeface(ResourcesCompat.getFont(context, R.font.opensans_bold));
         return convertView;
     }
 

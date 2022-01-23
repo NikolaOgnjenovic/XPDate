@@ -12,6 +12,7 @@
     <TextView
         android:id="@+id/notificationTimeText"
         android:layout_width="match_parent"
+        android:fontFamily="@font/opensans_bold"
         android:layout_height="wrap_content"
         android:textSize="35sp"
         android:gravity="center"
@@ -24,6 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
+        android:groupIndicator="@null"
         android:dividerHeight="10sp"
         android:childDivider="@android:color/transparent"/>
 </LinearLayout>

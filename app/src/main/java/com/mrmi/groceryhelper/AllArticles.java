@@ -50,7 +50,7 @@ public class AllArticles extends AppCompatActivity {
     private void initialiseListeners() {
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
-            AlertDialog alertDialog = new AlertDialog.Builder(AllArticles.this).create();
+            AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme).create();
             alertDialog.setTitle(getString(R.string.removal_title));
             alertDialog.setMessage(getString(R.string.removal_message));
             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.remove), (dialog, which) -> {
@@ -64,7 +64,6 @@ public class AllArticles extends AppCompatActivity {
                 expandableListViewAdapter.notifyDataSetChanged();
             });
             alertDialog.show();
-
 
             return false;
         });

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 
@@ -18,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListViewAdapter expandableListViewAdapter;
     private List<String> listDataGroup;
     private HashMap<String, List<String>> listDataChild;
-    private ImageButton addArticleButton, settingsButton, viewAllArticlesButton;
+    private View addArticleView, settingsView, allArticlesView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseViews() {
-        addArticleButton = findViewById(R.id.addArticleButton);
-        settingsButton = findViewById(R.id.settingsButton);
-        viewAllArticlesButton = findViewById(R.id.viewAllArticlesButton);
+        addArticleView = findViewById(R.id.addView);
+        settingsView = findViewById(R.id.settingsView);
+        allArticlesView = findViewById(R.id.allArticlesView);
         expandableListView = findViewById(R.id.expandableListView);
     }
 
@@ -68,16 +69,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseListeners() {
-        addArticleButton.setOnClickListener(v -> {
+        addArticleView.setOnClickListener(v -> {
             Intent intent = new Intent(this, AddArticle.class);
             startActivity(intent);
         });
 
-        settingsButton.setOnClickListener(v -> {
+        settingsView.setOnClickListener(v -> {
             Intent intent = new Intent(this, Settings.class);
             startActivity(intent);
         });
-        viewAllArticlesButton.setOnClickListener(v -> {
+        allArticlesView.setOnClickListener(v -> {
             Intent intent = new Intent(this, AllArticles.class);
             startActivity(intent);
         });
