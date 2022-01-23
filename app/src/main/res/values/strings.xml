@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Rok trajanja</string>
     <string name="set_notification_time">Set notification sending time</string>
-    <string name="add_article">Add article</string>
-    <string name="article_list">Article list</string>
+    <string name="add_article">Add an article</string>
+    <string name="article_list">View all articles</string>
     <string name="send_daily_notifications">Get daily notifications</string>
     <string name="delete_article">Delete article</string>
     <string name="pick_date">Pick date</string>
@@ -13,13 +13,13 @@
     <string name="gallery">Gallery</string>
     <string name="crop">Crop image</string>
     <string name="detected_date">Detected date:</string>
-    <string name="settings">Settings</string>
+    <string name="settings">App settings</string>
     <string name="change_language">Change language</string>
     <string name="already_expired">Already expired</string>
-    <string name="expiration_less_than_7_days">Expiring soon: (expiring in &lt;7 days)</string>
-    <string name="expiration_less_than_14_days">Expiring later: (expiring in &lt;14 days)</string>
-    <string name="expiration_less_than_30_days">Good products: (expiring in &lt;30 days)</string>
-    <string name="expiration_more_than_30_days">Great products: (expiring in &gt;30 days)</string>
+    <string name="expiration_less_than_7_days">Expiring soon (expiring in &lt;7 days)</string>
+    <string name="expiration_less_than_14_days">Expiring later (expiring in &lt;14 days)</string>
+    <string name="expiration_less_than_30_days">Good products (expiring in &lt;30 days)</string>
+    <string name="expiration_more_than_30_days">Great products (expiring in &gt;30 days)</string>
     <string name="article_category">Article category</string>
     <string name="notification_time_info">Notifications about how many articles have expired or expire soon will be sent daily at:</string>
 
@@ -81,7 +81,6 @@
     <string name="days_ago">days ago</string>
     <string name="expires_in">Expires in</string>
     <string name="days">days</string>
-    <string name="expiring_today">Expiring today</string>
     <string name="hours">hours</string>
     <string name="expired_today">Expired today</string>
     <string name="all_articles">All articles</string>
@@ -95,4 +94,10 @@
     <string name="notifications_multiple_expired">articles have expired.</string>
     <string name="notification_one_today">1 article expires today.</string>
     <string name="notification_multiple_today">articles are expiring today.</string>
+    <string name="category_info">Article category</string>
+    <string name="month_day_pattern">month / day</string>
+    <string name="day_month_pattern">day / month</string>
+    <string name="choose_language">Choose a language</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 </resources>

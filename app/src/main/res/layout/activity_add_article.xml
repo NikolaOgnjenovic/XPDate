@@ -26,36 +26,35 @@
         android:id="@+id/categoryLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText">
+        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/articleCategoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autofillHints="@string/article_category"
-            android:hint="@string/article_category"
-            android:padding="10dp"
+            android:text="@string/article_category"
+            android:padding="5sp"
             android:textColor="@color/textColor"
-            android:textSize="20sp"
-            android:gravity="start"/>
-
+            android:textSize="20sp" />
         <Spinner
             android:id="@+id/articleCategorySpinner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="start"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginTop="5sp"
         android:id="@+id/dateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:weightSum="5"
-        android:padding="10sp"
+        android:padding="5sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/categoryLayout">
@@ -76,7 +75,7 @@
             android:layout_weight="4.2"
             android:padding="10sp"
             android:textColor="@color/textColor"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <ImageButton
             android:id="@+id/pickDateButton"
@@ -187,7 +186,7 @@
             android:background="@drawable/transparent_background_bordered_button"
             android:text="@string/detect_date"
             android:textColor="@color/textColor"
-            android:textSize="20sp"
+            android:textSize="16sp"
 
             android:layout_margin="5sp"/>
     </LinearLayout>

@@ -6,14 +6,18 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import static android.app.AlertDialog.THEME_DEVICE_DEFAULT_DARK;
 import static android.app.AlertDialog.THEME_HOLO_DARK;
+import static android.app.AlertDialog.THEME_TRADITIONAL;
 
 import java.util.Locale;
 
@@ -25,7 +29,7 @@ public class Settings extends AppCompatActivity {
     private String datePattern;
     private TimePickerDialog timePicker;
     private SwitchCompat dailyNotificationSwitch;
-    private Toast toast;
+    private TextView notificationTimeTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,7 @@ public class Settings extends AppCompatActivity {
         dailyNotificationSwitch = findViewById(R.id.dailyNotificationSwitch);
         notificationTimePicker = findViewById(R.id.setNotificationTime);
         changeLanguageButton = findViewById(R.id.changeLanguageButton);
+        notificationTimeTextView = findViewById(R.id.notificationTimeTextView);
     }
 
     private void initialiseObjects() {
@@ -94,6 +99,8 @@ public class Settings extends AppCompatActivity {
                             enableNotifications();
                         }
                     }, hour, minutes, true);
+            timePicker.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), timePicker);
+            timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), timePicker);
             timePicker.show();
         });
 
@@ -104,7 +111,7 @@ public class Settings extends AppCompatActivity {
     private void displaySelectedDatePattern() {
         datePattern = articleListClass.getDatePattern();
 
-        datePatternButton.setText(datePattern);
+        datePatternButton.setText(patternLocale());
 
         System.out.println("[MRMI]: Loaded date pattern: " + datePattern);
     }
@@ -119,8 +126,14 @@ public class Settings extends AppCompatActivity {
         }
 
         //Display and set the new date pattern
-        datePatternButton.setText(datePattern);
+        datePatternButton.setText(patternLocale());
         articleListClass.setDatePattern(datePattern);
+    }
+
+    private String patternLocale() {
+        if(datePattern.equals("MM/dd"))
+            return getString(R.string.month_day_pattern);
+        return getString(R.string.day_month_pattern);
     }
 
     private void enableNotifications() {
@@ -138,8 +151,7 @@ public class Settings extends AppCompatActivity {
             notificationTimeText += "0";
         notificationTimeText += notificationMinute;
 
-        showToast(notificationTimeText);
-        //notificationTimeTextView.setText(notificationTimeText);
+        notificationTimeTextView.setText(notificationTimeText);
     }
 
     private int getNotificationHour() {
@@ -153,7 +165,7 @@ public class Settings extends AppCompatActivity {
     private void showChangeLanguageDialog() {
         final String[] languages = {"English", "Српски", "Srpski"};
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-        alertDialogBuilder.setTitle("Choose language");
+        alertDialogBuilder.setTitle(getString(R.string.choose_language));
         alertDialogBuilder.setSingleChoiceItems(languages, -1, (dialogInterface, i) -> {
             switch (i) {
                 case 0:
@@ -191,13 +203,5 @@ public class Settings extends AppCompatActivity {
         SharedPreferences sharedPrefs = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
         String locale = sharedPrefs.getString("Selected_locale", "sr");
         Settings.setLocale(context, locale);
-    }
-
-    private void showToast(String message) {
-        if (toast != null) {
-            toast.cancel();
-        }
-        toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-        toast.show();
     }
 }

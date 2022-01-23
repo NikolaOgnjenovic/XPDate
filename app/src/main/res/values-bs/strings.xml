@@ -5,20 +5,20 @@
     <string name="expiration_less_than_14_days" >Ističu kasnije  (ističu za &lt;14 dana)</string>
     <string name="expiration_less_than_30_days" >Dobri proizvodi  (ističu za &lt;30 dana)</string>
     <string name="expiration_more_than_30_days" >Odlični proizvodi  (ističu za &gt;30 dana)</string>
-    <string name="settings">Podešavanja</string>
+    <string name="settings">Podešavanja aplikacije</string>
     <string name="already_expired">Istekao rok trajanja</string>
-    <string name="change_language" >Promenite jezik</string>
-    <string name="detected_date" >Detektovan datum:</string>
+    <string name="change_language" >Promeni jezik</string>
+    <string name="detected_date" >Prepoznat datum:</string>
     <string name="crop" >Iseci sliku</string>
     <string name="gallery" >Galerija</string>
     <string name="camera" >Kamera</string>
-    <string name="detect_date" >Detektuj datum</string>
+    <string name="detect_date" >Prepoznaj datum</string>
     <string name="save_article" >Sačuvaj</string>
     <string name="article_name" >Naziv proizvoda</string>
     <string name="pick_date" >Izaberi datum</string>
     <string name="delete_article" >Izbriši proizvod</string>
     <string name="send_daily_notifications" >Dobijanje dnevnih obaveštenja</string>
-    <string name="article_list" >Lista proizvoda</string>
+    <string name="article_list" >Pogledaj sve proizvode</string>
     <string name="add_article" >Dodaj proizvod</string>
     <string name="set_notification_time" >Podesi vreme slanja obaveštenja</string>
     <string name="article_category" >Kategorija proizvoda</string>
@@ -46,7 +46,7 @@
         <item>Ostalo</item>
     </string-array>
     <string name="toast_input_article_name">Molimo Vas da unesete naziv proizvoda</string>
-    <string name="toast_select_article_category">Molimo Vas da izaberete kategoriju proizvoda</string>
+    <string name="toast_select_article_category">Molimo Vas da izaberete vrstu proizvoda</string>
     <string name="toast_select_article_expiration_date">Molimo Vas da izaberete datum za rok trajanja proizvoda</string>
     <string name="toast_camera_denied">Odbijena dozvola za korišćenje kamere</string>
     <string name="toast_date_fail">Neuspeh pri detektovanju datuma</string>
@@ -59,7 +59,6 @@
     <string name="expires_today">Rok trajanja ističe danas</string>
     <string name="days">dana</string>
     <string name="expires_in">Rok trajanja ističe za</string>
-    <string name="expiring_today">Rok trajanja ističe danas:</string>
     <string name="hours">sati</string>
     <string name="expired_today">Rok trajanja je istekao danas</string>
     <string name="all_articles">Svi proizvodi</string>
@@ -73,4 +72,10 @@
     <string name="notifications_multiple_expired">proizvoda ima istekao rok trajanja.</string>
     <string name="notification_one_today">1 proizvodu rok trajanja ističe danas.</string>
     <string name="notification_multiple_today">proizvoda ima rok trajanja koji ističe danas.</string>
+    <string name="category_info">Vrsta proizvoda</string>
+    <string name="month_day_pattern">mesec / dan</string>
+    <string name="day_month_pattern">dan / mesec</string>
+    <string name="choose_language">Izaberite jezik</string>
+    <string name="ok">U REDU</string>
+    <string name="cancel">OTKAŽI</string>
 </resources>

@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -68,7 +69,6 @@ public class AddArticle extends AppCompatActivity {
     private Uri finalUri;
 
     private EditText articleName;
-    private TextView articleCategory;
     private Button detectButton;
     private ImageButton cameraButton, galleryButton, pickDateButton, cropButton, saveArticleButton;
 
@@ -108,7 +108,6 @@ public class AddArticle extends AppCompatActivity {
         cropButton = findViewById(R.id.cropButton);
         saveArticleButton = findViewById(R.id.saveButton);
         articleName = findViewById(R.id.articleNameEditText);
-        articleCategory = findViewById(R.id.articleCategoryTextView);
         articleCategorySpinner = findViewById(R.id.articleCategorySpinner);
     }
 
@@ -132,7 +131,7 @@ public class AddArticle extends AppCompatActivity {
         articleCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                articleCategory.setText(parentView.getItemAtPosition(position).toString());
+                //articleCategory.setText(parentView.getItemAtPosition(position).toString());
             }
 
             @Override
@@ -190,7 +189,8 @@ public class AddArticle extends AppCompatActivity {
                 showToast(getString(R.string.toast_select_article_expiration_date));
             } else if (articleName.getText().toString().equals("")) {
                 showToast(getString(R.string.toast_input_article_name));
-            } else if (articleCategory.getText().toString().equals("")) {
+            }
+            else if (articleCategorySpinner.getSelectedItem().toString().equals("")) {
                 showToast(getString(R.string.toast_select_article_category));
             } else {
                 try {
@@ -198,7 +198,7 @@ public class AddArticle extends AppCompatActivity {
                     //Get the value in the category_values array which has the same index as the inputted category in the current locale
                     List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
 
-                    String articleCategoryVal = categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf((articleCategory.getText().toString())));
+                    String articleCategoryVal = categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf((articleCategorySpinner.getSelectedItem().toString())));
                     articleListClass.addArticleToList(new Article(articleName.getText().toString(), actualDetectedDateTextView.getText().toString(), articleCategoryVal));
 
                     //Go back to the main activity after adding the article
@@ -341,6 +341,8 @@ public class AddArticle extends AppCompatActivity {
             }
             actualDetectedDateTextView.setText(dateText);
         }, tDay, tMonth, tYear);
+        dpd.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), dpd);
+        dpd.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), dpd);
         dpd.show();
         dpd.updateDate(tYear, tMonth, tDay);
     }
@@ -425,7 +427,7 @@ public class AddArticle extends AppCompatActivity {
         if (toast!= null) {
             toast.cancel();
         }
-        toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
         toast.show();
     }
 }

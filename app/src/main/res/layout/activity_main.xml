@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
@@ -13,74 +12,119 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:padding="10sp"
         android:text="@string/main_menu_title"
         android:textColor="@color/textColor"
         android:textSize="30sp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/addArticleButton"
-
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/add_article"
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="2sp">
 
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_add"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/addArticleButton"
 
-        <ImageButton
-            android:id="@+id/settingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/add_article"
 
-            android:layout_width="wrap_content"
+                android:layout_margin="5sp"
+                android:background="@drawable/transparent_background_bordered_button"
+                android:padding="10sp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_add" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="2sp"
+                android:text="@string/add_article"
+                android:textColor="@color/textColor"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/settings"
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="2sp">
 
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_manage"
-            app:layout_constraintEnd_toStartOf="@+id/viewAllArticlesButton"
-            app:layout_constraintStart_toEndOf="@+id/addArticleButton"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageButton
+                android:id="@+id/settingsButton"
 
-        <ImageButton
-            android:id="@+id/viewAllArticlesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/settings"
 
-            android:layout_width="wrap_content"
+                android:layout_margin="5sp"
+                android:background="@drawable/transparent_background_bordered_button"
+                android:padding="10sp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_manage" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="2sp"
+                android:text="@string/settings"
+                android:textColor="@color/textColor"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/article_list"
+            android:background="@color/colorPrimaryDark"
+            android:layout_margin="2sp">
 
-            android:padding="20dp"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_sort_by_size"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageButton
+                android:id="@+id/viewAllArticlesButton"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/article_list"
+
+                android:layout_margin="5sp"
+                android:background="@drawable/transparent_background_bordered_button"
+                android:padding="10sp"
+                android:scaleType="fitCenter"
+                android:src="@android:drawable/ic_menu_sort_by_size" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:padding="2sp"
+                android:text="@string/article_list"
+                android:textColor="@color/textColor"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
 
     <ExpandableListView
+        android:layout_marginTop="20sp"
         android:id="@+id/expandableListView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:childDivider="@android:color/transparent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="10sp"
-        android:layout_gravity="center"/>
+        android:dividerHeight="10sp" />
 </LinearLayout>

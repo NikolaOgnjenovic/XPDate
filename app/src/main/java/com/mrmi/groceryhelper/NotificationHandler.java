@@ -28,6 +28,7 @@ public class NotificationHandler extends Worker {
     public NotificationHandler(@NonNull Context cont, @NonNull WorkerParameters workerParams) {
         super(cont, workerParams);
         context = cont;
+        Settings.loadLocale(context);
     }
 
     @NonNull
@@ -59,6 +60,7 @@ public class NotificationHandler extends Worker {
 
     //Creates the notification message: how many articles have already expired and how many are expiring today
     private String getNotificationMessage() {
+        Settings.loadLocale(context);
         int haveExpired = 0, expiringToday = 0;
         String alarmMessage = "";
 
