@@ -9,7 +9,17 @@
     android:padding="20dp"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:fontFamily="@font/opensans_bold"
+        android:text="@string/app_name"
+        android:layout_gravity="center"
+        android:textColor="@color/textColor"/>
+
     <LinearLayout
+        android:layout_marginTop="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -21,9 +31,7 @@
             android:layout_margin="2sp"
             android:background="@drawable/rounded_button">
 
-            <ImageButton
-                android:id="@+id/addArticleButton"
-
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
@@ -52,9 +60,7 @@
             android:layout_margin="2sp"
             android:background="@drawable/rounded_button">
 
-            <ImageButton
-                android:id="@+id/viewAllArticlesButton"
-
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
@@ -83,9 +89,7 @@
             android:layout_margin="2sp"
             android:background="@drawable/rounded_button">
 
-            <ImageButton
-                android:id="@+id/settingsButton"
-
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5sp"
@@ -106,17 +110,22 @@
                 android:textColor="@color/textColor"
                 android:textSize="20sp" />
         </LinearLayout>
-
     </LinearLayout>
 
-    <ExpandableListView
-        android:id="@+id/expandableListView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginTop="20sp"
-        android:childDivider="@android:color/transparent"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10sp"
-        android:groupIndicator="@null" />
+        android:background="@drawable/transparent_background_border_2">
+        <ExpandableListView
+            android:padding="10sp"
+            android:id="@+id/expandableListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:childDivider="@android:color/transparent"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10sp"
+            android:groupIndicator="@null" />
+    </LinearLayout>
+
 </LinearLayout>

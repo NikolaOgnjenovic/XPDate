@@ -1,18 +1,13 @@
 package com.mrmi.groceryhelper;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -67,22 +62,6 @@ public class ArticleList {
             if (o1.getFormattedDate(datePattern) == null || o2.getFormattedDate(datePattern) == null)
                 return 0;
             return o1.getFormattedDate(datePattern).compareTo(o2.getFormattedDate(datePattern));
-        });
-    }
-
-    public void sortList(ArrayList<String> list) {
-        //Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(\\/)(((0)[0-9])|((1)[0-2]))(\\/)\\d{4}$");
-        Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\\d{4}$");
-        Collections.sort(list, (o1, o2) -> {
-            Matcher matcher1 = datePattern.matcher(o1);
-            Matcher matcher2 = datePattern.matcher(o2);
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(datePattern+"/yyyy");
-            try {
-                return Objects.requireNonNull(sdf.parse(matcher1.group())).compareTo(sdf.parse(matcher2.group()));
-            }
-            catch (Exception e) {
-                return 0;
-            }
         });
     }
 

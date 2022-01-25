@@ -26,11 +26,22 @@
     <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/textColor</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/textColor</item> <!-- header date, month color && calendar text highlight color -->
+        <item name="android:textColorSecondaryInverse">@color/textColor</item> <!-- header year color -->
     </style>
 
     <style name="SpinnerStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
         <item name="android:textColor">@color/textColor</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="TimePicker" parent="android:Theme.Holo.Light.Dialog.NoActionBar">
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 </resources>

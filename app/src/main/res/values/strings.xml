@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Rok trajanja</string>
+    <string name="app_name" translatable="false">Rok trajanja</string>
     <string name="set_notification_time">Notification time</string>
     <string name="add_article">Add an article</string>
     <string name="article_list">View all articles</string>
@@ -16,12 +16,11 @@
     <string name="settings">Settings</string>
     <string name="change_language">Change language</string>
     <string name="already_expired">Already expired</string>
-    <string name="expiration_less_than_7_days">Expiring soon (expiring in &lt;7 days)</string>
-    <string name="expiration_less_than_14_days">Expiring later (expiring in &lt;14 days)</string>
-    <string name="expiration_less_than_30_days">Good products (expiring in &lt;30 days)</string>
-    <string name="expiration_more_than_30_days">Great products (expiring in &gt;30 days)</string>
+    <string name="expiration_less_than_7_days">Expiring in &lt; 7 days</string>
+    <string name="expiration_less_than_14_days">Expiring in &lt; 14 days</string>
+    <string name="expiration_less_than_30_days">Expiring in &lt; 30 days</string>
+    <string name="expiration_more_than_30_days">Expiring in &gt; 30 days</string>
     <string name="article_category">Article category</string>
-    <string name="notification_time_info">Notifications about how many articles have expired or expire soon will be sent daily at:</string>
 
     <string-array name="category_names">
         <item>Meat</item>
@@ -65,10 +64,10 @@
     <string name="toast_select_article_category">Please select the article\'s category</string>
     <string name="toast_select_article_expiration_date">Please select an expiration date for the article</string>
     <string name="toast_camera_denied">Camera permission denied</string>
-    <string name="toast_date_fail">Unable to detect a date</string>
+    <string name="toast_date_fail">Error encountered trying to detect a date</string>
     <string name="toast_storage_denied">Data storage permission denied</string>
     <string name="expiration_date">Expiration date:</string>
-    <string name="expires_today">Expiring today</string>
+    <string name="expires_today">Expiring in &lt; 24 hours</string>
     <string name="expires_tomorrow">Expiring tomorrow</string>
     <string name="expired_yesterday">Expired yesterday</string>
     <string name="expired">Expired</string>

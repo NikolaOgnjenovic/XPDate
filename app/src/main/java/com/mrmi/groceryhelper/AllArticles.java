@@ -9,10 +9,15 @@ import android.os.Bundle;
 import android.util.Pair;
 import android.widget.ExpandableListView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AllArticles extends AppCompatActivity {
 
@@ -23,13 +28,12 @@ public class AllArticles extends AppCompatActivity {
     private List<String> listDataGroup;
     private HashMap<String, List<String>> listDataChild;
 
-    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_articles);
 
-        Settings.loadLocale(this);
+        //Settings.loadLocale(this);
 
         initialiseViews();
         initialiseListeners();
@@ -111,12 +115,27 @@ public class AllArticles extends AppCompatActivity {
         //Add child data
         int index = 0;
         for(Pair<String, ArrayList<String>> category : listOfCategories) {
-            articleListClass.sortList(category.second);
+            sortList(category.second);
             listDataChild.put(listDataGroup.get(index), category.second);
             ++index;
         }
 
         //Notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();
+    }
+
+    private void sortList(ArrayList<String> list) {
+        Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\\d{4}$");
+        Collections.sort(list, (o1, o2) -> {
+            Matcher matcher1 = datePattern.matcher(o1);
+            Matcher matcher2 = datePattern.matcher(o2);
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(datePattern+"/yyyy");
+            try {
+                return Objects.requireNonNull(sdf.parse(matcher1.group())).compareTo(sdf.parse(matcher2.group()));
+            }
+            catch (Exception e) {
+                return 0;
+            }
+        });
     }
 }

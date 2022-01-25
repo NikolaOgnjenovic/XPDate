@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Rok trajanja</string>
-    <string name="expiration_less_than_7_days" >Истичу ускоро (истичу за  &lt;7 дана)</string>
-    <string name="expiration_less_than_14_days" >Истичу касније (истичу за  &lt;14 дана)</string>
-    <string name="expiration_less_than_30_days" >Добри производи (истичу за  &lt;30 дана)</string>
-    <string name="expiration_more_than_30_days" >Одлични производи (истичу за  &gt;30 дана)</string>
+    <string name="expiration_less_than_7_days" >Рок трајања истиче за &lt; 7 дана</string>
+    <string name="expiration_less_than_14_days" >Рок трајања истиче за &lt; 14 дана</string>
+    <string name="expiration_less_than_30_days" >Рок трајања истиче за &lt; 30 дана</string>
+    <string name="expiration_more_than_30_days" >Рок трајања истиче за &gt; 30 дана</string>
     <string name="already_expired" >Истекао рок трајања</string>
     <string name="set_notification_time" >Време обавештења</string>
     <string name="add_article" >Додај производ</string>
@@ -21,7 +20,6 @@
     <string name="settings" >Подешавања</string>
     <string name="change_language" >Промени језик</string>
     <string name="article_category" >Категорија произовда</string>
-    <string name="notification_time_info">Обавештења о броју производа којима је истекао или ускоро истиче рок се шаљу дневно у:</string>
 
     <string-array name="category_names">
         <item>Месо</item>
@@ -43,14 +41,14 @@
     </string-array>
     <string name="toast_input_article_name">Молимо Вас да унесте назив производа</string>
     <string name="toast_select_article_category">Молимо Вас да изаберете врсту произовда</string>
-    <string name="toast_select_article_expiration_date">Молимо Вас да изаберете датум за рок трајања произовда</string>
+    <string name="toast_select_article_expiration_date">Молимо Вас да унесете рок трајања произовда</string>
     <string name="toast_camera_denied">Одбијена дозвола за коришћење камере</string>
-    <string name="toast_date_fail">Неуспех при детеквотању датума</string>
+    <string name="toast_date_fail">Дошло је до грешке при детеквотању датума</string>
     <string name="toast_storage_denied">Одбијена дозвола за чување података</string>
     <string name="expiration_date">Рок трајања:</string>
     <string name="expired">Рок трајања је истекао пре</string>
     <string name="expires_tomorrow">Рок трајања истиче сутра</string>
-    <string name="expires_today">Рок трајања истиче данас</string>
+    <string name="expires_today">Рок трајања истиче за &lt; 24 дана</string>
     <string name="expired_yesterday">Рок трајања је истекао јуче</string>
     <string name="days_ago">дана</string>
     <string name="days">дана</string>

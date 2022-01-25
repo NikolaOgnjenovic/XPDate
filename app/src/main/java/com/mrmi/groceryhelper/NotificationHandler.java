@@ -60,7 +60,7 @@ public class NotificationHandler extends Worker {
 
     //Creates the notification message: how many articles have already expired and how many are expiring today
     private String getNotificationMessage() {
-        Settings.loadLocale(context);
+        //Settings.loadLocale(context);
         int haveExpired = 0, expiringToday = 0;
         String alarmMessage = "";
 

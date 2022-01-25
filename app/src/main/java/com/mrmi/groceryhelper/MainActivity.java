@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,12 +24,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Settings.loadLocale(this);
-
         initialiseViews();
         initialiseObjects();
         initialiseListeners();
-        initialiseListData();
+        populateExpandableListView();
     }
 
     //Quit the app when the user presses the back button
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void initialiseListData() {
+    private void populateExpandableListView() {
         //Get all articles from the ArticleList class
         ArrayList<Article> articles = articleList.getArticleList();
         //Loop through all articles and add them to their according lists (expiring soon, later etc.)
@@ -123,8 +119,6 @@ public class MainActivity extends AppCompatActivity {
         listDataChild.put(listDataGroup.get(3), laterList);
         listDataChild.put(listDataGroup.get(4), goodList);
         listDataChild.put(listDataGroup.get(5), greatList);
-
-
 
         //Notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();

@@ -12,8 +12,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
-import static android.app.AlertDialog.THEME_HOLO_DARK;
-
 import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
@@ -22,8 +20,9 @@ public class Settings extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private Button datePatternButton, notificationTimePicker, changeLanguageButton;
     private String datePattern;
-    private TimePickerDialog timePicker;
     private SwitchCompat dailyNotificationSwitch;
+    private TimePickerDialog timePicker;
+    private AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,25 +76,7 @@ public class Settings extends AppCompatActivity {
         });
 
         //Set the time for when the daily notification will be picked using a picker displayed when the button is pressed
-        notificationTimePicker.setOnClickListener(v -> {
-            int hour = getNotificationHour();
-            int minutes = getNotificationMinute();
-            timePicker = new TimePickerDialog(this,
-                    THEME_HOLO_DARK,
-                    (tp, sHour, sMinute) -> {
-                        sharedPreferences.edit().putInt("notificationHour", sHour).apply();
-                        sharedPreferences.edit().putInt("notificationMinute", sMinute).apply();
-                        displayNotificationTime();
-
-                        //Enable notifications again with the newly set hour and minutes if they are toggled on
-                        if (sharedPreferences.getBoolean("SendingDailyNotifications", false)) {
-                            enableNotifications();
-                        }
-                    }, hour, minutes, true);
-            timePicker.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), timePicker);
-            timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), timePicker);
-            timePicker.show();
-        });
+        notificationTimePicker.setOnClickListener(v -> displayNotificationTimePicker());
 
         changeLanguageButton.setOnClickListener(v -> showChangeLanguageDialog());
     }
@@ -133,6 +114,38 @@ public class Settings extends AppCompatActivity {
 
     private void enableNotifications() {
         NotificationHandler.enableNotifications(this);
+    }
+
+    private void displayNotificationTimePicker() {
+        int hour = getNotificationHour();
+        int minutes = getNotificationMinute();
+        //Enable notifications again with the newly set hour and minutes if they are toggled on
+        if(timePicker!=null) {
+            timePicker.dismiss();
+        }
+
+        timePicker = new TimePickerDialog(this,
+                //THEME_HOLO_LIGHT,
+                R.style.TimePicker,
+                (tp, sHour, sMinute) -> {
+                    sharedPreferences.edit().putInt("notificationHour", sHour).apply();
+                    sharedPreferences.edit().putInt("notificationMinute", sMinute).apply();
+                    displayNotificationTime();
+
+                    //Enable notifications again with the newly set hour and minutes if they are toggled on
+                    if (sharedPreferences.getBoolean("SendingDailyNotifications", false)) {
+                        enableNotifications();
+                    }
+                }, hour, minutes, true);
+
+        timePicker.setOnShowListener(dialogInterface -> {
+            timePicker.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), timePicker);
+            timePicker.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), timePicker);
+            timePicker.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+        });
+
+        timePicker.show();
     }
 
     //Displays the time at which the daily notification is sent
@@ -183,7 +196,10 @@ public class Settings extends AppCompatActivity {
             dialogInterface.dismiss();
         });
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
+        if(alertDialog!=null) {
+            alertDialog.dismiss();
+        }
+        alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
 

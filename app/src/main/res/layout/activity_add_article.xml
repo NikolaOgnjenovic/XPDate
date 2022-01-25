@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout5"
@@ -13,13 +12,13 @@
         android:id="@+id/articleNameEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/opensans_bold"
-        android:textColorHighlight="@color/textColor"
         android:autofillHints="@string/article_name"
+        android:fontFamily="@font/opensans_bold"
         android:hint="@string/article_name"
         android:inputType="textPersonName"
         android:padding="20dp"
         android:textColor="@color/textColor"
+        android:textColorHighlight="@color/textColor"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,26 +29,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText"
-        android:orientation="horizontal">
+        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText">
 
         <TextView
             android:id="@+id/articleCategoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:paddingStart="10sp"
             android:text="@string/article_category"
-            android:gravity="center"
             android:textColor="@color/textColor"
             android:textSize="20sp"
             tools:ignore="RtlSymmetry" />
+
         <Spinner
             android:id="@+id/articleCategorySpinner"
-            android:theme="@style/DialogTheme"
             android:layout_width="wrap_content"
-            android:layout_height="48sp" />
+            android:layout_height="48sp"
+            android:theme="@style/DialogTheme" />
 
     </LinearLayout>
 
@@ -66,13 +66,14 @@
 
         <TextView
             android:id="@+id/detectedDateTextView"
-            android:paddingStart="10sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.2"
+            android:gravity="center"
+            android:paddingStart="10sp"
             android:text="@string/expiration_date"
             android:textColor="@color/textColor"
-            android:textSize="20sp"
+            android:textSize="22sp"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -82,13 +83,12 @@
             android:layout_weight="4.2"
             android:padding="10sp"
             android:textColor="@color/textColor"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
-        <ImageButton
-            android:layout_margin="2sp"
-            android:id="@+id/pickDateButton"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_margin="5sp"
             android:layout_weight="0.6"
             android:background="@drawable/transparent_background_bordered_button"
             android:contentDescription="@string/pick_date"
@@ -96,110 +96,123 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:padding="5sp"
+        android:layout_margin="5sp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+
+        android:background="@drawable/rounded_button"
+        android:text="@string/save_article"
+        android:textColor="@color/textColor"
+
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@id/dateLayout" />
+
+    <RelativeLayout
         android:id="@+id/buttonLayout"
-        android:layout_marginTop="10sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark"
         android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintTop_toBottomOf="@+id/dateLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/saveButton"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
 
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/transparent_background_bordered_button"
+            <ImageButton
+                android:id="@+id/cameraButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
 
-            android:contentDescription="@string/save_article"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_save"
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
 
-            android:layout_margin="5sp"/>
+                android:background="@drawable/transparent_background_bordered_button"
+                android:contentDescription="@string/camera"
+                android:scaleType="fitCenter"
 
-        <ImageButton
-            android:id="@+id/cameraButton"
+                android:src="@android:drawable/ic_menu_camera" />
+
+            <ImageButton
+                android:id="@+id/galleryButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+
+                android:layout_margin="5sp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+
+                android:background="@drawable/transparent_background_bordered_button"
+                android:contentDescription="@string/gallery"
+                android:scaleType="fitCenter"
+
+                android:src="@android:drawable/ic_menu_gallery" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cropDetectLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:orientation="horizontal"
+            tools:ignore="RelativeOverlap">
 
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/transparent_background_bordered_button"
+            <ImageButton
+                android:id="@+id/cropButton"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
 
-            android:contentDescription="@string/camera"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_camera"
+                android:layout_margin="5sp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/transparent_background_bordered_button"
+                android:contentDescription="@string/crop"
+                android:scaleType="fitCenter"
 
-            android:layout_margin="5sp"/>
 
-        <ImageButton
-            android:id="@+id/galleryButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_crop" />
 
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/transparent_background_bordered_button"
+            <Button
+                android:id="@+id/detectButton"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5sp"
+                android:background="@drawable/transparent_background_bordered_button"
+                android:padding="5sp"
+                android:text="@string/detect_date"
+                android:textColor="@color/textColor"
 
-            android:contentDescription="@string/gallery"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_gallery"
+                android:textSize="16sp" />
+        </LinearLayout>
 
-            android:layout_margin="5sp"/>
+    </RelativeLayout>
 
-        <ImageButton
-            android:id="@+id/cropButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:background="@drawable/transparent_background_bordered_button"
-
-            android:contentDescription="@string/crop"
-            android:scaleType="fitCenter"
-            android:src="@android:drawable/ic_menu_crop"
-
-            android:layout_margin="5sp"/>
-
-        <Button
-            android:id="@+id/detectButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/transparent_background_bordered_button"
-            android:text="@string/detect_date"
-            android:textColor="@color/textColor"
-            android:textSize="16sp"
-
-            android:layout_margin="5sp"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="10sp"
+    <com.theartofdev.edmodo.cropper.CropImageView
+        android:id="@+id/cropImageView"
         android:layout_width="match_parent"
-        android:layout_margin="10sp"
         android:layout_height="0sp"
-        android:padding="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonLayout"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10sp"
+        android:layout_marginTop="10sp"
         android:background="@drawable/transparent_background_bordered"
-        app:layout_constraintVertical_bias="0.5">
-
-        <com.theartofdev.edmodo.cropper.CropImageView
-            android:id="@+id/cropImageView"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:padding="10sp"
+        app:layout_constraintBottom_toTopOf="@id/buttonLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/saveButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
