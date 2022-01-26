@@ -9,7 +9,6 @@
     <string name="add_article" >Додај производ</string>
     <string name="article_list" >Погледај све производе</string>
     <string name="send_daily_notifications" >Дневна обавештења</string>
-    <string name="delete_article" >Избриши производ</string>
     <string name="pick_date" >Изабери датум</string>
     <string name="article_name" >Назив производа</string>
     <string name="save_article" >Сачувај</string>
@@ -47,7 +46,6 @@
     <string name="toast_storage_denied">Одбијена дозвола за чување података</string>
     <string name="expiration_date">Рок трајања:</string>
     <string name="expired">Рок трајања је истекао пре</string>
-    <string name="expires_tomorrow">Рок трајања истиче сутра</string>
     <string name="expires_today">Рок трајања истиче за &lt; 24 дана</string>
     <string name="expired_yesterday">Рок трајања је истекао јуче</string>
     <string name="days_ago">дана</string>
@@ -60,13 +58,11 @@
     <string name="removal_message">Да ли сте сигурни да желите да уклоните овај производ из листе?</string>
     <string name="remove">Уклони</string>
     <string name="date_info">Промени формат датума</string>
-    <string name="main_menu_title">Рок трајања</string>
     <string name="dan">дан</string>
     <string name="notification_one_expired">1 производу је истекао рок трајања.</string>
     <string name="notifications_multiple_expired">производа има истекао рок трајања.</string>
     <string name="notification_one_today">1 производу рок трајања истиче данас.</string>
     <string name="notification_multiple_today">производа има рок трајања који истиче данас.</string>
-    <string name="category_info">Врста производа</string>
     <string name="month_day_pattern">месец / дан</string>
     <string name="day_month_pattern">дан / месец</string>
     <string name="choose_language">Изаберите језик</string>

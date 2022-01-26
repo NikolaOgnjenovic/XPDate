@@ -51,7 +51,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         TextView textViewChild = convertView.findViewById(R.id.textViewChild);
         textViewChild.setText(childText);
-        textViewChild.setTypeface(ResourcesCompat.getFont(context, R.font.opensans));
+        textViewChild.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans));
         return convertView;
     }
 
@@ -87,7 +87,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         TextView textViewGroup = convertView.findViewById(R.id.categoryGroupTextView);
         textViewGroup.setText(headerTitle);
-        textViewGroup.setTypeface(ResourcesCompat.getFont(context, R.font.opensans_bold));
+        textViewGroup.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans_bold));
         return convertView;
     }
 

@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
@@ -13,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="@string/article_name"
-        android:fontFamily="@font/opensans_bold"
+        android:fontFamily="@font/open_sans_bold"
         android:hint="@string/article_name"
         android:inputType="textPersonName"
         android:padding="20dp"
@@ -35,7 +34,6 @@
         app:layout_constraintTop_toBottomOf="@+id/articleNameEditText">
 
         <TextView
-            android:id="@+id/articleCategoryTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -65,7 +63,6 @@
         app:layout_constraintTop_toBottomOf="@+id/categoryLayout">
 
         <TextView
-            android:id="@+id/detectedDateTextView"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
@@ -101,12 +98,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:padding="5sp"
         android:layout_margin="5sp"
         android:layout_weight="1"
         android:adjustViewBounds="true"
-
         android:background="@drawable/rounded_button"
+
+        android:padding="5sp"
         android:text="@string/save_article"
         android:textColor="@color/textColor"
 
@@ -164,7 +161,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/cropDetectLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"

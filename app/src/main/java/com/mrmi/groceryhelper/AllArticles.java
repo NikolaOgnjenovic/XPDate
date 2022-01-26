@@ -33,8 +33,6 @@ public class AllArticles extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_articles);
 
-        //Settings.loadLocale(this);
-
         initialiseViews();
         initialiseListeners();
         initialiseObjects();
@@ -90,7 +88,6 @@ public class AllArticles extends AppCompatActivity {
     private void initialiseListData() {
         //Add group data
         String[] allCategories = this.getResources().getStringArray(R.array.category_names);
-        //listDataGroup.addAll(Arrays.asList(allCategories));
 
         //Loop through all articles and add them to their according lists (expiring soon, later etc.)
         ArrayList<Pair<String, ArrayList<String>>> listOfCategories = new ArrayList<>();

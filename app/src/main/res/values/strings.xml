@@ -5,7 +5,6 @@
     <string name="add_article">Add an article</string>
     <string name="article_list">View all articles</string>
     <string name="send_daily_notifications">Daily notifications</string>
-    <string name="delete_article">Delete article</string>
     <string name="pick_date">Pick date</string>
     <string name="article_name">Article name</string>
     <string name="save_article">Save</string>
@@ -68,7 +67,6 @@
     <string name="toast_storage_denied">Data storage permission denied</string>
     <string name="expiration_date">Expiration date:</string>
     <string name="expires_today">Expiring in &lt; 24 hours</string>
-    <string name="expires_tomorrow">Expiring tomorrow</string>
     <string name="expired_yesterday">Expired yesterday</string>
     <string name="expired">Expired</string>
     <string name="days_ago">days ago</string>
@@ -81,13 +79,11 @@
     <string name="removal_message">Are you sure that you want to remove this article from the list?</string>
     <string name="remove">Remove</string>
     <string name="date_info">Change date format</string>
-    <string name="main_menu_title">Expiration date</string>
     <string name="dan">dan</string>
     <string name="notification_one_expired">1 article has expired.</string>
     <string name="notifications_multiple_expired">articles have expired.</string>
     <string name="notification_one_today">1 article expires today.</string>
     <string name="notification_multiple_today">articles are expiring today.</string>
-    <string name="category_info">Article category</string>
     <string name="month_day_pattern">month / day</string>
     <string name="day_month_pattern">day / month</string>
     <string name="choose_language">Choose a language</string>
