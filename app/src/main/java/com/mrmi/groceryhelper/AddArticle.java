@@ -9,6 +9,7 @@ import androidx.core.content.FileProvider;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +67,7 @@ public class AddArticle extends AppCompatActivity {
 
     private EditText articleName;
     private Button detectButton, saveArticleButton;
-    private ImageButton cameraButton, galleryButton, cropButton;
+    private ImageButton cameraButton, galleryButton, cropButton, helpButton;
 
     private Spinner articleCategorySpinner;
 
@@ -102,6 +104,7 @@ public class AddArticle extends AppCompatActivity {
         saveArticleButton = findViewById(R.id.saveButton);
         articleName = findViewById(R.id.articleNameEditText);
         articleCategorySpinner = findViewById(R.id.articleCategorySpinner);
+        helpButton = findViewById(R.id.helpButton);
     }
 
     private void initialiseObjects() {
@@ -194,6 +197,8 @@ public class AddArticle extends AppCompatActivity {
                 }
             }
         });
+
+        helpButton.setOnClickListener(v-> showHelpDialog());
     }
 
     private boolean hasStoragePermission() {
@@ -338,8 +343,8 @@ public class AddArticle extends AppCompatActivity {
             }
             actualDetectedDateTextView.setText(dateText);
         }, tDay, tMonth, tYear);
-        dpd.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), dpd);
-        dpd.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), dpd);
+        dpd.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.okay_text), dpd);
+        dpd.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel_text), dpd);
         dpd.show();
         dpd.updateDate(tYear, tMonth, tDay);
     }
@@ -426,5 +431,15 @@ public class AddArticle extends AppCompatActivity {
         }
         toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
         toast.show();
+    }
+
+    private void showHelpDialog() {
+        Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        dialog.setContentView(R.layout.add_article_info);
+
+        Button closeButton = dialog.findViewById(R.id.closeButton);
+        closeButton.setOnClickListener(view -> dialog.dismiss());
+
+        dialog.show();
     }
 }

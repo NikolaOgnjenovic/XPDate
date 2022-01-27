@@ -80,7 +80,7 @@ public class AllArticles extends AppCompatActivity {
         //Initialise the list of children
         listDataChild = new HashMap<>();
         //Initialise the adapter object
-        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, true);
         //Set the list adapter
         expandableListView.setAdapter(expandableListViewAdapter);
     }

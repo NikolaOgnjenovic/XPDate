@@ -79,7 +79,7 @@
     <string name="removal_message">Are you sure that you want to remove this article from the list?</string>
     <string name="remove">Remove</string>
     <string name="date_info">Change date format</string>
-    <string name="dan">dan</string>
+    <string name="dan">days</string>
     <string name="notification_one_expired">1 article has expired.</string>
     <string name="notifications_multiple_expired">articles have expired.</string>
     <string name="notification_one_today">1 article expires today.</string>
@@ -87,6 +87,11 @@
     <string name="month_day_pattern">month / day</string>
     <string name="day_month_pattern">day / month</string>
     <string name="choose_language">Choose a language</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
+    <string name="okay_text">OK</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="help">Help</string>
+    <string name="date_help">Select the article expiration date</string>
+    <string name="camera_help">Take a picture of the expiration date of an article using your device\'s camera</string>
+    <string name="gallery_help">Select a picture of the expiration date of an article from your gallery</string>
+    <string name="crop_help">Crop the image for easier date detection</string>
 </resources>

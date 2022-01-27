@@ -35,7 +35,5 @@
     <style name="TimePicker" parent="android:Theme.Holo.Light.Dialog.NoActionBar">
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:colorAccent">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 </resources>

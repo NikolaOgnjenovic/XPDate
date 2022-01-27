@@ -66,6 +66,11 @@
     <string name="month_day_pattern">mesec / dan</string>
     <string name="day_month_pattern">dan / mesec</string>
     <string name="choose_language">Izaberite jezik</string>
-    <string name="ok">U redu</string>
-    <string name="cancel">Otkaži</string>
+    <string name="okay_text">U redu</string>
+    <string name="cancel_text">Otkaži</string>
+    <string name="help">Pomoć</string>
+    <string name="date_help">Izaberite rok trajanja proizvoda</string>
+    <string name="camera_help">Fotografišite rok trajanja proizvoda koristeći kameru  uređaja</string>
+    <string name="gallery_help">Izaberite sliku roka trajanja proizvoda iz galerije uređaja</string>
+    <string name="crop_help">Isecite sliku radi lakšeg prepoznavanja datuma</string>
 </resources>

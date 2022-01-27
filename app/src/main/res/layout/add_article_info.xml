@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <TextView
+        android:padding="10sp"
+        android:textAlignment="center"
+        android:id="@+id/textView"
+        android:fontFamily="@font/open_sans_bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/help"
+        android:background="@color/colorPrimary"
+        android:textSize="24sp"
+        android:textColor="@color/textColor"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:padding="5sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent_background_border"
+            android:contentDescription="@string/pick_date"
+            android:src="@android:drawable/ic_menu_month" />
+        <TextView
+            android:paddingStart="5sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/textColor"
+            android:text="@string/date_help"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:background="@color/colorPrimary"
+        tools:ignore="SmallSp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:padding="5sp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent_background_border"
+            android:contentDescription="@string/pick_date"
+            android:src="@android:drawable/ic_menu_camera" />
+        <TextView
+            android:paddingStart="5sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/textColor"
+            android:text="@string/camera_help"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:background="@color/colorPrimary"
+        tools:ignore="SmallSp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:padding="5sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent_background_border"
+            android:contentDescription="@string/pick_date"
+            android:src="@android:drawable/ic_menu_gallery" />
+        <TextView
+            android:paddingStart="5sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/textColor"
+            android:text="@string/gallery_help"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5sp"
+        android:background="@color/colorPrimary"
+        tools:ignore="SmallSp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10sp"
+        tools:ignore="UseCompoundDrawables">
+        <ImageView
+            android:padding="5sp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/transparent_background_border"
+            android:contentDescription="@string/pick_date"
+            android:src="@android:drawable/ic_menu_crop" />
+        <TextView
+            android:paddingStart="5sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="@color/textColor"
+            android:text="@string/crop_help"
+            tools:ignore="RtlSymmetry" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/okay_text"
+        android:background="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:layout_gravity="center"
+        android:textColor="@color/textColor"/>
+</LinearLayout>

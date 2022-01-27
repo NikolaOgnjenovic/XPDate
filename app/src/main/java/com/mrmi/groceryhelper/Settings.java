@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.widget.Button;
+
 import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
@@ -107,7 +108,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private String patternLocale() {
-        if(datePattern.equals("MM/dd"))
+        if (datePattern.equals("MM/dd"))
             return getString(R.string.month_day_pattern);
         return getString(R.string.day_month_pattern);
     }
@@ -120,12 +121,12 @@ public class Settings extends AppCompatActivity {
         int hour = getNotificationHour();
         int minutes = getNotificationMinute();
         //Enable notifications again with the newly set hour and minutes if they are toggled on
-        if(timePicker!=null) {
+        if (timePicker != null) {
             timePicker.dismiss();
         }
 
         timePicker = new TimePickerDialog(this,
-                //THEME_HOLO_LIGHT,
+                //AlertDialog.THEME_HOLO_LIGHT,
                 R.style.TimePicker,
                 (tp, sHour, sMinute) -> {
                     sharedPreferences.edit().putInt("notificationHour", sHour).apply();
@@ -138,13 +139,8 @@ public class Settings extends AppCompatActivity {
                     }
                 }, hour, minutes, true);
 
-        timePicker.setOnShowListener(dialogInterface -> {
-            timePicker.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.ok), timePicker);
-            timePicker.getButton(DialogInterface.BUTTON_POSITIVE).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-            timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel), timePicker);
-            timePicker.getButton(DialogInterface.BUTTON_NEGATIVE).setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
-        });
-
+        timePicker.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.okay_text), timePicker);
+        timePicker.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel_text), timePicker);
         timePicker.show();
     }
 
@@ -196,7 +192,7 @@ public class Settings extends AppCompatActivity {
             dialogInterface.dismiss();
         });
 
-        if(alertDialog!=null) {
+        if (alertDialog != null) {
             alertDialog.dismiss();
         }
         alertDialog = alertDialogBuilder.create();
@@ -217,4 +213,6 @@ public class Settings extends AppCompatActivity {
         String locale = sharedPrefs.getString("Selected_locale", "bs");
         Settings.setLocale(context, locale);
     }
+
+
 }

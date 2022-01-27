@@ -23,10 +23,12 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     //Child data
     private final HashMap<String, List<String>> listDataChild;
 
-    public ExpandableListViewAdapter(Context context, List<String> listDataGroup, HashMap<String, List<String>> listChildData) {
+    private final boolean childHasDeleteButton;
+    public ExpandableListViewAdapter(Context context, List<String> listDataGroup, HashMap<String, List<String>> listChildData, boolean childHasDelete) {
         this.context = context;
         this.listDataGroup = listDataGroup;
         this.listDataChild = listChildData;
+        this.childHasDeleteButton = childHasDelete;
     }
 
     @Override
@@ -46,7 +48,13 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_row_child, null);
+
+            if (childHasDeleteButton) {
+                convertView = layoutInflater.inflate(R.layout.list_row_child_delete, null);
+            } else {
+                convertView = layoutInflater.inflate(R.layout.list_row_child, null);
+            }
+
         }
 
         TextView textViewChild = convertView.findViewById(R.id.textViewChild);

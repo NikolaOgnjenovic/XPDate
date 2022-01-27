@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //Initialise the list of children
         listDataChild = new HashMap<>();
         //Initialise the adapter object
-        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild);
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, false);
         //Set the list adapter
         expandableListView.setAdapter(expandableListViewAdapter);
     }

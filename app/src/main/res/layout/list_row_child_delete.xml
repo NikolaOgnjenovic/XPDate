@@ -12,6 +12,7 @@
         android:background="@drawable/rounded_button"
         android:padding="10sp"
         android:textColor="@color/textColor"
-        android:textSize="19sp" />
+        android:textSize="19sp"
+        app:drawableEndCompat="@android:drawable/ic_menu_delete" />
 
 </LinearLayout>

@@ -71,9 +71,9 @@ public class Article implements Serializable {
             expirationCounterText = context.getString(R.string.expired_today);
         } else if (daysLeft < 1 && hoursMod < 0) {
             expirationCounterText = context.getString(R.string.expired_yesterday);
-        } else if (hours <= 48) {
+        } else if (hours <= 24) {
             expirationCounterText = context.getString(R.string.expires_in) + " " + hours + " " + context.getString(R.string.hours);
-        } else if (daysLeft %100 == 11){
+        } else if (daysLeft > 10 && (daysLeft+1) % 10 == 1){
             //21 dan, 31 дан, 41 дан, 51 dan
             expirationCounterText = context.getString(R.string.expires_in) + " " + (++daysLeft) + " " + context.getString(R.string.dan);
         } else {
