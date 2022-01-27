@@ -34,9 +34,9 @@ public class NotificationHandler extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        enableNotifications(context);
+        scheduleNotification(context);
         createNotificationChannel();
-        showNotification(getNotificationMessage());
+        displayNotification(getNotificationMessage());
 
         //Indicate whether work was successful
         return Result.success();
@@ -58,15 +58,15 @@ public class NotificationHandler extends Worker {
         }
     }
 
-    //Creates the notification message: how many articles have already expired and how many are expiring today
+    //Returns the notification message: how many articles have already expired and how many are expiring today
     private String getNotificationMessage() {
-        //Settings.loadLocale(context);
         int haveExpired = 0, expiringToday = 0;
-        String alarmMessage = "";
+        String expiredTodayText = context.getString(R.string.notification_expired_today), expiredText = context.getString(R.string.notification_expired);
 
         ArticleList articleListClass = new ArticleList(context);
         ArrayList<Article> articleList = articleListClass.getArticleList();
 
+        //Loop through all articles and count how many articles expire today and how many articles have already expired
         long currentArticleDaysLeft;
         for (Article article : articleList) {
             currentArticleDaysLeft = article.getHoursUntilExpiration(context)/24;
@@ -79,19 +79,15 @@ public class NotificationHandler extends Worker {
                 ++haveExpired;
             }
         }
-        if (expiringToday > 0) {
-            if (expiringToday == 1) alarmMessage += context.getString(R.string.notification_one_today) + "\n";
-            else alarmMessage = expiringToday + " " + context.getString(R.string.notification_multiple_today) + "\n";
-        }
-        if (haveExpired > 0) {
-            if (haveExpired == 1) alarmMessage += context.getString(R.string.notification_one_expired);
-            else alarmMessage += haveExpired + " " + context.getString(R.string.notifications_multiple_expired);
-        }
 
-        return alarmMessage;
+        expiredTodayText += " " + expiringToday;
+        expiredText += " " + haveExpired;
+
+        return expiredTodayText + "\n" + expiredText;
     }
 
-    public void showNotification(String notificationMessage) {
+    //Display a notification with the given notification message
+    public void displayNotification(String notificationMessage) {
         if (notificationMessage.equals(""))
             return;
 
@@ -102,7 +98,6 @@ public class NotificationHandler extends Worker {
         //Build the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_stat_name)
-                //.setContentTitle(context.getString(R.string.app_name))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(notificationMessage))
                 .setContentText(notificationMessage)
                 .setContentIntent(pendingIntent) //Launch Main Activity when the user taps the notification
@@ -115,8 +110,12 @@ public class NotificationHandler extends Worker {
         notificationManager.notify(2501, builder.build());
     }
 
-    public static void enableNotifications(Context context) {
+    //Schedules a notification which will show up at the time specified in Settings saved in local storage using Shared preferences. (notificationHour, notificationMinute)
+    public static void scheduleNotification(Context context) {
+        killAllScheduledNotifications(context);
         int hourOfTheDay = context.getSharedPreferences("Shared preferences", Context.MODE_PRIVATE).getInt("notificationHour", 9), minuteOfTheDay = context.getSharedPreferences("Shared preferences", Context.MODE_PRIVATE).getInt("notificationMinute", 0);
+
+        //Get current day and notification due date (notification time specified in shared prefs + 24 hours)
         Calendar currentDate = Calendar.getInstance();
         Calendar dueDate = Calendar.getInstance();
 
@@ -128,13 +127,15 @@ public class NotificationHandler extends Worker {
             dueDate.add(Calendar.HOUR_OF_DAY, 24);
         }
         long timeDiff = dueDate.getTimeInMillis() - currentDate.getTimeInMillis();
+        //Fire a OneTimeWorkRequest to display a notification in timeDiff milliseconds
         OneTimeWorkRequest dailyWorkRequest = new OneTimeWorkRequest.Builder(NotificationHandler.class).addTag("Grocery tracker notification").setInitialDelay(timeDiff, TimeUnit.MILLISECONDS).build();
         WorkManager.getInstance(context).enqueue(dailyWorkRequest);
 
         System.out.println("[Mrmi]: Enqueued notification work request. User will be notified in " + timeDiff + " milliseconds.");
     }
 
-    public static void disableNotifications(Context context) {
+    //Kill (disable) all scheduled notifications
+    public static void killAllScheduledNotifications(Context context) {
         WorkManager.getInstance(context).cancelAllWorkByTag("Grocery tracker notification");
     }
 }

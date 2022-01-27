@@ -41,6 +41,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         return childPosition;
     }
 
+    //Child view inflation: the article
     @SuppressLint("InflateParams")
     @Override
     public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
@@ -54,9 +55,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
             } else {
                 convertView = layoutInflater.inflate(R.layout.list_row_child, null);
             }
-
         }
-
         TextView textViewChild = convertView.findViewById(R.id.textViewChild);
         textViewChild.setText(childText);
         textViewChild.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans));
@@ -83,6 +82,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         return groupPosition;
     }
 
+    //Group view inflation: the category (expiring in < 7 days, < 30 days in MainActivity, article category in AllArticles)
     @SuppressLint("InflateParams")
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {

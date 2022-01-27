@@ -42,7 +42,7 @@
     <string name="toast_select_article_category">Molimo Vas da izaberete vrstu proizvoda</string>
     <string name="toast_select_article_expiration_date">Molimo Vas da unesete rok trajanja proizvoda</string>
     <string name="toast_camera_denied">Odbijena dozvola za korišćenje kamere</string>
-    <string name="toast_date_fail">Došlo je do greške pri detektovanju datuma</string>
+    <string name="toast_date_fail">Došlo je do greške pri prepoznavanju datuma</string>
     <string name="toast_storage_denied">Odbijena dozvola za čuvanje podataka</string>
     <string name="expiration_date">Rok trajanja:</string>
     <string name="expired">Rok trajanja je istekao pre</string>
@@ -59,10 +59,6 @@
     <string name="remove">Ukloni</string>
     <string name="date_info">Promeni format datuma</string>
     <string name="dan">dan</string>
-    <string name="notification_one_expired">1 proizvodu je istekao rok trajanja.</string>
-    <string name="notifications_multiple_expired">proizvoda ima istekao rok trajanja.</string>
-    <string name="notification_one_today">1 proizvodu rok trajanja ističe danas.</string>
-    <string name="notification_multiple_today">proizvoda ima rok trajanja koji ističe danas.</string>
     <string name="month_day_pattern">mesec / dan</string>
     <string name="day_month_pattern">dan / mesec</string>
     <string name="choose_language">Izaberite jezik</string>
@@ -70,7 +66,9 @@
     <string name="cancel_text">Otkaži</string>
     <string name="help">Pomoć</string>
     <string name="date_help">Izaberite rok trajanja proizvoda</string>
-    <string name="camera_help">Fotografišite rok trajanja proizvoda koristeći kameru  uređaja</string>
+    <string name="camera_help">Slikajte rok trajanja proizvoda koristeći kameru  uređaja</string>
     <string name="gallery_help">Izaberite sliku roka trajanja proizvoda iz galerije uređaja</string>
     <string name="crop_help">Isecite sliku radi lakšeg prepoznavanja datuma</string>
+    <string name="notification_expired_today">Broj proizvoda kojima rok trajanja ističe danas:</string>
+    <string name="notification_expired">Broj proizvoda kojima je rok trajanja istekao:</string>
 </resources>

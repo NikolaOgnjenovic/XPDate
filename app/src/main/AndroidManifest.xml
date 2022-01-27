@@ -16,7 +16,7 @@
         tools:ignore="ScopedStorage" />
 
     <application
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Rok trajanja"
         android:roundIcon="@mipmap/ic_launcher_round"

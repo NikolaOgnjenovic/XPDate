@@ -3,6 +3,7 @@ package com.mrmi.groceryhelper;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -55,11 +56,7 @@ public class Settings extends AppCompatActivity {
         articleListClass = new ArticleList(this);
         sharedPreferences = getSharedPreferences("Shared preferences", MODE_PRIVATE);
 
-        //Enable and disable daily notifications using the switch
         dailyNotificationSwitch.setChecked(sharedPreferences.getBoolean("SendingDailyNotifications", true));
-        if (dailyNotificationSwitch.isChecked()) {
-            enableNotifications();
-        }
     }
 
     private void initialiseListeners() {
@@ -71,7 +68,7 @@ public class Settings extends AppCompatActivity {
             if (isChecked) {
                 enableNotifications();
             } else {
-                NotificationHandler.disableNotifications(this);
+                NotificationHandler.killAllScheduledNotifications(this);
             }
             sharedPreferences.edit().putBoolean("SendingDailyNotifications", isChecked).apply();
         });
@@ -79,7 +76,7 @@ public class Settings extends AppCompatActivity {
         //Set the time for when the daily notification will be picked using a picker displayed when the button is pressed
         notificationTimePicker.setOnClickListener(v -> displayNotificationTimePicker());
 
-        changeLanguageButton.setOnClickListener(v -> showChangeLanguageDialog());
+        changeLanguageButton.setOnClickListener(v -> displayChangeLanguageDialog());
     }
 
     //Loads the saved date pattern using the ArticleList class and sets the pattern button text accordingly
@@ -107,6 +104,7 @@ public class Settings extends AppCompatActivity {
         articleListClass.setDatePattern(datePattern);
     }
 
+    //Returns the date pattern as a string which changes based on the selected language (date/month, дан/месец)
     private String patternLocale() {
         if (datePattern.equals("MM/dd"))
             return getString(R.string.month_day_pattern);
@@ -114,7 +112,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private void enableNotifications() {
-        NotificationHandler.enableNotifications(this);
+        NotificationHandler.scheduleNotification(this);
     }
 
     private void displayNotificationTimePicker() {
@@ -144,7 +142,7 @@ public class Settings extends AppCompatActivity {
         timePicker.show();
     }
 
-    //Displays the time at which the daily notification is sent
+    //Displays the time at which the daily notification is sent in the button which lets the user change that same time
     private void displayNotificationTime() {
         int notificationHour = getNotificationHour(), notificationMinute = getNotificationMinute();
         String notificationTimeText = "";
@@ -160,15 +158,18 @@ public class Settings extends AppCompatActivity {
         notificationTimePicker.setText(notificationButtonText);
     }
 
+    //Returns the hour at which notifications are sent daily
     private int getNotificationHour() {
         return sharedPreferences.getInt("notificationHour", 9);
     }
 
+    //Returns the minute at which notifications are sent daily
     private int getNotificationMinute() {
         return sharedPreferences.getInt("notificationMinute", 0);
     }
 
-    private void showChangeLanguageDialog() {
+    //Displays a dialog which lets the user change the application's display language
+    private void displayChangeLanguageDialog() {
         final String[] languages = {"English", "Српски", "Srpski"};
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this, R.style.DialogTheme);
         alertDialogBuilder.setTitle(getString(R.string.choose_language));
@@ -192,6 +193,7 @@ public class Settings extends AppCompatActivity {
             dialogInterface.dismiss();
         });
 
+        //Prevent dialog spamming if the user spam clicks the button which shows the dialog
         if (alertDialog != null) {
             alertDialog.dismiss();
         }
@@ -199,6 +201,8 @@ public class Settings extends AppCompatActivity {
         alertDialog.show();
     }
 
+    //Sets the app language and saves it in local storage using shared preferences
+    @SuppressLint("AppBundleLocaleChanges")
     public static void setLocale(Context context, String selectedLocale) {
         Locale locale = new Locale(selectedLocale);
         Locale.setDefault(locale);
@@ -208,11 +212,10 @@ public class Settings extends AppCompatActivity {
         context.getSharedPreferences("Shared preferences", MODE_PRIVATE).edit().putString("Selected_locale", selectedLocale).apply();
     }
 
+    //Loads the app language saved in local storage using shared preferences
     public static void loadLocale(Context context) {
         SharedPreferences sharedPrefs = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
         String locale = sharedPrefs.getString("Selected_locale", "bs");
         Settings.setLocale(context, locale);
     }
-
-
 }

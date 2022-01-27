@@ -49,18 +49,17 @@ public class MainActivity extends AppCompatActivity {
     private void initialiseObjects() {
         articleList = new ArticleList(MainActivity.this);
 
-        //Enable notifications
+        //Schedule a notification
         if (this.getSharedPreferences("Shared preferences", MODE_PRIVATE).getBoolean("SendingDailyNotifications", true)) {
-            NotificationHandler.enableNotifications(this);
+            NotificationHandler.scheduleNotification(this);
         }
 
-        //Initialise the list of groups
         listDataGroup = new ArrayList<>();
-        //Initialise the list of children
+
         listDataChild = new HashMap<>();
-        //Initialise the adapter object
+
         expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, false);
-        //Set the list adapter
+
         expandableListView.setAdapter(expandableListViewAdapter);
     }
 
@@ -80,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Displays all articles categorised by expiration date in the ExpandableListView
     private void populateExpandableListView() {
+
         //Get all articles from the ArticleList class
         ArrayList<Article> articles = articleList.getArticleList();
         //Loop through all articles and add them to their according lists (expiring soon, later etc.)

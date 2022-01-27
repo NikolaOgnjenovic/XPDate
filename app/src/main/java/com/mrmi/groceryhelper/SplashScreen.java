@@ -17,11 +17,12 @@ public class SplashScreen extends AppCompatActivity {
 
         Settings.loadLocale(this);
 
+        //Go to the Main Activity after x milliseconds
         new Handler().postDelayed(() -> {
             Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
 
             finish();
-        }, 1000);
+        }, 700);
     }
 }

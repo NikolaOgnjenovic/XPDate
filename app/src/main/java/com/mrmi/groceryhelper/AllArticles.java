@@ -50,6 +50,7 @@ public class AllArticles extends AppCompatActivity {
     }
 
     private void initialiseListeners() {
+        //When the user clicks on a child (article), show a dialog which asks the user if he wants to delete the article from the list
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
             AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme).create();
@@ -75,25 +76,22 @@ public class AllArticles extends AppCompatActivity {
         articleListClass = new ArticleList(AllArticles.this);
         articleList = articleListClass.getArticleList();
 
-        //Initialise the list of groups
         listDataGroup = new ArrayList<>();
-        //Initialise the list of children
         listDataChild = new HashMap<>();
-        //Initialise the adapter object
         expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, true);
-        //Set the list adapter
         expandableListView.setAdapter(expandableListViewAdapter);
     }
 
     private void initialiseListData() {
-        //Add group data
+        //Get all category name display values (values are saved locally in Article objects, display values are loaded when displaying them here)
         String[] allCategories = this.getResources().getStringArray(R.array.category_names);
 
-        //Loop through all articles and add them to their according lists (expiring soon, later etc.)
+        //Loop through all articles and add them to their respective lists (meat, canned goods, sauces...)
         ArrayList<Pair<String, ArrayList<String>>> listOfCategories = new ArrayList<>();
         for(String category : allCategories) {
             listOfCategories.add(new Pair<>(category, new ArrayList<>()));
         }
+        //Get all category name values used in code (values are saved locally in Article objects, display values are loaded when displaying them here)
         List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
         for (Article article : articleList) {
             String articleInfo = article.getName() + "\n" + getString(R.string.expiration_date) + " " + article.getExpirationDate() + "\n" + article.getExpirationText(this);
@@ -105,6 +103,7 @@ public class AllArticles extends AppCompatActivity {
             }
         }
 
+        //Add group data
         for(int i = 0; i < allCategories.length; ++i) {
             listDataGroup.add(allCategories[i]+ " (" + listOfCategories.get(i).second.size() + ")");
         }
@@ -121,6 +120,8 @@ public class AllArticles extends AppCompatActivity {
         expandableListViewAdapter.notifyDataSetChanged();
     }
 
+    /*Sorts a given ArrayList of strings by their expiration dates (found using a regex which finds xx/xx/xxxx in a string)
+    Used to sort articles in their respective categories when displaying them in the ExpandableListView */
     private void sortList(ArrayList<String> list) {
         Pattern datePattern = Pattern.compile("^([0-2][0-9]|(3)[0-1])(/)(((0)[0-9])|((1)[0-2]))(/)\\d{4}$");
         Collections.sort(list, (o1, o2) -> {

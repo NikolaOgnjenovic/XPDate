@@ -13,24 +13,20 @@ public class Article implements Serializable {
     private String articleExpirationDate;
     private final String articleCategory;
 
-    //Constructor
     public Article(String articleNameArg, String articleExpirationDateArg, String articleCategoryArg) {
         articleName = articleNameArg;
         articleExpirationDate = articleExpirationDateArg;
         articleCategory = articleCategoryArg;
     }
 
-    //Returns the article name
     public String getName() {
         return articleName;
     }
 
-    //Returns the article expiration date
     public String getExpirationDate() {
         return articleExpirationDate;
     }
 
-    //Returns the article category
     public String getCategory() {
         return articleCategory;
     }

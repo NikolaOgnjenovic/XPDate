@@ -42,7 +42,7 @@
     <string name="toast_select_article_category">Молимо Вас да изаберете врсту произовда</string>
     <string name="toast_select_article_expiration_date">Молимо Вас да унесете рок трајања произовда</string>
     <string name="toast_camera_denied">Одбијена дозвола за коришћење камере</string>
-    <string name="toast_date_fail">Дошло је до грешке при детеквотању датума</string>
+    <string name="toast_date_fail">Дошло је до грешке при препознавању датума</string>
     <string name="toast_storage_denied">Одбијена дозвола за чување података</string>
     <string name="expiration_date">Рок трајања:</string>
     <string name="expired">Рок трајања је истекао пре</string>
@@ -59,10 +59,6 @@
     <string name="remove">Уклони</string>
     <string name="date_info">Промени формат датума</string>
     <string name="dan">дан</string>
-    <string name="notification_one_expired">1 производу је истекао рок трајања.</string>
-    <string name="notifications_multiple_expired">производа има истекао рок трајања.</string>
-    <string name="notification_one_today">1 производу рок трајања истиче данас.</string>
-    <string name="notification_multiple_today">производа има рок трајања који истиче данас.</string>
     <string name="month_day_pattern">месец / дан</string>
     <string name="day_month_pattern">дан / месец</string>
     <string name="choose_language">Изаберите језик</string>
@@ -70,7 +66,9 @@
     <string name="cancel_text">Откажи</string>
     <string name="help">Помоћ</string>
     <string name="date_help">Изаберите рок трајања производа</string>
-    <string name="camera_help">Фотографишите рок трајања производа користећи камеру уређаја</string>
+    <string name="camera_help">Сликајте рок трајања производа користећи камеру уређаја</string>
     <string name="gallery_help">Изаберите слику рока трајања производа из галерије уређаја</string>
     <string name="crop_help">Исеците слику ради лакшег препознавања датума</string>
+    <string name="notification_expired_today">Број производа којима рок трајања истиче данас:</string>
+    <string name="notification_expired">Број производа којима је рок трајања истекао:</string>
 </resources>

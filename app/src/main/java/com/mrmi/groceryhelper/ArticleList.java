@@ -20,11 +20,13 @@ public class ArticleList {
         context = givenContext;
     }
 
+    //Loads and returns the article list
     public ArrayList<Article> getArticleList() {
         loadArticleList();
         return articleList;
     }
 
+    //Loads the article list saved as a json string in shared preferences using the gson library
     private void loadArticleList() {
         SharedPreferences sharedPreferences = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
@@ -78,6 +80,7 @@ public class ArticleList {
         System.out.println("[MRMI]: Saved date pattern: " + datePattern);
     }
 
+    //Sets the date pattern to the given one, saves it and loops through all Article objects and changes their expirationDate string values (mm/dd/yyyy into dd/mm/yyyy)
     public void setDatePattern(String dateArg) {
         datePattern = dateArg;
         saveDatePattern();
@@ -100,6 +103,7 @@ public class ArticleList {
         saveArticles();
     }
 
+    //Loads and returns the date pattern
     public String getDatePattern() {
         loadDatePattern();
         return datePattern;

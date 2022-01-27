@@ -25,7 +25,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -112,7 +111,6 @@ public class AddArticle extends AppCompatActivity {
         storagePermission = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         articleListClass = new ArticleList(this);
 
-        //Get the date pattern
         datePattern = articleListClass.getDatePattern();
 
         List<String> allCategories = Arrays.asList(this.getResources().getStringArray(R.array.category_names));
@@ -153,7 +151,6 @@ public class AddArticle extends AppCompatActivity {
         });
 
         //Manually set the article's expiration date
-        //pickDateButton.setOnClickListener(v -> showDatePickDialog());
         dateLayout.setOnClickListener(v -> showDatePickDialog());
 
         //Detects text from the image
@@ -173,7 +170,6 @@ public class AddArticle extends AppCompatActivity {
 
         //Add an article to the articles ArrayList
         saveArticleButton.setOnClickListener(v -> {
-            //if (detectedDateTextView.getText().toString().equals(getString((R.string.detected_date)))) {
             if(actualDetectedDateTextView.getText().toString().equals("")) {
                 showToast(getString(R.string.toast_select_article_expiration_date));
             } else if (articleName.getText().toString().equals("")) {
@@ -218,40 +214,6 @@ public class AddArticle extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, cameraPermission, CAMERA_REQUEST_CODE);
     }
 
-    //Starts an intent to pick an image from the gallery
-    private void pickImageFromGallery() {
-        //Intent to pick image from gallery
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType("image/*");
-        startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
-    }
-
-    @SuppressLint("QueryPermissionsNeeded")
-    private void takePictureUsingCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-            if (photoFile != null) {
-                finalUri = FileProvider.getUriForFile(this, "com.mrmi.groceryhelper.fileprovider", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, finalUri);
-                startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
-            }
-        }
-    }
-
-    //Creates a unique temporary image file
-    private File createImageFile() throws IOException {
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        return File.createTempFile(imageFileName, ".jpg", storageDir);
-    }
-
     //Handles permission requests
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -281,6 +243,40 @@ public class AddArticle extends AppCompatActivity {
         }
     }
 
+    //Creates a unique temporary image file
+    private File createImageFile() throws IOException {
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
+    }
+
+    @SuppressLint("QueryPermissionsNeeded")
+    private void takePictureUsingCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            if (photoFile != null) {
+                finalUri = FileProvider.getUriForFile(this, "com.mrmi.groceryhelper.fileprovider", photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, finalUri);
+                startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
+            }
+        }
+    }
+
+    //Starts an intent to pick an image from the gallery
+    private void pickImageFromGallery() {
+        //Intent to pick image from gallery
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -289,7 +285,7 @@ public class AddArticle extends AppCompatActivity {
             //If the user took a picture using the camera
             if (requestCode == IMAGE_PICK_CAMERA_CODE) {
                 cropImageView.setImageUriAsync(finalUri);
-                showCropImageViews();
+                displayCropImageViews();
             }
             //If the user picked an image from the gallery
             else if (requestCode == IMAGE_PICK_GALLERY_CODE) {
@@ -302,7 +298,7 @@ public class AddArticle extends AppCompatActivity {
 
                     //Set the crop image view's bitmap to the selected bitmap
                     cropImageView.setImageBitmap(imageBitmap);
-                    showCropImageViews();
+                    displayCropImageViews();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -310,7 +306,8 @@ public class AddArticle extends AppCompatActivity {
         }
     }
 
-    private void showCropImageViews() {
+    //Displaythe article image, detect date and crop image buttons
+    private void displayCropImageViews() {
         cropButton.setVisibility(View.VISIBLE);
         detectButton.setVisibility(View.VISIBLE);
         cropImageView.setVisibility(View.VISIBLE);
@@ -425,6 +422,7 @@ public class AddArticle extends AppCompatActivity {
         }
     }
 
+    //Show a toast, kill currently shown toast
     private void showToast(String message) {
         if (toast!= null) {
             toast.cancel();
@@ -433,6 +431,7 @@ public class AddArticle extends AppCompatActivity {
         toast.show();
     }
 
+    //Show a dialog which explains to the user how the activity works
     private void showHelpDialog() {
         Dialog dialog = new Dialog(this, R.style.DialogTheme);
         dialog.setContentView(R.layout.add_article_info);
