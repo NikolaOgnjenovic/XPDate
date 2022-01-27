@@ -151,7 +151,7 @@ public class AddArticle extends AppCompatActivity {
         });
 
         //Manually set the article's expiration date
-        dateLayout.setOnClickListener(v -> showDatePickDialog());
+        dateLayout.setOnClickListener(v -> displayDatePickDialog());
 
         //Detects text from the image
         detectButton.setOnClickListener(v -> detectTextFromImage());
@@ -314,7 +314,7 @@ public class AddArticle extends AppCompatActivity {
     }
 
     //Shows the date picker dialog when the user wants to manually input the article's expiration date
-    private void showDatePickDialog() {
+    private void displayDatePickDialog() {
         Calendar today = Calendar.getInstance();
         int tDay = today.get(Calendar.DAY_OF_MONTH), tMonth = today.get(Calendar.MONTH), tYear = today.get(Calendar.YEAR);
 
