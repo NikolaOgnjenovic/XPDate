@@ -1,4 +1,4 @@
-package com.mrmi.groceryhelper;
+package com.mrmi.roktrajanja;
 
 import org.junit.Test;
 

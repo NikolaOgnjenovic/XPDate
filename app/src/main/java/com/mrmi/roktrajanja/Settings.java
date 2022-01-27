@@ -1,4 +1,4 @@
-package com.mrmi.groceryhelper;
+package com.mrmi.roktrajanja;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;

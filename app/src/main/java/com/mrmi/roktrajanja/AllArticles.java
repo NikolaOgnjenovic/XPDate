@@ -1,4 +1,4 @@
-package com.mrmi.groceryhelper;
+package com.mrmi.roktrajanja;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;

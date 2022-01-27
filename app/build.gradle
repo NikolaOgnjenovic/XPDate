@@ -4,7 +4,7 @@ android {
     compileSdkVersion 31
 
     defaultConfig {
-        applicationId "com.mrmi.groceryhelper"
+        applicationId "com.mrmi.roktrajanja"
         minSdkVersion 21
         targetSdkVersion 31
         multiDexEnabled true
@@ -41,4 +41,10 @@ dependencies {
     implementation "androidx.work:work-runtime:2.7.1"
 
     implementation 'com.joestelmach:natty:0.11'
+}
+
+configurations {
+    all {
+        exclude module: 'commons-logging'
+    }
 }

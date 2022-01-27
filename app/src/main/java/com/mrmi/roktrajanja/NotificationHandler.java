@@ -1,4 +1,4 @@
-package com.mrmi.groceryhelper;
+package com.mrmi.roktrajanja;
 
 import android.annotation.SuppressLint;
 import android.app.NotificationChannel;
