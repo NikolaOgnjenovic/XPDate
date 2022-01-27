@@ -27,7 +27,7 @@
         <item>Povrće</item>
         <item>Žitarice</item>
         <item>Zamrznuti proizvodi</item>
-        <item>Hleb</item>
+        <item>Pića</item>
         <item>Poslastice</item>
         <item>Sosevi</item>
         <item>Konzervirana hrana</item>
@@ -52,7 +52,7 @@
     <string name="days">dana</string>
     <string name="expires_in">Rok trajanja ističe za</string>
     <string name="hours">sati</string>
-    <string name="expired_today">Rok trajanja je istekao danas</string>
+    <string name="expired_today">Rok trajanja ističe danas</string>
     <string name="all_articles">Svi proizvodi</string>
     <string name="removal_title">Uklanjanje proizvoda</string>
     <string name="removal_message">Da li ste sigurni da želite da uklonite ovaj proizvod iz liste?</string>
@@ -71,4 +71,5 @@
     <string name="crop_help">Isecite sliku radi lakšeg prepoznavanja datuma</string>
     <string name="notification_expired_today">Broj proizvoda kojima rok trajanja ističe danas:</string>
     <string name="notification_expired">Broj proizvoda kojima je rok trajanja istekao:</string>
+    <string name="hour">sat</string>
 </resources>

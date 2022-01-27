@@ -262,7 +262,7 @@ public class AddArticle extends AppCompatActivity {
                 ex.printStackTrace();
             }
             if (photoFile != null) {
-                finalUri = FileProvider.getUriForFile(this, "com.mrmi.groceryhelper.fileprovider", photoFile);
+                finalUri = FileProvider.getUriForFile(this, "com.mrmi.roktrajanja.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, finalUri);
                 startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
             }

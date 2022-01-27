@@ -23,12 +23,12 @@
 
     <string-array name="category_names">
         <item>Meat</item>
-        <item>Dairy Goods</item>
+        <item>Dairy goods</item>
         <item>Fruits</item>
         <item>Vegetables</item>
         <item>Cereals</item>
-        <item>Frozen Goods</item>
-        <item>Bread</item>
+        <item>Frozen goods</item>
+        <item>Drinks</item>
         <item>Confectionery</item>
         <item>Sauces</item>
         <item>Canned goods</item>
@@ -42,12 +42,12 @@
 
     <string-array name="category_values">
         <item>Meat</item>
-        <item>Dairy Goods</item>
+        <item>Dairy goods</item>
         <item>Fruits</item>
         <item>Vegetables</item>
         <item>Cereals</item>
-        <item>Frozen Goods</item>
-        <item>Bread</item>
+        <item>Frozen goods</item>
+        <item>Drinks</item>
         <item>Confectionery</item>
         <item>Sauces</item>
         <item>Noodles and pasta</item>
@@ -73,7 +73,7 @@
     <string name="expires_in">Expires in</string>
     <string name="days">days</string>
     <string name="hours">hours</string>
-    <string name="expired_today">Expired today</string>
+    <string name="expired_today">Expires today</string>
     <string name="all_articles">All articles</string>
     <string name="removal_title">Article removal</string>
     <string name="removal_message">Are you sure that you want to remove this article from the list?</string>
@@ -92,4 +92,5 @@
     <string name="crop_help">Crop the image for easier date detection</string>
     <string name="notification_expired_today">Number of articles that expire today:</string>
     <string name="notification_expired">Number of articles that have expired:</string>
+    <string name="hour">hour</string>
 </resources>
