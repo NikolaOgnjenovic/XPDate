@@ -18,7 +18,6 @@
     <string name="crop" >Исеци слику</string>
     <string name="settings" >Подешавања</string>
     <string name="change_language" >Промени језик</string>
-    <string name="article_category" >Категорија произовда</string>
 
     <string-array name="category_names">
         <item>Месо</item>
@@ -29,7 +28,7 @@
         <item>Замрзнути производи</item>
         <item>Пића</item>
         <item>Посластице</item>
-        <item>Сосеви</item>
+        <item>Сосови</item>
         <item>Конзервирана храна</item>
         <item>Резанци и тестенина</item>
         <item>Храна за љубимце</item>
@@ -39,7 +38,6 @@
         <item>Остало</item>
     </string-array>
     <string name="toast_input_article_name">Молимо Вас да унесте назив производа</string>
-    <string name="toast_select_article_category">Молимо Вас да изаберете врсту произовда</string>
     <string name="toast_select_article_expiration_date">Молимо Вас да унесете рок трајања произовда</string>
     <string name="toast_camera_denied">Одбијена дозвола за коришћење камере</string>
     <string name="toast_date_fail">Дошло је до грешке при препознавању датума</string>

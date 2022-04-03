@@ -19,7 +19,6 @@
     <string name="expiration_less_than_14_days">Expiring in &lt; 14 days</string>
     <string name="expiration_less_than_30_days">Expiring in &lt; 30 days</string>
     <string name="expiration_more_than_30_days">Expiring in &gt; 30 days</string>
-    <string name="article_category">Article category</string>
 
     <string-array name="category_names">
         <item>Meat</item>
@@ -60,7 +59,6 @@
     </string-array>
 
     <string name="toast_input_article_name">Please input a name for the article</string>
-    <string name="toast_select_article_category">Please select the article\'s category</string>
     <string name="toast_select_article_expiration_date">Please select an expiration date for the article</string>
     <string name="toast_camera_denied">Camera permission denied</string>
     <string name="toast_date_fail">Error encountered trying to detect a date</string>

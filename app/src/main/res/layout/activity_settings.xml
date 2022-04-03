@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".Settings">
 
     <TextView
-        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans_bold"
@@ -72,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10sp"
         android:layout_marginStart="10sp"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/rounded_button"
         android:padding="15sp"
         android:gravity="center"
         tools:ignore="RtlSymmetry"

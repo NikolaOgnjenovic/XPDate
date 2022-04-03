@@ -8,6 +8,7 @@
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:fontFamily">@font/open_sans</item>
         <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
     </style>
 
     <style name="SwitchTheme" parent="Theme.AppCompat.Light">

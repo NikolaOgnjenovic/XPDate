@@ -124,7 +124,6 @@ public class Settings extends AppCompatActivity {
         }
 
         timePicker = new TimePickerDialog(this,
-                //AlertDialog.THEME_HOLO_LIGHT,
                 R.style.TimePicker,
                 (tp, sHour, sMinute) -> {
                     sharedPreferences.edit().putInt("notificationHour", sHour).apply();
@@ -215,7 +214,7 @@ public class Settings extends AppCompatActivity {
     //Loads the app language saved in local storage using shared preferences
     public static void loadLocale(Context context) {
         SharedPreferences sharedPrefs = context.getSharedPreferences("Shared preferences", MODE_PRIVATE);
-        String locale = sharedPrefs.getString("Selected_locale", "bs");
+        String locale = sharedPrefs.getString("Selected_locale", "en");
         Settings.setLocale(context, locale);
     }
 }

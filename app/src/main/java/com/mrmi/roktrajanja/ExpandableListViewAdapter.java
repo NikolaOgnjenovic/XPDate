@@ -2,14 +2,17 @@ package com.mrmi.roktrajanja;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -23,12 +26,16 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     //Child data
     private final HashMap<String, List<String>> listDataChild;
 
-    private final boolean childHasDeleteButton;
-    public ExpandableListViewAdapter(Context context, List<String> listDataGroup, HashMap<String, List<String>> listChildData, boolean childHasDelete) {
+    private final boolean inAllArticles;
+
+    private final List<String> categoryValues;
+
+    public ExpandableListViewAdapter(Context context, List<String> listDataGroup, HashMap<String, List<String>> listChildData, boolean inAllArticles) {
         this.context = context;
         this.listDataGroup = listDataGroup;
         this.listDataChild = listChildData;
-        this.childHasDeleteButton = childHasDelete;
+        this.inAllArticles = inAllArticles;
+        this.categoryValues = Arrays.asList(context.getResources().getStringArray(R.array.category_values));
     }
 
     @Override
@@ -50,7 +57,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            if (childHasDeleteButton) {
+            if (inAllArticles) {
                 convertView = layoutInflater.inflate(R.layout.list_row_child_delete, null);
             } else {
                 convertView = layoutInflater.inflate(R.layout.list_row_child, null);
@@ -90,12 +97,25 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.list_row_group, null);
+
+            if (inAllArticles) {
+                convertView = layoutInflater.inflate(R.layout.list_row_group_add, null);
+                ImageButton addButton = convertView.findViewById(R.id.addButton);
+                addButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, AddArticle.class);
+                    intent.putExtra("ArticleCategory", categoryValues.get(groupPosition));
+                    context.startActivity(intent);
+                });
+                addButton.setFocusable(false);
+            } else {
+                convertView = layoutInflater.inflate(R.layout.list_row_group, null);
+            }
         }
 
         TextView textViewGroup = convertView.findViewById(R.id.categoryGroupTextView);
         textViewGroup.setText(headerTitle);
         textViewGroup.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans_bold));
+
         return convertView;
     }
 

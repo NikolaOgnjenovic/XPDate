@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
-    <ImageButton
+    <Button
         android:layout_marginTop="5sp"
         android:id="@+id/helpButton"
-        android:layout_width="50sp"
-        android:layout_height="50sp"
-        android:background="@drawable/transparent_background_border_2"
-        android:contentDescription="@string/pick_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help"
+        android:background="@drawable/rounded_button"
+        android:textColor="@color/textColor"
+        android:textSize="26sp"
+        android:padding="10sp"
         android:src="@android:drawable/ic_menu_help"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,34 +38,6 @@
         app:layout_constraintTop_toBottomOf="@+id/helpButton" />
 
     <LinearLayout
-        android:id="@+id/categoryLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:paddingStart="10sp"
-            android:text="@string/article_category"
-            android:textColor="@color/textColor"
-            android:textSize="20sp"
-            tools:ignore="RtlSymmetry" />
-
-        <Spinner
-            android:id="@+id/articleCategorySpinner"
-            android:layout_width="wrap_content"
-            android:layout_height="48sp"
-            android:theme="@style/DialogTheme" />
-
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/dateLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -72,7 +46,7 @@
         android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryLayout">
+        app:layout_constraintTop_toBottomOf="@+id/articleNameEditText">
 
         <TextView
             android:layout_width="wrap_content"

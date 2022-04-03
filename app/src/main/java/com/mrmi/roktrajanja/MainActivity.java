@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     private ExpandableListViewAdapter expandableListViewAdapter;
     private List<String> listDataGroup;
     private HashMap<String, List<String>> listDataChild;
-    private View addArticleView, settingsView, allArticlesView;
+    private View settingsView, allArticlesView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseViews() {
-        addArticleView = findViewById(R.id.addView);
+        //addArticleView = findViewById(R.id.addView);
         settingsView = findViewById(R.id.settingsView);
         allArticlesView = findViewById(R.id.allArticlesView);
         expandableListView = findViewById(R.id.expandableListView);
@@ -64,11 +64,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseListeners() {
-        addArticleView.setOnClickListener(v -> {
-            Intent intent = new Intent(this, AddArticle.class);
-            startActivity(intent);
-        });
-
         settingsView.setOnClickListener(v -> {
             Intent intent = new Intent(this, Settings.class);
             startActivity(intent);

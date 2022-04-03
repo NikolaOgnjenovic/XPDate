@@ -1,11 +1,5 @@
 package com.mrmi.roktrajanja;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -20,14 +14,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.SparseArray;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
@@ -38,7 +35,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -66,9 +62,8 @@ public class AddArticle extends AppCompatActivity {
 
     private EditText articleName;
     private Button detectButton, saveArticleButton;
-    private ImageButton cameraButton, galleryButton, cropButton, helpButton;
-
-    private Spinner articleCategorySpinner;
+    private ImageButton cameraButton, galleryButton, cropButton;
+    private Button helpButton;
 
     private Toast toast;
 
@@ -102,7 +97,6 @@ public class AddArticle extends AppCompatActivity {
         cropButton = findViewById(R.id.cropButton);
         saveArticleButton = findViewById(R.id.saveButton);
         articleName = findViewById(R.id.articleNameEditText);
-        articleCategorySpinner = findViewById(R.id.articleCategorySpinner);
         helpButton = findViewById(R.id.helpButton);
     }
 
@@ -112,12 +106,6 @@ public class AddArticle extends AppCompatActivity {
         articleListClass = new ArticleList(this);
 
         datePattern = articleListClass.getDatePattern();
-
-        List<String> allCategories = Arrays.asList(this.getResources().getStringArray(R.array.category_names));
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, allCategories);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        articleCategorySpinner.setAdapter(adapter);
 
         cropButton.setVisibility(View.GONE);
         detectButton.setVisibility(View.GONE);
@@ -156,34 +144,16 @@ public class AddArticle extends AppCompatActivity {
         //Detects text from the image
         detectButton.setOnClickListener(v -> detectTextFromImage());
 
-        articleCategorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ((TextView) adapterView.getChildAt(0)).setTextColor(getResources().getColor(R.color.textColor));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
         //Add an article to the articles ArrayList
         saveArticleButton.setOnClickListener(v -> {
             if(actualDetectedDateTextView.getText().toString().equals("")) {
                 showToast(getString(R.string.toast_select_article_expiration_date));
             } else if (articleName.getText().toString().equals("")) {
                 showToast(getString(R.string.toast_input_article_name));
-            }
-            else if (articleCategorySpinner.getSelectedItem().toString().equals("")) {
-                showToast(getString(R.string.toast_select_article_category));
             } else {
                 try {
                     //Always save the english category value in local storage in order to simplify translation:
-                    //Get the value in the category_values array which has the same index as the inputted category in the current locale
-                    List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
-
-                    String articleCategoryVal = categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf((articleCategorySpinner.getSelectedItem().toString())));
+                    String articleCategoryVal = getIntent().getExtras().getString("ArticleCategory");
                     articleListClass.addArticleToList(new Article(articleName.getText().toString(), actualDetectedDateTextView.getText().toString(), articleCategoryVal));
 
                     //Go back to the main activity after adding the article

@@ -6,7 +6,6 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:gravity="center_vertical"
-    android:background="@color/colorPrimary"
     android:padding="10sp">
 
     <TextView

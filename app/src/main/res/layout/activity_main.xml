@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical"
 
     tools:context=".MainActivity">
@@ -27,35 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:id="@+id/addView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="2sp"
-            android:background="@drawable/rounded_button">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5sp"
-                android:adjustViewBounds="true"
-
-                android:background="@color/colorPrimaryDark"
-                android:contentDescription="@string/add_article"
-                android:padding="10sp"
-                android:scaleType="fitCenter"
-                android:src="@android:drawable/ic_menu_add" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:padding="2sp"
-                android:text="@string/add_article"
-                android:textColor="@color/textColor"
-                android:textSize="20sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/allArticlesView"

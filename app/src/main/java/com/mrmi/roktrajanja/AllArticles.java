@@ -27,6 +27,7 @@ public class AllArticles extends AppCompatActivity {
     private ExpandableListViewAdapter expandableListViewAdapter;
     private List<String> listDataGroup;
     private HashMap<String, List<String>> listDataChild;
+    private List<String> categoryValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,8 @@ public class AllArticles extends AppCompatActivity {
                 articleListClass.saveArticles();
 
                 expandableListViewAdapter.notifyDataSetChanged();
+
+                recreate();
             });
             alertDialog.show();
 
@@ -80,6 +83,9 @@ public class AllArticles extends AppCompatActivity {
         listDataChild = new HashMap<>();
         expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, true);
         expandableListView.setAdapter(expandableListViewAdapter);
+
+        //Get all category name values used in code (values are saved locally in Article objects, display values are loaded when displaying them here)
+        categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
     }
 
     private void initialiseListData() {
@@ -88,29 +94,27 @@ public class AllArticles extends AppCompatActivity {
 
         //Loop through all articles and add them to their respective lists (meat, canned goods, sauces...)
         ArrayList<Pair<String, ArrayList<String>>> listOfCategories = new ArrayList<>();
-        for(String category : allCategories) {
+        for (String category : allCategories) {
             listOfCategories.add(new Pair<>(category, new ArrayList<>()));
         }
-        //Get all category name values used in code (values are saved locally in Article objects, display values are loaded when displaying them here)
-        List<String> categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
         for (Article article : articleList) {
             String articleInfo = article.getName() + "\n" + getString(R.string.expiration_date) + " " + article.getExpirationDate() + "\n" + article.getExpirationText(this);
 
-            for(Pair<String, ArrayList<String>> category : listOfCategories) {
-                if(categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf(category.first)).equals(article.getCategory())) {
+            for (Pair<String, ArrayList<String>> category : listOfCategories) {
+                if (categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf(category.first)).equals(article.getCategory())) {
                     category.second.add(articleInfo);
                 }
             }
         }
 
         //Add group data
-        for(int i = 0; i < allCategories.length; ++i) {
-            listDataGroup.add(allCategories[i]+ " (" + listOfCategories.get(i).second.size() + ")");
+        for (int i = 0; i < allCategories.length; ++i) {
+            listDataGroup.add(allCategories[i] + " (" + listOfCategories.get(i).second.size() + ")");
         }
 
         //Add child data
         int index = 0;
-        for(Pair<String, ArrayList<String>> category : listOfCategories) {
+        for (Pair<String, ArrayList<String>> category : listOfCategories) {
             sortList(category.second);
             listDataChild.put(listDataGroup.get(index), category.second);
             ++index;
@@ -127,11 +131,10 @@ public class AllArticles extends AppCompatActivity {
         Collections.sort(list, (o1, o2) -> {
             Matcher matcher1 = datePattern.matcher(o1);
             Matcher matcher2 = datePattern.matcher(o2);
-            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(datePattern+"/yyyy");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(datePattern + "/yyyy");
             try {
                 return Objects.requireNonNull(sdf.parse(matcher1.group())).compareTo(sdf.parse(matcher2.group()));
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 return 0;
             }
         });
