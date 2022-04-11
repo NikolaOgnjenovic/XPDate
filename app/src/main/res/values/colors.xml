@@ -7,4 +7,10 @@
     <color name="transparent">#00000000</color>
     <color name="lightBrown">#c7b299</color>
     <color name="darkBrown">#736357</color>
+    <color name="darkRed">#500000</color>
+    <color name="red">#9E0000</color>
+    <color name="orange">#CC5E00</color>
+    <color name="yellow">#C3AF00</color>
+    <color name="lightGreen">#4E9C00</color>
+    <color name="green">#10FF00</color>
 </resources>

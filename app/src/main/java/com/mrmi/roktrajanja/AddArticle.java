@@ -234,7 +234,9 @@ public class AddArticle extends AppCompatActivity {
             if (photoFile != null) {
                 finalUri = FileProvider.getUriForFile(this, "com.mrmi.roktrajanja.fileprovider", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, finalUri);
+                setResult(IMAGE_PICK_CAMERA_CODE, takePictureIntent);
                 startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
+                //https://www.youtube.com/watch?v=DfDj9EadOLk
             }
         }
     }
@@ -244,6 +246,7 @@ public class AddArticle extends AppCompatActivity {
         //Intent to pick image from gallery
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
+        setResult(IMAGE_PICK_GALLERY_CODE, intent);
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
     @Override
