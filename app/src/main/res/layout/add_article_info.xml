@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorPrimaryDark"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="Overdraw">
 
     <TextView
         android:padding="10sp"
@@ -15,13 +16,14 @@
         android:text="@string/help"
         android:background="@color/colorPrimary"
         android:textSize="24sp"
-        android:textColor="@color/textColor"/>
+        android:textColor="@color/textColor" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10sp"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:padding="5sp"
             android:layout_width="wrap_content"
@@ -30,6 +32,7 @@
             android:background="@drawable/transparent_background_border"
             android:contentDescription="@string/pick_date"
             android:src="@android:drawable/ic_menu_month" />
+
         <TextView
             android:paddingStart="5sp"
             android:layout_gravity="center"
@@ -52,6 +55,7 @@
         android:layout_height="wrap_content"
         android:padding="10sp"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:padding="5sp"
             android:layout_width="wrap_content"
@@ -60,6 +64,7 @@
             android:background="@drawable/transparent_background_border"
             android:contentDescription="@string/pick_date"
             android:src="@android:drawable/ic_menu_camera" />
+
         <TextView
             android:paddingStart="5sp"
             android:layout_gravity="center"
@@ -82,6 +87,7 @@
         android:layout_height="wrap_content"
         android:padding="10sp"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:padding="5sp"
             android:layout_gravity="center"
@@ -90,6 +96,7 @@
             android:background="@drawable/transparent_background_border"
             android:contentDescription="@string/pick_date"
             android:src="@android:drawable/ic_menu_gallery" />
+
         <TextView
             android:paddingStart="5sp"
             android:layout_gravity="center"
@@ -112,6 +119,7 @@
         android:layout_height="wrap_content"
         android:padding="10sp"
         tools:ignore="UseCompoundDrawables">
+
         <ImageView
             android:padding="5sp"
             android:layout_gravity="center"
@@ -120,6 +128,7 @@
             android:background="@drawable/transparent_background_border"
             android:contentDescription="@string/pick_date"
             android:src="@android:drawable/ic_menu_crop" />
+
         <TextView
             android:paddingStart="5sp"
             android:layout_gravity="center"
@@ -140,5 +149,5 @@
         android:textSize="16sp"
         android:textAllCaps="false"
         android:layout_gravity="center"
-        android:textColor="@color/textColor"/>
+        android:textColor="@color/textColor" />
 </LinearLayout>

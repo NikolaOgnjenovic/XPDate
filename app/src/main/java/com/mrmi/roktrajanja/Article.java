@@ -11,12 +11,14 @@ import java.util.Date;
 public class Article implements Serializable {
     private final String articleName;
     private String articleExpirationDate;
-    private final String articleCategory;
+    //private final String articleCategory;
+    private final int articleCategoryId;
 
-    public Article(String articleNameArg, String articleExpirationDateArg, String articleCategoryArg) {
+    public Article(String articleNameArg, String articleExpirationDateArg, /*String articleCategoryArg*/int articleCategoryIdArg) {
         articleName = articleNameArg;
         articleExpirationDate = articleExpirationDateArg;
-        articleCategory = articleCategoryArg;
+        //articleCategory = articleCategoryArg;
+        articleCategoryId = articleCategoryIdArg;
     }
 
     public String getName() {
@@ -27,8 +29,8 @@ public class Article implements Serializable {
         return articleExpirationDate;
     }
 
-    public String getCategory() {
-        return articleCategory;
+    public int getArticleCategoryId() {
+        return articleCategoryId;
     }
 
     public void setExpirationDate(String str) {
@@ -124,5 +126,9 @@ public class Article implements Serializable {
      */
     public long getHoursUntilExpiration(Context context) {
         return getMillisUntilExpiration(context) / 3600000;
+    }
+
+    public String getArticleInfo(Context context) {
+        return getName() + "\n" + context.getString(R.string.expiration_date) + " " + getExpirationDate() + "\n" + getExpirationText(context);
     }
 }

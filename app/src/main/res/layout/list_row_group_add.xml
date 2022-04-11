@@ -20,6 +20,6 @@
         android:layout_height="wrap_content"
         android:padding="10sp"
         android:textColor="@color/textColor"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
 </LinearLayout>

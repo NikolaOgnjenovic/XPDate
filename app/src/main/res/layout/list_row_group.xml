@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/rounded_button"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20sp"
@@ -9,7 +10,6 @@
         android:id="@+id/categoryGroupTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button"
         android:padding="10sp"
         android:textColor="@color/textColor"
         android:textSize="20sp" />

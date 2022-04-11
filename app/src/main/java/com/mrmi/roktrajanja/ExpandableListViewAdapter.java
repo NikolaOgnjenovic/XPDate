@@ -9,10 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
-
 import androidx.core.content.res.ResourcesCompat;
-
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -28,14 +25,11 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     private final boolean inAllArticles;
 
-    private final List<String> categoryValues;
-
     public ExpandableListViewAdapter(Context context, List<String> listDataGroup, HashMap<String, List<String>> listChildData, boolean inAllArticles) {
         this.context = context;
         this.listDataGroup = listDataGroup;
         this.listDataChild = listChildData;
         this.inAllArticles = inAllArticles;
-        this.categoryValues = Arrays.asList(context.getResources().getStringArray(R.array.category_values));
     }
 
     @Override
@@ -98,23 +92,23 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+            //If the adapter is called from the All Articles class, add the add button and it's functionality to each category (group view)
             if (inAllArticles) {
                 convertView = layoutInflater.inflate(R.layout.list_row_group_add, null);
                 ImageButton addButton = convertView.findViewById(R.id.addButton);
                 addButton.setOnClickListener(v -> {
                     Intent intent = new Intent(context, AddArticle.class);
-                    intent.putExtra("ArticleCategory", categoryValues.get(groupPosition));
+                    intent.putExtra("ArticleCategoryId", groupPosition);
                     context.startActivity(intent);
                 });
                 addButton.setFocusable(false);
             } else {
                 convertView = layoutInflater.inflate(R.layout.list_row_group, null);
             }
+            TextView textViewGroup = convertView.findViewById(R.id.categoryGroupTextView);
+            textViewGroup.setText(headerTitle);
+            textViewGroup.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans_bold));
         }
-
-        TextView textViewGroup = convertView.findViewById(R.id.categoryGroupTextView);
-        textViewGroup.setText(headerTitle);
-        textViewGroup.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans_bold));
 
         return convertView;
     }
@@ -128,4 +122,4 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
     }
-} 
+}

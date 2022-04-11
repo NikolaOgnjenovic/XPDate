@@ -152,9 +152,9 @@ public class AddArticle extends AppCompatActivity {
                 showToast(getString(R.string.toast_input_article_name));
             } else {
                 try {
-                    //Always save the english category value in local storage in order to simplify translation:
-                    String articleCategoryVal = getIntent().getExtras().getString("ArticleCategory");
-                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), actualDetectedDateTextView.getText().toString(), articleCategoryVal));
+                    //Get the category Id through the intent's extra and add the article to the list
+                    int articleCategoryId = getIntent().getExtras().getInt("ArticleCategoryId");
+                    articleListClass.addArticleToList(new Article(articleName.getText().toString(), actualDetectedDateTextView.getText().toString(), articleCategoryId));
 
                     //Go back to the main activity after adding the article
                     startActivity(new Intent(this, MainActivity.class));
@@ -246,7 +246,6 @@ public class AddArticle extends AppCompatActivity {
         intent.setType("image/*");
         startActivityForResult(intent, IMAGE_PICK_GALLERY_CODE);
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -276,7 +275,7 @@ public class AddArticle extends AppCompatActivity {
         }
     }
 
-    //Displaythe article image, detect date and crop image buttons
+    //Display the article image, detect date and crop image buttons
     private void displayCropImageViews() {
         cropButton.setVisibility(View.VISIBLE);
         detectButton.setVisibility(View.VISIBLE);

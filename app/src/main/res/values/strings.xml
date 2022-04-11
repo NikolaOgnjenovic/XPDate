@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">Rok trajanja</string>
+    <string name="app_name" translatable="false">XPDate</string>
     <string name="set_notification_time">Notification time</string>
     <string name="add_article">Add an article</string>
     <string name="article_list">View all articles</string>
@@ -33,25 +33,6 @@
         <item>Canned goods</item>
         <item>Noodles and pasta</item>
         <item>Pet food</item>
-        <item>Child care goods</item>
-        <item>Household products</item>
-        <item>Medicine</item>
-        <item>Other</item>
-    </string-array>
-
-    <string-array name="category_values">
-        <item>Meat</item>
-        <item>Dairy goods</item>
-        <item>Fruits</item>
-        <item>Vegetables</item>
-        <item>Cereals</item>
-        <item>Frozen goods</item>
-        <item>Drinks</item>
-        <item>Confectionery</item>
-        <item>Sauces</item>
-        <item>Noodles and pasta</item>
-        <item>Pet food</item>
-        <item>Canned goods</item>
         <item>Child care goods</item>
         <item>Household products</item>
         <item>Medicine</item>

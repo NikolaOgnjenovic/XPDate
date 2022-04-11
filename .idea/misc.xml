@@ -34,6 +34,14 @@
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/Rok trajanja/app/src/main/res/layout/list_row_child_with_delete.xml" value="0.5" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/Rok trajanja/app/src/main/res/layout/list_row_group.xml" value="0.5798319327731093" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/Rok trajanja/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.5" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable-xxxhdpi/rounded_button_2.xml" value="0.3675" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button.xml" value="0.22" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button_1.xml" value="0.3675" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button_2.xml" value="0.3675" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button_3.xml" value="0.3675" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button_4.xml" value="0.3675" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button_5.xml" value="0.3675" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/drawable/rounded_button_6.xml" value="0.3675" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/activity_add_article.xml" value="0.5" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/activity_all_articles.xml" value="0.33242753623188404" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/activity_main.xml" value="0.25471698113207547" />
@@ -44,6 +52,7 @@
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/list_row_child_delete.xml" value="0.33242753623188404" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/list_row_group.xml" value="0.33242753623188404" />
         <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/list_row_group_add.xml" value="0.33" />
+        <entry key="..\:/Nikola/Programiranje/Android_Studio/__mts 2021-22/RokTrajanja/Rok trajanja/app/src/main/res/layout/recycler_row.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

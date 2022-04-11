@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,12 +12,10 @@
         android:fontFamily="@font/open_sans_bold"
         android:layout_marginTop="20sp"
         android:background="@color/colorPrimaryDark"
-        android:padding="5sp"
-        android:paddingStart="30sp"
-        tools:ignore="RtlSymmetry"
+        android:padding="15sp"
         android:text="@string/settings"
         android:textColor="@color/textColor"
-        android:textSize="34sp" />
+        android:textSize="40sp" />
 
     <Button
         android:id="@+id/datePatternButton"

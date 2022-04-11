@@ -5,25 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:gravity="center_vertical"
-    android:padding="10sp">
+    android:gravity="center_vertical">
 
     <TextView
+        android:layout_marginTop="20sp"
         android:layout_width="match_parent"
         android:fontFamily="@font/open_sans_bold"
         android:layout_height="wrap_content"
-        android:textSize="35sp"
-        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:padding="15sp"
         android:textColor="@color/textColor"
         android:text="@string/all_articles"
-        android:padding="10sp"/>
+        android:textSize="40sp" />
 
     <ExpandableListView
+        android:childDivider="@android:color/transparent"
         android:id="@+id/expandableListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:groupIndicator="@null"
         android:dividerHeight="10sp"
-        android:childDivider="@android:color/transparent"/>
+        android:padding="15sp" />
 </LinearLayout>

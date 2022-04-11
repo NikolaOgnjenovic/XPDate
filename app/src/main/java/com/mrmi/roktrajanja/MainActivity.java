@@ -1,7 +1,6 @@
 package com.mrmi.roktrajanja;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initialiseViews() {
-        //addArticleView = findViewById(R.id.addView);
         settingsView = findViewById(R.id.settingsView);
         allArticlesView = findViewById(R.id.allArticlesView);
         expandableListView = findViewById(R.id.expandableListView);

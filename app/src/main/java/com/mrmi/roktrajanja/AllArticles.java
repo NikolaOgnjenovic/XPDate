@@ -6,12 +6,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
 import android.widget.ExpandableListView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +25,6 @@ public class AllArticles extends AppCompatActivity {
     private ExpandableListViewAdapter expandableListViewAdapter;
     private List<String> listDataGroup;
     private HashMap<String, List<String>> listDataChild;
-    private List<String> categoryValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,41 +80,35 @@ public class AllArticles extends AppCompatActivity {
         listDataChild = new HashMap<>();
         expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, true);
         expandableListView.setAdapter(expandableListViewAdapter);
-
-        //Get all category name values used in code (values are saved locally in Article objects, display values are loaded when displaying them here)
-        categoryValues = Arrays.asList(this.getResources().getStringArray(R.array.category_values));
     }
 
     private void initialiseListData() {
-        //Get all category name display values (values are saved locally in Article objects, display values are loaded when displaying them here)
-        String[] allCategories = this.getResources().getStringArray(R.array.category_names);
+        //Get all category name display values (changed by changing locale)
+        String[] categoryNames = this.getResources().getStringArray(R.array.category_names);
 
-        //Loop through all articles and add them to their respective lists (meat, canned goods, sauces...)
-        ArrayList<Pair<String, ArrayList<String>>> listOfCategories = new ArrayList<>();
-        for (String category : allCategories) {
-            listOfCategories.add(new Pair<>(category, new ArrayList<>()));
-        }
-        for (Article article : articleList) {
-            String articleInfo = article.getName() + "\n" + getString(R.string.expiration_date) + " " + article.getExpirationDate() + "\n" + article.getExpirationText(this);
+        //A list of lists of strings - list of categories holding all of their articles' information
+        List<ArrayList<String>> categorizedArticleInfo = new ArrayList<>();
 
-            for (Pair<String, ArrayList<String>> category : listOfCategories) {
-                if (categoryValues.get(Arrays.asList(this.getResources().getStringArray(R.array.category_names)).indexOf(category.first)).equals(article.getCategory())) {
-                    category.second.add(articleInfo);
-                }
-            }
+        //Add empty categories
+        for(int i = 0; i < categoryNames.length; ++i) {
+            categorizedArticleInfo.add(new ArrayList<>());
         }
 
-        //Add group data
-        for (int i = 0; i < allCategories.length; ++i) {
-            listDataGroup.add(allCategories[i] + " (" + listOfCategories.get(i).second.size() + ")");
+        //Loop through all articles
+        for(Article article : articleList) {
+            //Generate it's info text and put the article into it's respective category using it's category Id
+            categorizedArticleInfo.get(article.getArticleCategoryId()).add(article.getArticleInfo(this));
         }
 
-        //Add child data
-        int index = 0;
-        for (Pair<String, ArrayList<String>> category : listOfCategories) {
-            sortList(category.second);
-            listDataChild.put(listDataGroup.get(index), category.second);
-            ++index;
+        //Add group data - display each category's name and how many children it has (the size of each ArrayList of strings it's holding)
+        for (int i = 0; i < categoryNames.length; ++i) {
+            listDataGroup.add(categoryNames[i] + " (" + categorizedArticleInfo.get(i).size() + ")");
+        }
+
+        //Add child data - strings kept in ArrayList in the ArrayList
+        for(int i = 0; i < categorizedArticleInfo.size(); ++i) {
+            sortList(categorizedArticleInfo.get(i));
+            listDataChild.put(listDataGroup.get(i), categorizedArticleInfo.get(i));
         }
 
         //Notify the adapter
