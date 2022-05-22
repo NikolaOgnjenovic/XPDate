@@ -21,19 +21,19 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     private final Context context;
 
     //Group titles
-    private final List<String> listDataGroup;
+    private final List<String> categoryNameList;
 
     //Child data
-    private final HashMap<String, List<String>> listDataChild;
+    private final HashMap<String, List<String>> articleDataMap;
 
     private final boolean inAllArticles;
 
     private final int[] mainMenuColors;
 
-    public ExpandableListViewAdapter(Context context, List<String> listDataGroup, HashMap<String, List<String>> listChildData, boolean inAllArticles) {
+    public ExpandableListViewAdapter(Context context, List<String> categoryNameList, HashMap<String, List<String>> listChildData, boolean inAllArticles) {
         this.context = context;
-        this.listDataGroup = listDataGroup;
-        this.listDataChild = listChildData;
+        this.categoryNameList = categoryNameList;
+        this.articleDataMap = listChildData;
         this.inAllArticles = inAllArticles;
 
         mainMenuColors = new int[]{
@@ -48,7 +48,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return Objects.requireNonNull(this.listDataChild.get(this.listDataGroup.get(groupPosition))).get(childPosition);
+        return Objects.requireNonNull(this.articleDataMap.get(this.categoryNameList.get(groupPosition))).get(childPosition);
     }
 
     @Override
@@ -71,6 +71,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
                 convertView = layoutInflater.inflate(R.layout.list_row_child, null);
             }
         }
+
         TextView textViewChild = convertView.findViewById(R.id.textViewChild);
         textViewChild.setText(childText);
         textViewChild.setTypeface(ResourcesCompat.getFont(context, R.font.open_sans));
@@ -79,17 +80,17 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return Objects.requireNonNull(this.listDataChild.get(this.listDataGroup.get(groupPosition))).size();
+        return Objects.requireNonNull(this.articleDataMap.get(this.categoryNameList.get(groupPosition))).size();
     }
 
     @Override
     public Object getGroup(int groupPosition) {
-        return this.listDataGroup.get(groupPosition);
+        return this.categoryNameList.get(groupPosition);
     }
 
     @Override
     public int getGroupCount() {
-        return this.listDataGroup.size();
+        return this.categoryNameList.size();
     }
 
     @Override

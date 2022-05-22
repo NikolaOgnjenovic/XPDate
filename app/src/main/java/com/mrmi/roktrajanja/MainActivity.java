@@ -14,8 +14,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ExpandableListView expandableListView;
     private ExpandableListViewAdapter expandableListViewAdapter;
-    private List<String> listDataGroup;
-    private HashMap<String, List<String>> listDataChild;
+    private List<String> categoryNameList;
+    private HashMap<String, List<String>> articleDataMap;
     private View settingsView, allArticlesView;
 
     @Override
@@ -52,11 +52,11 @@ public class MainActivity extends AppCompatActivity {
             NotificationHandler.scheduleNotification(this);
         }
 
-        listDataGroup = new ArrayList<>();
+        categoryNameList = new ArrayList<>();
 
-        listDataChild = new HashMap<>();
+        articleDataMap = new HashMap<>();
 
-        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, false);
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, categoryNameList, articleDataMap, false);
 
         expandableListView.setAdapter(expandableListViewAdapter);
     }
@@ -99,20 +99,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Add group data
-        listDataGroup.add(getString(R.string.already_expired) + " (" + expiredList.size() + ")");
-        listDataGroup.add(getString(R.string.expires_today) + " (" + todayList.size() + ")");
-        listDataGroup.add(getString(R.string.expiration_less_than_7_days) + " (" + soonList.size() + ")");
-        listDataGroup.add(getString(R.string.expiration_less_than_14_days) + " (" + laterList.size() + ")");
-        listDataGroup.add(getString(R.string.expiration_less_than_30_days) + " (" + goodList.size() + ")");
-        listDataGroup.add(getString(R.string.expiration_more_than_30_days) + " (" + greatList.size() + ")");
+        categoryNameList.add(getString(R.string.already_expired) + " (" + expiredList.size() + ")");
+        categoryNameList.add(getString(R.string.expires_today) + " (" + todayList.size() + ")");
+        categoryNameList.add(getString(R.string.expiration_less_than_7_days) + " (" + soonList.size() + ")");
+        categoryNameList.add(getString(R.string.expiration_less_than_14_days) + " (" + laterList.size() + ")");
+        categoryNameList.add(getString(R.string.expiration_less_than_30_days) + " (" + goodList.size() + ")");
+        categoryNameList.add(getString(R.string.expiration_more_than_30_days) + " (" + greatList.size() + ")");
 
         //Add child data
-        listDataChild.put(listDataGroup.get(0), expiredList);
-        listDataChild.put(listDataGroup.get(1), todayList);
-        listDataChild.put(listDataGroup.get(2), soonList);
-        listDataChild.put(listDataGroup.get(3), laterList);
-        listDataChild.put(listDataGroup.get(4), goodList);
-        listDataChild.put(listDataGroup.get(5), greatList);
+        articleDataMap.put(categoryNameList.get(0), expiredList);
+        articleDataMap.put(categoryNameList.get(1), todayList);
+        articleDataMap.put(categoryNameList.get(2), soonList);
+        articleDataMap.put(categoryNameList.get(3), laterList);
+        articleDataMap.put(categoryNameList.get(4), goodList);
+        articleDataMap.put(categoryNameList.get(5), greatList);
 
         //Notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();

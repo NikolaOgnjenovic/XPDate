@@ -11,13 +11,11 @@ import java.util.Date;
 public class Article implements Serializable {
     private final String articleName;
     private String articleExpirationDate;
-    //private final String articleCategory;
     private final int articleCategoryId;
 
-    public Article(String articleNameArg, String articleExpirationDateArg, /*String articleCategoryArg*/int articleCategoryIdArg) {
+    public Article(String articleNameArg, String articleExpirationDateArg, int articleCategoryIdArg) {
         articleName = articleNameArg;
         articleExpirationDate = articleExpirationDateArg;
-        //articleCategory = articleCategoryArg;
         articleCategoryId = articleCategoryIdArg;
     }
 

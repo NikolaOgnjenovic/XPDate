@@ -108,4 +108,13 @@ public class ArticleList {
         loadDatePattern();
         return datePattern;
     }
+
+    public void removeByArticleInfo(String articleInfo) {
+        for(Article article : articleList) {
+            if(article.getArticleInfo(context).equals(articleInfo)) {
+                articleList.remove(article);
+                return;
+            }
+        }
+    }
 }

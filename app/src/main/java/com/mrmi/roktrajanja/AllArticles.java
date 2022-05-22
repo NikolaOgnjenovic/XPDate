@@ -1,12 +1,12 @@
 package com.mrmi.roktrajanja;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -23,8 +23,8 @@ public class AllArticles extends AppCompatActivity {
     private ArrayList<Article> articleList;
     private ExpandableListView expandableListView;
     private ExpandableListViewAdapter expandableListViewAdapter;
-    private List<String> listDataGroup;
-    private HashMap<String, List<String>> listDataChild;
+    private List<String> categoryNameList;
+    private HashMap<String, List<String>> articleDataMap; //Mapped using the article's category name as a key
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class AllArticles extends AppCompatActivity {
         setContentView(R.layout.activity_all_articles);
 
         initialiseViews();
-        initialiseListeners();
         initialiseObjects();
         initialiseListData();
     }
@@ -47,38 +46,13 @@ public class AllArticles extends AppCompatActivity {
         expandableListView = findViewById(R.id.expandableListView);
     }
 
-    private void initialiseListeners() {
-        //When the user clicks on a child (article), show a dialog which asks the user if he wants to delete the article from the list
-        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-
-            AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme).create();
-            alertDialog.setTitle(getString(R.string.removal_title));
-            alertDialog.setMessage(getString(R.string.removal_message));
-            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.remove), (dialog, which) -> {
-
-                List<String> selectedGroupList = listDataChild.get(listDataGroup.get(groupPosition));
-                assert selectedGroupList != null;
-                selectedGroupList.remove(childPosition);
-                articleList.remove(childPosition);
-                articleListClass.saveArticles();
-
-                expandableListViewAdapter.notifyDataSetChanged();
-
-                recreate();
-            });
-            alertDialog.show();
-
-            return false;
-        });
-    }
-
     private void initialiseObjects() {
         articleListClass = new ArticleList(AllArticles.this);
         articleList = articleListClass.getArticleList();
 
-        listDataGroup = new ArrayList<>();
-        listDataChild = new HashMap<>();
-        expandableListViewAdapter = new ExpandableListViewAdapter(this, listDataGroup, listDataChild, true);
+        categoryNameList = new ArrayList<>();
+        articleDataMap = new HashMap<>();
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, categoryNameList, articleDataMap, true);
         expandableListView.setAdapter(expandableListViewAdapter);
     }
 
@@ -102,17 +76,33 @@ public class AllArticles extends AppCompatActivity {
 
         //Add group data - display each category's name and how many children it has (the size of each ArrayList of strings it's holding)
         for (int i = 0; i < categoryNames.length; ++i) {
-            listDataGroup.add(categoryNames[i] + " (" + categorizedArticleInfo.get(i).size() + ")");
+            categoryNameList.add(categoryNames[i] + " (" + categorizedArticleInfo.get(i).size() + ")");
         }
 
         //Add child data - strings kept in ArrayList in the ArrayList
         for(int i = 0; i < categorizedArticleInfo.size(); ++i) {
             sortList(categorizedArticleInfo.get(i));
-            listDataChild.put(listDataGroup.get(i), categorizedArticleInfo.get(i));
+            articleDataMap.put(categoryNameList.get(i), categorizedArticleInfo.get(i));
         }
 
         //Notify the adapter
         expandableListViewAdapter.notifyDataSetChanged();
+
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.DialogTheme).create();
+            alertDialog.setTitle(getString(R.string.removal_title));
+            alertDialog.setMessage(getString(R.string.removal_message));
+            alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.remove), (dialog, which) -> {
+                articleListClass.removeByArticleInfo(Objects.requireNonNull(articleDataMap.get(categoryNameList.get(groupPosition))).get(childPosition));
+                //articleList.remove(childPosition);
+                articleListClass.saveArticles();
+                expandableListViewAdapter.notifyDataSetChanged();
+                recreate();
+            });
+            alertDialog.show();
+
+            return false;
+        });
     }
 
     /*Sorts a given ArrayList of strings by their expiration dates (found using a regex which finds xx/xx/xxxx in a string)

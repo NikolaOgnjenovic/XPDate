@@ -84,7 +84,7 @@ public class AddArticle extends AppCompatActivity {
     //Launch main activity on back pressed
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, AllArticles.class));
     }
 
     private void initialiseViews() {
@@ -156,8 +156,8 @@ public class AddArticle extends AppCompatActivity {
                     int articleCategoryId = getIntent().getExtras().getInt("ArticleCategoryId");
                     articleListClass.addArticleToList(new Article(articleName.getText().toString(), actualDetectedDateTextView.getText().toString(), articleCategoryId));
 
-                    //Go back to the main activity after adding the article
-                    startActivity(new Intent(this, MainActivity.class));
+                    //Go back to all articles after adding the article
+                    startActivity(new Intent(this, AllArticles.class));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -236,7 +236,6 @@ public class AddArticle extends AppCompatActivity {
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, finalUri);
                 setResult(IMAGE_PICK_CAMERA_CODE, takePictureIntent);
                 startActivityForResult(takePictureIntent, IMAGE_PICK_CAMERA_CODE);
-                //https://www.youtube.com/watch?v=DfDj9EadOLk
             }
         }
     }
