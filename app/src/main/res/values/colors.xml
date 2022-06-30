@@ -7,10 +7,10 @@
     <color name="transparent">#00000000</color>
     <color name="lightBrown">#c7b299</color>
     <color name="darkBrown">#736357</color>
-    <color name="darkRed">#910000</color>
-    <color name="red">#CC0000</color>
-    <color name="orange">#F18605</color>
-    <color name="yellow">#E8D103</color>
-    <color name="lightGreen">#5EBC01</color>
-    <color name="green">#10FF00</color>
+    <color name="darkRed">#FF0D0D</color>
+    <color name="red">#FF4E11</color>
+    <color name="orange">#FF8E15</color>
+    <color name="yellow">#FAB733</color>
+    <color name="lightGreen">#ACB334</color>
+    <color name="green">#69B34C</color>
 </resources>
